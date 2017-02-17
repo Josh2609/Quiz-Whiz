@@ -27,7 +27,7 @@ public class dbconnect
 	
 	try {
 	    con = DriverManager.getConnection(  
-		    "jdbc:mysql://192.168.1.94:3306/Quiz","Alan","a98a7ffc38"); //db,user,pass
+		    "jdbc:mysql://silva.computing.dundee.ac.uk/:3306/16agileteam7db","16agileteam7","9865.at7.5689"); //db,user,pass
 	    return con;
 	} catch (SQLException ex) {
 	    Logger.getLogger(dbconnect.class.getName()).log(Level.SEVERE, null, ex);
