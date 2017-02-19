@@ -38,9 +38,6 @@ public class CreateQuiz extends HttpServlet {
         
         int numQuestions = Integer.parseInt(request.getParameter("numQuestions"));
 
-        //List<int[]> rowList = new ArrayList<int[]>();
-        //Map<String, ArrayList> QandAlist = new HashMap<>();
-        //List<String> QandAlist = new ArrayList<>();
         String[] questionArray = new String[numQuestions+1];
         ArrayList<ArrayList<String>> QandAlist2d = new ArrayList<ArrayList<String>>();
 
@@ -80,12 +77,11 @@ public class CreateQuiz extends HttpServlet {
                 c++;
             }
             
-            // for some reason A's are added to DB twice
             sql = "INSERT INTO answer (Answer_ID, Answer_Text, Correct_Answer_Flag, Question_ID) VALUES (NULL, ?, 0, ?)";
             stmt = con.prepareStatement(sql);
             for (int y = 1; y <= numQuestions; y++)
             {
-                ArrayList<String> testList = new ArrayList<>();
+                ArrayList<String> testList;
                 testList = QandAlist2d.get(y-1);
                 System.out.println("testList ayyitem " + 0 + " = " + testList.get(0));
                 for (int i = 0; i < testList.size(); i++)
