@@ -6,11 +6,6 @@
 package uk.ac.dundee.computing.team7.agilequiz.servlets;
 
 import java.io.IOException;
-import java.sql.*;
-import javax.crypto.*;
-import javax.crypto.spec.SecretKeySpec;
-import javax.servlet.RequestDispatcher;
-import uk.ac.dundee.computing.team7.agilequiz.lib.dbconnect;
 import javax.servlet.ServletConfig;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
