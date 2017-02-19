@@ -21,6 +21,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import uk.ac.dundee.computing.team7.agilequiz.lib.dbconnect;
 
+
 @WebServlet(name = "CreateQuiz", urlPatterns = {"/CreateQuiz"})
 public class CreateQuiz extends HttpServlet {
     
@@ -103,5 +104,6 @@ public class CreateQuiz extends HttpServlet {
 	} catch (SQLException e)
 	{
         }
+
     }
 }
