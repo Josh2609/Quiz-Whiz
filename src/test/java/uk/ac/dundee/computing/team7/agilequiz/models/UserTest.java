@@ -43,7 +43,7 @@ public class UserTest {
     @Test
     public void testCheckDetails() {
 	System.out.println("checkDetails");
-	String matric = "test";
+	String matric = "130012977";
 	String password = "password";
 	User instance = new User();
 	boolean expResult = true;
