@@ -10,89 +10,53 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>Create a Quiz</title>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
     </head>
     <body>
-        <h1>Hello World!</h1>
-        <label for='createQuestionTB'>Number of questions to create:</label>
-        <select id='createQuestionTB'>
-            <option>0</option>
-            <option>1</option>
-            <option>2</option>
-            <option>3</option>
-            <option>4</option>
-        </select>
         <div id=questions></div>
         
-        <form method="POST"  action="CreateQuiz">
-            <textarea placeholder="Question 1" name ="question_1"></textarea>
-            <input type="text" name="1_answer_1" placeholder="Answer 1">
-            <input type="text" name="1_answer_2" placeholder="Answer 2">
-            <input type="text" name="1_answer_3" placeholder="Answer 3">
-            <input type="text" name="1_answer_4" placeholder="Answer 4">
-            <input type="text" name="1_numAnswers" value="4" hidden>
-            
-            <textarea placeholder="Question 2" name ="question_2"></textarea>
-            <input type="text" name="2_answer_1" placeholder="Answer 1">
-            <input type="text" name="2_answer_2" placeholder="Answer 2">
-            <input type="text" name="2_numAnswers" value="2" hidden>
-            
-            <input type="text" name="numQuestions" value="2" hidden>
+        <form class="questions" method="POST"  action="CreateQuiz">
+            <input type="text" id="numQuestions" name="numQuestions" value="0" hidden>
             <input type="submit" value="Create"> 
         </form>
         
-        <script>   
-            //idk lol
-        function createAnswerTB(j)
-        {
-            
-        }
+  
+        <input type="button" onclick="addQuestion()" value="Add Question">
+            <script>
+                var numQuestions = 0;
+                var numAnswers = new Array();
+                function addQuestion()
+                {
+                    numQuestions++;
+                    numAnswers[numQuestions] = 1;
+                    document.getElementById("numQuestions").value = numQuestions;
+                    var html;
+                    html = [
+                    '<div class="question'+numQuestions+'">',
+                    '<textarea placeholder="Question '+numQuestions+'" name ="question_'+numQuestions+'"></textarea>',
+                    '<input type="button" value="Add Answer" onclick=addAnswer('+numQuestions+')>',
+                    '<input type="text" name="'+numQuestions+'_answer_'+1+'" placeholder="Enter Correct Answer">',
+                    '<input type="text" id="'+numQuestions+'_numAnswers" name="'+numQuestions+'_numAnswers" value="1" hidden></div><br><br>'
+                    ].join("\n");
+                    $(".questions").append(html);
+                }
+               
+            </script>
+        </select>
+        <br>    
         
-        function createAnswerDrop(k)
+        <script>
+        function addAnswer(questionNum)
         {
-//            var newList = document.createElement("numAnswerDrop");
-//            var newListData = new Option("my label", "my value");
-//            newList.appendChild(newListData);
-//            questions.appendChild(newList);
-            var newPanel = document.createElement("p");
-            var newList = document.createElement("select");
-            var newListData = new Option("my label", "my value");
-            newList.appendChild(newListData);
-            newPanel.appendChild(newList);
-            document.getElementById("questions").appendChild(newPanel);
-        }
-        
-        function createQuestionTB(i)
-        {
-            var k, target = document.getElementById('questions');
-            var y = document.createElement("INPUT");
-            y.setAttribute("type", "text");
-            y.setAttribute("Placeholder", "Question " + i);
-            y.setAttribute("Name", "question" + i);
-            document.getElementById("questions").appendChild(y);
-            createAnswerDrop(k);
-            var br = document.createElement("br");
-            questions.appendChild(br);
-            var br = document.createElement("br");
-            questions.appendChild(br);
-        }
-        
-        function create(param) {
-            'use strict';
-
-            var i, target = document.getElementById('questions');
-            target.innerHTML = '';
-
-            for (i = 0; i < param; i += 1) {
-                createQuestionTB(i);
-                //target.innerHTML += '<input type="text" name="Fname">';
-            }
-        }
-
-        document.getElementById('createQuestionTB').addEventListener('change', function () {
-            create(this.value);
-        }, false);
-            
+            var ansNum = numAnswers[questionNum]+1;
+            numAnswers[questionNum]++;
+            document.getElementById(questionNum+"_numAnswers").value = ansNum;
+            var html;
+            html = [
+                '<input type="text" name="'+questionNum+'_answer_'+ansNum+'" placeholder="Enter incorrect Answer">'
+            ].join("\n");
+            $(".question"+questionNum).append(html);
+        }       
         </script>
-
     </body>
 </html>
