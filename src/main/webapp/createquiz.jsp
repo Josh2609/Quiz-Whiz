@@ -58,6 +58,5 @@
             $(".question"+questionNum).append(html);
         }       
         </script>
-           
     </body>
 </html>
