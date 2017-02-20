@@ -15,79 +15,48 @@
     <body>
         <div id=questions></div>
         
-        <form method="POST"  action="CreateQuiz">
-            <textarea placeholder="Question 1" name ="question_1"></textarea>
-            <input type="text" name="1_answer_1" placeholder="Answer 1">
-            <input type="text" name="1_answer_2" placeholder="Answer 2">
-            <input type="text" name="1_answer_3" placeholder="Answer 3">
-            <input type="text" name="1_answer_4" placeholder="Answer 4">
-            <input type="text" name="1_numAnswers" value="4" hidden>
-            
-            <textarea placeholder="Question 2" name ="question_2"></textarea>
-            <input type="text" name="2_answer_1" placeholder="Answer 1">
-            <input type="text" name="2_answer_2" placeholder="Answer 2">
-            <input type="text" name="2_numAnswers" value="2" hidden>
-            
-            <input id="numQuestions" type="text" name="numQuestions" value="2" hidden>
+        <form class="questions" method="POST"  action="CreateQuiz">
+            <input type="text" id="numQuestions" name="numQuestions" value="0" hidden>
             <input type="submit" value="Create"> 
         </form>
         
-        <div class="questions" id="test"></div>
   
-        <!--<select id="numQuestionsSelect" onchange="getNumQuestions()" >-->
+        <input type="button" onclick="addQuestion()" value="Add Question">
             <script>
-                var html = '<label for="createQuestionTB">Number of questions to create:</label><select id="numQuestionsSelect" onchange="getNumQuestions()" >';
-                for (i=0; i<=40 ;i++)
-                html += [
-                    '<option value="'+ i +'">'+i+''
-                ].join("\n");
-                $("body").prepend(html);
+                var numQuestions = 0;
+                var numAnswers = new Array();
+                function addQuestion()
+                {
+                    numQuestions++;
+                    numAnswers[numQuestions] = 1;
+                    document.getElementById("numQuestions").value = numQuestions;
+                    var html;
+                    html = [
+                    '<div class="question'+numQuestions+'">',
+                    '<textarea placeholder="Question '+numQuestions+'" name ="question_'+numQuestions+'"></textarea>',
+                    '<input type="button" value="Add Answer" onclick=addAnswer('+numQuestions+')>',
+                    '<input type="text" name="'+numQuestions+'_answer_'+1+'" placeholder="Enter Correct Answer">',
+                    '<input type="text" id="'+numQuestions+'_numAnswers" name="'+numQuestions+'_numAnswers" value="1" hidden></div><br><br>'
+                    ].join("\n");
+                    $(".questions").append(html);
+                }
+               
             </script>
         </select>
-        <br>
-        
-        <script>
-        function clearBox(elementID)
-        {
-            document.getElementById(elementID).innerHTML = "";
-        }
-            
-        function getNumQuestions()
-        {
-            clearBox("test");
-            var numQs = document.getElementById("numQuestionsSelect").value;
-            document.getElementById("numQuestions").value = numQs;
-            setNumQuestions(numQs);
-        }
-        </script>
-        
+        <br>    
         
         <script>
         function addAnswer(questionNum)
         {
+            var ansNum = numAnswers[questionNum]+1;
+            numAnswers[questionNum]++;
+            document.getElementById(questionNum+"_numAnswers").value = ansNum;
             var html;
             html = [
-                '<input type="text" placeholder="Enter incorrect Answer">'
+                '<input type="text" name="'+questionNum+'_answer_'+ansNum+'" placeholder="Enter incorrect Answer">'
             ].join("\n");
             $(".question"+questionNum).append(html);
-        }
-        
-        function setNumQuestions(numQs)
-        {
-            var html;
-            for (i = 1; i <= numQs; i++)
-            {
-                html = [
-                    '<div class="question'+i+'">',
-                    '<textarea placeholder="Question '+i+'" name ="question_'+i+'"></textarea>',
-                    '<input type="button" value="Add Answer" onclick=addAnswer('+i+')>',
-                    '<input type="text" placeholder="Enter Correct Answer"></div><br><br>'
-                ].join("\n");
-                $(".questions").append(html);
-            }
-        }
-        
-        
+        }       
         </script>
            
     </body>
