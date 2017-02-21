@@ -14,13 +14,25 @@ function addQuestion()
     document.getElementById("numQuestions").value = numQuestions;
     var html;
     html = [
-        '<div class="question' + numQuestions + '">',
-        '<textarea placeholder="Question ' + numQuestions + '" name ="question_' + numQuestions + '"></textarea>',
-        '<input type="button" value="Add Answer" onclick=addAnswer(' + numQuestions + ')>',
-        '<input type="text" name="' + numQuestions + '_answer_' + 1 + '" placeholder="Enter Correct Answer">',
-        '<input type="text" id="' + numQuestions + '_numAnswers" name="' + numQuestions + '_numAnswers" value="1" hidden></div><br><br>'
+        '<div class="panel panel-primary" name"panel' + numQuestions + '" >',
+                '<div class="panel-heading">Question #' + numQuestions + '</div>',
+                '<div class="panel-body">',
+                    '<div class="panel' + numQuestions + '">',
+                    '<div class="input-group">',
+                        '<div class="question' + numQuestions + '">',
+                            '<textarea placeholder="Question ' + numQuestions + '" name ="question_' + numQuestions + '" class="form-control"></textarea>',
+                        '</div>',
+                    '</div><br><br>',
+                    '<input type="button" class="btn btn-primary" value="Add Answer" onclick=addAnswer(' + numQuestions + ')>',
+                    '<div class="input-group"><span class="input-group-addon">Correct Answer</span>',
+                    '<input type="text" name="' + numQuestions + '_answer_' + 1 + '" class="form-control" placeholder="Enter Correct Answer"></div><br>',
+                    '<input type="text" id="' + numQuestions + '_numAnswers" name="' + numQuestions + '_numAnswers" value="1" hidden>',
+                '</div>',
+                '</div>',
+            '</div>',
+        '<div><br><br>'
     ].join("\n");
-    $(".questions").append(html);
+    $(".STYLE").before(html);
 }
 
 function addAnswer(questionNum)
@@ -30,7 +42,8 @@ function addAnswer(questionNum)
     document.getElementById(questionNum + "_numAnswers").value = ansNum;
     var html;
     html = [
-        '<input type="text" name="' + questionNum + '_answer_' + ansNum + '" placeholder="Enter incorrect Answer">'
+        '<div class="input-group"><span class="input-group-addon">Correct Answer</span>',
+        '<input type="text" name="' + questionNum + '_answer_' + ansNum + '" class="form-control" placeholder="Enter incorrect Answer"></div><br>'
     ].join("\n");
-    $(".question" + questionNum).append(html);
+    $(".panel" + questionNum).append(html);
 }
