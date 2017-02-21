@@ -99,6 +99,7 @@ public class CreateQuiz extends HttpServlet {
 	    stmt.executeBatch();  
 	} catch (SQLException e)
 	{
+            System.out.println("Yo, SQLException thrown");
         }
 
     }

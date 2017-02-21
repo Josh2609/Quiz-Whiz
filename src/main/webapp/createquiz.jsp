@@ -16,6 +16,9 @@
     <body>
         <div id=questions></div>        
         <form class="questions" method="POST"  action="CreateQuiz">
+            <input type="text" name="quizName" placeholder="Quiz Name">
+            <input type="text" name="quizModule" placeholder="Quiz Module">
+            <br>
             <input type="text" id="numQuestions" name="numQuestions" value="0" hidden>
             <input type="submit" value="Create"> 
         </form>       
