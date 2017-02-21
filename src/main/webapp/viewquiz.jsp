@@ -31,6 +31,8 @@
             while (iterator.hasNext()) 
             {
                 QuestionBean qb = (QuestionBean) iterator.next();
+                System.out.println(qb.getQuestionText());
+
 
         %>
         <p><%=qb.getQuestionText()%></p>

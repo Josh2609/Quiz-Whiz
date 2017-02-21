@@ -41,6 +41,7 @@ public class Quiz {
                 int qIDnew = -1;
                 int qIDold = -1;
                 //results exist
+                boolean firstTime = true;
                 while(rs.next())
                 {
                     if (qIDnew == -1)
@@ -49,8 +50,11 @@ public class Quiz {
                     } else {
                         qIDold = qIDnew;
                     }
-                    qIDnew = Integer.parseInt(rs.getString("Question_ID"));
-                
+                    
+                    if (firstTime != true)
+                    {
+                        qIDnew = Integer.parseInt(rs.getString("Question_ID"));
+                    }
                     QuestionBean qb = new QuestionBean();
                     AnswerBean ab = new AnswerBean();
                     
@@ -60,12 +64,15 @@ public class Quiz {
                     } else {
                         qb.setQuestionID(Integer.parseInt(rs.getString("Question_ID")));
                         qb.setQuestionText(rs.getString("Question_Text"));
+                                        System.out.println("sad  " + qb.getQuestionText());
+
                        // if (rs.getString("Question_Explanation") != null)
                        // {
                             qb.setQuestionExplanation(rs.getString("Question_Explanation"));
                        //}
                         questionList.add(qb);
                     }
+                    firstTime = false;
                     ab.setAnswerID(Integer.parseInt(rs.getString("Answer_ID")));
                     ab.setAnswerText(rs.getString("Answer_Text"));
                     ab.setQuestionID(rs.getInt("Question_ID"));
