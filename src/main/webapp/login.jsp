@@ -11,22 +11,40 @@
 <!DOCTYPE html>
 <html>
     <head>
+		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>Login</title>
     </head>
     <body>
-        <h1>Login</h1>
+	<div class="container">
+    <div class="col-sm-9">
+	<h1 style="text-align:center">Login</h1><br>
+        
 	<% String msg = (String)request.getAttribute("Message");
                if(msg != null) { %>
             <p id="flash_message"><%= msg %></p>
             <% } %>
-            <form method="POST"  action="Login">
+	<form method="POST"  action="Login">
+		
                 <ul>
-                    <li>Matric Number <input type="text" name="matric" required="true"></li>
-                    <li>Password <input type="password" name="password" required="true"></li>
+                    <div class="input-group">
+                        <span class="input-group-addon">Matriculation Number</span>
+                        <input id="msg" type="text" class="form-control" name="msg" placeholder="Enter your matriculation number here">
+                    </div>
+                    <div class="input-group">
+                        <span class="input-group-addon">&emsp;&emsp;&emsp;&emsp;&emsp;&nbsp;Password</span>
+                        <input id="msg" type="password" class="form-control" name="msg" placeholder="Enter your password here">
+                    </div>
                 </ul>
                 <br/>
-                <input type="submit" value="Login"> 
-            </form>
+                <div class="span12" style="text-align:center">
+                    <div class="STYLE">
+                                    <input type="submit" class="btn btn-success" value="Login">
+                    </div>
+                </div> 
+		
+	</form>
+	</div>
+	</div>
     </body>
 </html>
