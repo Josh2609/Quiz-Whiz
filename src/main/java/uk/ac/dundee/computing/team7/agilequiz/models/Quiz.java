@@ -24,28 +24,58 @@ public class Quiz {
     public ArrayList<QuestionBean> getQuestions(int quizID)
     {
         ArrayList<QuestionBean> questionList = new ArrayList<>();
+        ArrayList<AnswerBean> answerList = new ArrayList<>();
+
         
         dbconnect dbCon = new dbconnect();
 	Connection con = dbCon.mysqlConnect();
 	PreparedStatement stmt;
 	try {
-	    String sql = "SELECT Question_ID, Question_Text, Question_Explanation FROM question WHERE Quiz_ID=?";
+	    String sql = "SELECT Question_ID, Question_Text,Question_Explanation, Answer_ID, Answer_Text, Correct_Answer_Flag"
+                    + " FROM questionanswer WHERE Quiz_ID=?";
 	    stmt = con.prepareStatement(sql);
 	    stmt.setString(1, Integer.toString(quizID));
 	    ResultSet rs=stmt.executeQuery();  
 	    if (rs.isBeforeFirst())
             {
+                int qIDnew = -1;
+                int qIDold = -1;
                 //results exist
                 while(rs.next())
                 {
-                    QuestionBean qb = new QuestionBean();
-                    qb.setQuestionID(Integer.parseInt(rs.getString("Question_ID")));
-                    qb.setQuestionText(rs.getString("Question_Text"));
-                    if (rs.getString("Question_Explanation") != null)
+                    if (qIDnew == -1)
                     {
-                        qb.setQuestionExplanation(rs.getString("Question_Explanation"));
+                        qIDold = Integer.parseInt(rs.getString("Question_ID"));
+                    } else {
+                        qIDold = qIDnew;
                     }
-                    questionList.add(qb);
+                    qIDnew = Integer.parseInt(rs.getString("Question_ID"));
+                
+                    QuestionBean qb = new QuestionBean();
+                    AnswerBean ab = new AnswerBean();
+                    
+                    if (qIDnew == qIDold)
+                    {
+                        
+                    } else {
+                        qb.setQuestionID(Integer.parseInt(rs.getString("Question_ID")));
+                        qb.setQuestionText(rs.getString("Question_Text"));
+                       // if (rs.getString("Question_Explanation") != null)
+                       // {
+                            qb.setQuestionExplanation(rs.getString("Question_Explanation"));
+                       //}
+                        questionList.add(qb);
+                    }
+                    ab.setAnswerID(Integer.parseInt(rs.getString("Answer_ID")));
+                    ab.setAnswerText(rs.getString("Answer_Text"));
+                    ab.setQuestionID(rs.getInt("Question_ID"));
+                    if(rs.getInt("Correct_Answer_Flag") == 0)
+                    {
+                        ab.setCorrectAnswer(false);
+                    }
+                    else
+                        ab.setCorrectAnswer(true);
+                    answerList.add(ab);
                 }
             } else {
                 //no results for this quiz id
@@ -57,8 +87,14 @@ public class Quiz {
             e.printStackTrace();
 	    	System.out.println("SQLException1");
 	}
-        
+        answerListNew = answerList;
         return questionList;
+    }
+    
+    private ArrayList<AnswerBean> answerListNew;
+    public ArrayList<AnswerBean> getAnswers2()
+    {
+        return answerListNew;
     }
     
     public ArrayList<AnswerBean> getAnswers(int questionID)

@@ -4,6 +4,7 @@
     Author     : joshcorps
 --%>
 
+<%@page import="uk.ac.dundee.computing.team7.agilequiz.stores.AnswerBean"%>
 <%@page import="java.util.Iterator"%>
 <%@page import="uk.ac.dundee.computing.team7.agilequiz.stores.QuestionBean"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
@@ -18,11 +19,13 @@
         
         <%
             java.util.ArrayList<QuestionBean> questions = (java.util.ArrayList<QuestionBean>) request.getAttribute("questions");
+            java.util.ArrayList<AnswerBean> answers = (java.util.ArrayList<AnswerBean>) request.getAttribute("answers");
             if (questions == null) {
         %>
         <p>No Questions found</p>
         <%
         } else {
+            // seems to not print the first question
             Iterator<QuestionBean> iterator;
             iterator = questions.iterator();
             while (iterator.hasNext()) 
@@ -32,7 +35,21 @@
         %>
         <p><%=qb.getQuestionText()%></p>
         <%
-
+                Iterator<AnswerBean> iterator2;
+                iterator2 = answers.iterator();
+                while (iterator2.hasNext()) 
+                {
+                    
+                    AnswerBean ab = (AnswerBean) iterator2.next();
+                    //System.out.println("qqID=" +qb.getQuestionID() );
+                    //System.out.println("aqID=" +ab.getQuestionID() );
+                    if (ab.getQuestionID() == qb.getQuestionID() )
+                    {
+        %>
+        <p><%=ab.getAnswerText()%></p>
+        <%
+                    }
+                }  
             }
         }
         %>

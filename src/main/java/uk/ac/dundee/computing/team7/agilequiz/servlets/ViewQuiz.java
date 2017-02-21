@@ -43,7 +43,7 @@ public class ViewQuiz extends HttpServlet
         Quiz quiz = new Quiz();
         
         ArrayList<QuestionBean> questions = quiz.getQuestions(Integer.parseInt(quizID));
-        ArrayList<ArrayList> answers = new ArrayList<>();
+        ArrayList<AnswerBean> answers = quiz.getAnswers2();
         
         
         Iterator<QuestionBean> iterator;
@@ -52,7 +52,7 @@ public class ViewQuiz extends HttpServlet
         {
            QuestionBean qb = (QuestionBean) iterator.next();
            int questionID = qb.getQuestionID();
-           answers.add(quiz.getAnswers(questionID));
+           //answers.add(quiz.getAnswers(questionID));
         }
         
         RequestDispatcher rd = request.getRequestDispatcher("/viewquiz.jsp");

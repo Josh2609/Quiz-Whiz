@@ -13,6 +13,7 @@ public class AnswerBean {
     private int answerID;
     private String answerText;
     private boolean correctAnswer;
+    private int questionID;
     
     public void setAnswerID(int answerID)
     {   this.answerID = answerID;   }
@@ -31,5 +32,11 @@ public class AnswerBean {
     
     public boolean getCorrectAnswer()
     {   return correctAnswer;   }
+    
+    public void setQuestionID(int questionID)
+    {   this.questionID = questionID;   }
+    
+    public int getQuestionID()
+    {   return questionID;   }
     
 }
