@@ -20,7 +20,7 @@
                if(msg != null) { %>
             <p id="flash_message"><%= msg %></p>
             <% } %>
-	<form method="POST"  action="Login">
+            <form method="POST"  action="Login">
                 <ul>
                     <li>Matric Number <input type="text" name="matric" required="true"></li>
                     <li>Password <input type="password" name="password" required="true"></li>

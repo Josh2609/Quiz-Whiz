@@ -10,7 +10,6 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
-import java.util.LinkedList;
 import uk.ac.dundee.computing.team7.agilequiz.lib.dbconnect;
 import uk.ac.dundee.computing.team7.agilequiz.stores.AnswerBean;
 import uk.ac.dundee.computing.team7.agilequiz.stores.QuestionBean;
@@ -51,7 +50,7 @@ public class Quiz {
                         qIDold = qIDnew;
                     }
                     
-                    if (firstTime != true)
+                    if (!firstTime)
                     {
                         qIDnew = Integer.parseInt(rs.getString("Question_ID"));
                     }
@@ -64,7 +63,6 @@ public class Quiz {
                     } else {
                         qb.setQuestionID(Integer.parseInt(rs.getString("Question_ID")));
                         qb.setQuestionText(rs.getString("Question_Text"));
-                                        System.out.println("sad  " + qb.getQuestionText());
 
                        // if (rs.getString("Question_Explanation") != null)
                        // {
