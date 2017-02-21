@@ -1,6 +1,6 @@
 <%-- 
-    Document   : viewquiz
-    Created on : 20-Feb-2017, 21:28:52
+    Document   : editquiz
+    Created on : 21-Feb-2017, 19:24:30
     Author     : joshcorps
 --%>
 
@@ -12,7 +12,7 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>View Quiz</title>
+        <title>Edit Quiz</title>
     </head>
     <body>
         <h1>Hello World!</h1>
@@ -25,35 +25,49 @@
         <p>No Questions found</p>
         <%
         } else {
-            // seems to not print the first question
+        %>
+        <form class="questions" method="POST"  action="EditQuiz">
+            <input type="text" name="oldQuizID" value="<%=request.getAttribute("quizID")%>">
+        <%
             Iterator<QuestionBean> iterator;
             iterator = questions.iterator();
+            int questionNum = 1;
             while (iterator.hasNext()) 
             {
                 QuestionBean qb = (QuestionBean) iterator.next();
                 System.out.println(qb.getQuestionText());
 
-                
+
         %>
-        <h3>Question: <%=qb.getQuestionText()%></h3>
+        <br>Question&nbsp;&nbsp;&nbsp;&nbsp;<input type="text" name="question_<%=questionNum%>" value="<%=qb.getQuestionText()%>"><br>Answer(s)
         <%
                 Iterator<AnswerBean> iterator2;
                 iterator2 = answers.iterator();
+                int answerNum = 1;
                 while (iterator2.hasNext()) 
                 {
-                    
                     AnswerBean ab = (AnswerBean) iterator2.next();
-                    //System.out.println("qqID=" +qb.getQuestionID() );
-                    //System.out.println("aqID=" +ab.getQuestionID() );
+
                     if (ab.getQuestionID() == qb.getQuestionID() )
                     {
-        %>
-        <input type="text" value="<%=ab.getAnswerText()%>" disabled>
-        <%
+                        %>
+                        <input type="text" name="<%=questionNum%>_answer_<%=answerNum%>" value="<%=ab.getAnswerText()%>">
+                        <%
+                        answerNum++;
                     }
                 }  
+                %>
+                <input type="text" name="<%=questionNum%>_numAnswers" value="<%=answerNum-1%>" hidden>
+                <%
+                questionNum++;
             }
+            %>
+            <input type="text" name="numQuestions" value="<%=questionNum-1%>" hidden>
+            <br><br><input type="submit" value="Edit">
+        </form>
+            <%
         }
         %>
     </body>
 </html>
+

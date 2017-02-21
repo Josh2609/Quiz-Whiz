@@ -13,6 +13,7 @@ import java.util.ArrayList;
 import uk.ac.dundee.computing.team7.agilequiz.lib.dbconnect;
 import uk.ac.dundee.computing.team7.agilequiz.stores.AnswerBean;
 import uk.ac.dundee.computing.team7.agilequiz.stores.QuestionBean;
+import uk.ac.dundee.computing.team7.agilequiz.stores.QuizBean;
 
 /**
  *
@@ -140,4 +141,37 @@ public class Quiz {
         
         return answerList;
     }
+    
+    public QuizBean getQuiz(int quizID)
+    {
+        QuizBean qb = new QuizBean();
+        dbconnect dbCon = new dbconnect();
+	Connection con = dbCon.mysqlConnect();
+	PreparedStatement stmt;
+	try { //TODO
+	    String sql = "SELECT Quiz_ID, Quiz_Name, Available_Flag, Quiz_Version"
+                    + " FROM quiz WHERE Quiz_ID=?";
+	    stmt = con.prepareStatement(sql);
+	    stmt.setString(1, Integer.toString(quizID));
+	    ResultSet rs=stmt.executeQuery();  
+	    if (rs.isBeforeFirst())
+            {
+                //results exist
+                while(rs.next())
+                {
+                   qb.setQuizID(rs.getInt("Quiz_ID"));
+                   qb.setQuizVersion(rs.getInt("Quiz_Version"));
+                }
+            } else {
+                //no results for this question id, shouldn't happend really
+            }
+        } catch (SQLException e)
+	{
+	    	System.out.println("SQLException3");
+                e.printStackTrace();
+	}
+        
+        return qb;
+    }
+    
 }
