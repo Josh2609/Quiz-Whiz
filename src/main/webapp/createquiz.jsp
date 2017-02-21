@@ -41,6 +41,7 @@
   }
   </style>
     </head>
+
     
     <!-- Start of Nav bar Here / Only placeholder nav in right now-->
     <nav class="navbar navbar-inverse">
