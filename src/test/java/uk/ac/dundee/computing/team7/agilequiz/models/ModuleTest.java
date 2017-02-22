@@ -31,6 +31,8 @@ public class ModuleTest {
     
     @Before
     public void setUp() {
+        Module module = new Module();
+        module.addModule("7357","Test");
     }
     
     @After
