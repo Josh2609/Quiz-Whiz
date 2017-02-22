@@ -15,7 +15,7 @@ import uk.ac.dundee.computing.team7.agilequiz.lib.dbconnect;
  * @author Josh Corps
  */
 public class Module {
- 
+    // code refactored from AddModule servlet
     public boolean addModule(String moduleCode, String moduleName)
     {
         boolean success;
@@ -58,10 +58,7 @@ public class Module {
 	{
             System.out.println("Yo, SQLException thrown");
         }
-        if (numAffectedRows > 0)
-            success = true;
-        else 
-            success = false;
+        success = numAffectedRows > 0;
         return success;
     }
 }

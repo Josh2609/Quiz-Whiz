@@ -89,5 +89,23 @@ public class QuizTest {
         QuizBean result = instance.getQuiz(quizID);
         assertEquals(1, result.getQuizID());
     }
-    
+
+    /**
+     * Test of createQuiz method, of class Quiz.
+     */
+    @Test
+    public void testCreateQuiz() {
+        System.out.println("createQuiz");
+        int numQuestions = 1;
+        String[] questionArray = new String[numQuestions+1];
+        questionArray[numQuestions] = "test";
+        ArrayList<ArrayList<String>> QandAlist2d = new ArrayList<ArrayList<String>>();
+        ArrayList<String> QandAlist1d = new ArrayList<>();
+        QandAlist1d.add("test");
+        QandAlist2d.add(QandAlist1d);
+        Quiz instance = new Quiz();
+        boolean expResult = true;
+        boolean result = instance.createQuiz(numQuestions, questionArray, QandAlist2d);
+        assertEquals(expResult, result);
+    } 
 }
