@@ -17,6 +17,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import uk.ac.dundee.computing.team7.agilequiz.lib.dbconnect;
+import uk.ac.dundee.computing.team7.agilequiz.models.Module;
 
 /**
  *
@@ -40,19 +41,8 @@ public class AddModule extends HttpServlet {
         String moduleCode = request.getParameter("moduleCode");
         String moduleName = request.getParameter("moduleName");
                 
-        dbconnect dbCon = new dbconnect();
-	Connection con = dbCon.mysqlConnect();
-	PreparedStatement stmt;
-	try {
-            String sql = "INSERT INTO module (Module_ID, Module_Code, Module_Name) VALUES (NULL, ?, ?)";
-            stmt = con.prepareStatement(sql);
-            stmt.setString(1, moduleCode);
-            stmt.setString(2, moduleName);
-            stmt.execute();
-        } 
-        catch (SQLException e)
-	{
-            System.out.println("Yo, SQLException thrown");
-        }
+       Module module = new Module();
+       
+       module.addModule(moduleCode, moduleName);
     }
 }

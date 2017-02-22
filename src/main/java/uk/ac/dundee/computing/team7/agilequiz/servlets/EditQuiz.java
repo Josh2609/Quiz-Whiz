@@ -36,6 +36,8 @@ import uk.ac.dundee.computing.team7.agilequiz.stores.QuizBean;
 })
 public class EditQuiz extends HttpServlet 
 {  
+    ArrayList<Integer> questionIDList = new ArrayList<>();
+    ArrayList<Integer> answerIDList = new ArrayList<>();
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) 
             throws ServletException, IOException {     
@@ -53,11 +55,28 @@ public class EditQuiz extends HttpServlet
         
         Iterator<QuestionBean> iterator;
         iterator = questions.iterator();
+        int z = 0;
         while (iterator.hasNext()) 
         {
-           QuestionBean qb = (QuestionBean) iterator.next();
-           int questionID = qb.getQuestionID();
+            QuestionBean qb = (QuestionBean) iterator.next();
+            int questionID = qb.getQuestionID();
+            questionIDList.add(questionID);
+            Iterator<AnswerBean> iterator2;
+            iterator2 = answers.iterator();
+            
+             int answerNum = 0;
+                while (iterator2.hasNext()) 
+                {
+                    AnswerBean ab = (AnswerBean) iterator2.next();
+
+                    if (ab.getQuestionID() == qb.getQuestionID() )
+                    {
+                        answerIDList.add(ab.getAnswerID());
+                        answerNum++;
+                    }
+                }
            //answers.add(quiz.getAnswers(questionID));
+           z++;
         }
         
         RequestDispatcher rd = request.getRequestDispatcher("/editquiz.jsp");
@@ -65,13 +84,11 @@ public class EditQuiz extends HttpServlet
         request.setAttribute("answers", answers);
         request.setAttribute("quizID", quizID);
         rd.forward(request, response);
-       
     }
     
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        
         Quiz quiz = new Quiz();
         int oldQuizID = Integer.parseInt(request.getParameter("oldQuizID"));
         int oldQuizVersion;
@@ -87,13 +104,18 @@ public class EditQuiz extends HttpServlet
         for (int i = 1; i <= numQuestions; i++)
         {
             ArrayList<String> QandAlist1d = new ArrayList<>();
-            String qName = i + "_numAnswers";
+            String qName = questionIDList.get(i-1) + "_numAnswers";
             int numAnswers = Integer.parseInt(request.getParameter(qName));
-            questionArray[i] = request.getParameter("question_" + i);
+            System.out.println("q: " + i + " a:" +numAnswers);
+            questionArray[i] = request.getParameter("question_" + questionIDList.get(i-1));
+            System.out.println("QARR " + i +" :"+questionArray[i]  );
             //QandAlist.add(new ArrayList<String>());
             for (int j = 1; j <= numAnswers; j++)
             {
-                QandAlist1d.add(request.getParameter(i + "_answer_" + j));
+                //not getting all answers TODO
+                System.out.println("ayyayayya: " + questionIDList.get(i-1) + "_answer_" + answerIDList.get(j-1));
+                QandAlist1d.add(request.getParameter(questionIDList.get(i-1) + "_answer_" + answerIDList.get(j-1)));
+                System.out.println("QAND ++++++++==++=+=++ " +QandAlist1d.get(j-1));
             }
             QandAlist2d.add(QandAlist1d);
         }
@@ -104,31 +126,14 @@ public class EditQuiz extends HttpServlet
         
         int newQuizID = 0;
         
-        try { //TODO
-            String sql = "INSERT INTO quiz (Quiz_ID, Quiz_Name, Available_Flag, Quiz_Version, Module_ID,"
-                    + "Quiz_Creator_ID) VALUES (NULL, ?, 1, ?, 7357, 1)";
-            stmt = con.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
-            stmt.setString(1, "Test");
-            stmt.setInt(2, oldQuizVersion+1);
-            stmt.execute();
-            ResultSet rs = stmt.getGeneratedKeys();
-            while (rs.next()) {
-                newQuizID = rs.getInt(1);
-            }
-
-        } catch (SQLException e)
-	{
-            System.out.println("Yo, SQLException thrown");
-            e.printStackTrace();
-        }
-        
 	try {
-            String sql = "INSERT INTO question (Question_ID, Question_Text, Quiz_ID) VALUES (NULL, ?, ?)";
+            String sql = "UPDATE question SET Question_Text=? WHERE Question_ID=?";
             stmt = con.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
+            
             for (int x = 1; x <= numQuestions; x++)
             {
                 stmt.setString(1, questionArray[x]);
-                stmt.setInt(2, newQuizID);
+                stmt.setInt(2, questionIDList.get(x-1));
                 stmt.addBatch();
             }
             int [] questionID = new int[numQuestions+1];
@@ -141,22 +146,26 @@ public class EditQuiz extends HttpServlet
                 c++;
             }
             
-            sql = "INSERT INTO answer (Answer_ID, Answer_Text, Correct_Answer_Flag, Question_ID) VALUES (NULL, ?, 0, ?)";
+            sql = "UPDATE answer SET Answer_Text=? WHERE Answer_ID=?";
             stmt = con.prepareStatement(sql);
             for (int y = 1; y <= numQuestions; y++)
             {
                 ArrayList<String> testList;
                 testList = QandAlist2d.get(y-1);
-                System.out.println("testList ayyitem " + 0 + " = " + testList.get(0));
                 for (int i = 0; i < testList.size(); i++)
                 {
-                    System.out.println("testList item " + i + " = " + testList.get(i));
+                    
+                        System.out.println("testList item "+y+":" + i + " = " + testList.get(i));
+                     
                 }
                 for (int z = 1; z <= testList.size(); z++)
                 {                  
-                    stmt.setString(1, testList.get(z-1));
-                    stmt.setString(2, Integer.toString(questionID[y-1]));
-                    stmt.addBatch();
+                    if (testList.get(z-1) != null)
+                    {
+                        stmt.setString(1, testList.get(z-1));
+                        stmt.setInt(2, answerIDList.get(z-1));
+                        stmt.addBatch();
+                    }
                 }
             }
 	    stmt.executeBatch();  

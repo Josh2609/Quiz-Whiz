@@ -21,6 +21,8 @@ import uk.ac.dundee.computing.team7.agilequiz.stores.QuizBean;
  */
 public class Quiz {
     
+    private ArrayList<AnswerBean> answerListNew;
+
     public ArrayList<QuestionBean> getQuestions(int quizID)
     {
         ArrayList<QuestionBean> questionList = new ArrayList<>();
@@ -41,6 +43,7 @@ public class Quiz {
                 int qIDnew = -1;
                 int qIDold = -1;
                 //results exist
+                //now randomly misses second question TODO
                 boolean firstTime = true;
                 while(rs.next())
                 {
@@ -97,7 +100,6 @@ public class Quiz {
         return questionList;
     }
     
-    private ArrayList<AnswerBean> answerListNew;
     public ArrayList<AnswerBean> getAnswers2()
     {
         return answerListNew;
