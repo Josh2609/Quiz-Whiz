@@ -12,27 +12,35 @@ function addQuestion()
     numQuestions++;
     numAnswers[numQuestions] = 1;
     document.getElementById("numQuestions").value = numQuestions;
-    var html;
+    var html, html2;   
     html = [
+        '<div id="section' + numQuestions + '">',
         '<div class="panel panel-primary" name"panel' + numQuestions + '" >',
                 '<div class="panel-heading">Question #' + numQuestions + '</div>',
                 '<div class="panel-body">',
                     '<div class="panel' + numQuestions + '">',
                     '<div class="input-group">',
-                        '<div class="question' + numQuestions + '">',
-                            '<textarea placeholder="Question ' + numQuestions + '" name ="question_' + numQuestions + '" class="form-control"></textarea>',
-                        '</div>',
-                    '</div><br><br>',
-                    '<input type="button" class="btn btn-primary" value="Add Answer" onclick=addAnswer(' + numQuestions + ')>',
-                    '<div class="input-group"><span class="input-group-addon">Correct Answer</span>',
+                        //'<div class="question' + numQuestions + '">',
+                            '<span class="input-group-addon">Question</span>',
+                            '<textarea class="form-control" placeholder="Question ' + numQuestions + '" name ="question_' + numQuestions + '" class="form-control"></textarea>',
+                        //'</div>',
+                    '</div><br>',
+                    '<input type="button" class="btn btn-primary" value="Add Answer" onclick=addAnswer(' + numQuestions + ')><br>',
+                    '<br><div class="input-group"><span class="input-group-addon">Correct Answer</span>',
                     '<input type="text" name="' + numQuestions + '_answer_' + 1 + '" class="form-control" placeholder="Enter Correct Answer"></div><br>',
                     '<input type="text" id="' + numQuestions + '_numAnswers" name="' + numQuestions + '_numAnswers" value="1" hidden>',
                 '</div>',
                 '</div>',
             '</div>',
-        '<div><br><br>'
+        '<div><br><br>',
+        '</div>'
     ].join("\n");
-    $(".STYLE").before(html);
+    $("#questions").before(html);
+    
+    html = [
+        '<li><a href="#section' + numQuestions + '">Question' + numQuestions + '</a></li>'
+    ].join("\n");
+    $(".navBarAdd").append(html);
 }
 
 function addAnswer(questionNum)
@@ -42,7 +50,7 @@ function addAnswer(questionNum)
     document.getElementById(questionNum + "_numAnswers").value = ansNum;
     var html;
     html = [
-        '<div class="input-group"><span class="input-group-addon">Correct Answer</span>',
+        '<div class="input-group"><span class="input-group-addon">Incorrect Answer</span>',
         '<input type="text" name="' + questionNum + '_answer_' + ansNum + '" class="form-control" placeholder="Enter incorrect Answer"></div><br>'
     ].join("\n");
     $(".panel" + questionNum).append(html);
