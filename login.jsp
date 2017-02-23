@@ -11,6 +11,7 @@
 <!DOCTYPE html>
 <html>
     <head>
+	<%@ include file="header.jsp" %>
 		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>Login</title>
@@ -24,16 +25,15 @@
                if(msg != null) { %>
             <p id="flash_message"><%= msg %></p>
             <% } %>
-	<form method="POST"  action="Login">
-		
+	<form method="POST"  action="Login">	
                 <ul>
                     <div class="input-group">
                         <span class="input-group-addon">Matriculation Number</span>
-                        <input id="msg" type="text" class="form-control" name="msg" placeholder="Enter your matriculation number here">
+                        <input id="msg" type="text" class="form-control" name="matric" placeholder="Enter your matriculation number here">
                     </div>
                     <div class="input-group">
                         <span class="input-group-addon">&emsp;&emsp;&emsp;&emsp;&emsp;&nbsp;Password</span>
-                        <input id="msg" type="password" class="form-control" name="msg" placeholder="Enter your password here">
+                        <input id="msg" type="password" class="form-control" name="password" placeholder="Enter your password here">
                     </div>
                 </ul>
                 <br/>
