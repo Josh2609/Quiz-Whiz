@@ -57,14 +57,14 @@ public class QuizTest {
     /**
      * Test of getAnswers2 method, of class Quiz.
      */
-    @Test
-    public void testGetAnswers2() {
-        System.out.println("getAnswers2");
-        Quiz instance = new Quiz();
-        instance.getQuiz(1);
-        ArrayList<AnswerBean> result = instance.getAnswers2();
-        Assert.assertNotNull(result);
-    }
+//    @Test
+//    public void testGetAnswers2() {
+//        System.out.println("getAnswers2");
+//        Quiz instance = new Quiz();
+//        instance.getQuiz(1);
+//        ArrayList<AnswerBean> result = instance.getAnswers2();
+//        Assert.assertNotNull(result);
+//    }
 
     /**
      * Test of getAnswers method, of class Quiz.
