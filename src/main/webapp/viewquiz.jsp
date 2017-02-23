@@ -80,7 +80,7 @@
                 QuestionBean qb = (QuestionBean) iterator.next();
                 System.out.println(qb.getQuestionText());
 
-
+                
         %>
         <div class="panel panel-success" name="panel<%=qb.getQuestionID()%>">
             <div class="panel-heading"><h4>#<%=i%> <%=qb.getQuestionText()%></h4></div>

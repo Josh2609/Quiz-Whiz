@@ -20,6 +20,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import uk.ac.dundee.computing.team7.agilequiz.lib.dbconnect;
+import uk.ac.dundee.computing.team7.agilequiz.models.Quiz;
 
 
 @WebServlet(name = "CreateQuiz", urlPatterns = {"/CreateQuiz"})
@@ -56,51 +57,8 @@ public class CreateQuiz extends HttpServlet {
             }
             QandAlist2d.add(QandAlist1d);
         }
-        
-        dbconnect dbCon = new dbconnect();
-	Connection con = dbCon.mysqlConnect();
-	PreparedStatement stmt;
-	try {
-            String sql = "INSERT INTO question (Question_ID, Question_Text, Quiz_ID) VALUES (NULL, ?, 1)";
-            stmt = con.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
-            for (int x = 1; x <= numQuestions; x++)
-            {
-                stmt.setString(1, questionArray[x]);
-                stmt.addBatch();
-            }
-            int [] questionID = new int[numQuestions+1];
-            stmt.executeBatch();
-            ResultSet rs = stmt.getGeneratedKeys();
-            int c = 0;
-            while (rs.next()) {
-                int id = rs.getInt(1);
-                questionID[c] = id;
-                c++;
-            }
-            
-            sql = "INSERT INTO answer (Answer_ID, Answer_Text, Correct_Answer_Flag, Question_ID) VALUES (NULL, ?, 0, ?)";
-            stmt = con.prepareStatement(sql);
-            for (int y = 1; y <= numQuestions; y++)
-            {
-                ArrayList<String> testList;
-                testList = QandAlist2d.get(y-1);
-                System.out.println("testList ayyitem " + 0 + " = " + testList.get(0));
-                for (int i = 0; i < testList.size(); i++)
-                {
-                    System.out.println("testList item " + i + " = " + testList.get(i));
-                }
-                for (int z = 1; z <= testList.size(); z++)
-                {                  
-                    stmt.setString(1, testList.get(z-1));
-                    stmt.setString(2, Integer.toString(questionID[y-1]));
-                    stmt.addBatch();
-                }
-            }
-	    stmt.executeBatch();  
-	} catch (SQLException e)
-	{
-            System.out.println("Yo, SQLException thrown");
-        }
-
+        Quiz quiz = new Quiz();
+        // refactored create code into quiz model class
+        quiz.createQuiz(numQuestions, questionArray, QandAlist2d);
     }
 }
