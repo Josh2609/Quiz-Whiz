@@ -11,6 +11,7 @@
 <!DOCTYPE html>
 <html>
     <head>
+	<%@ include file="header.jsp" %>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>View Quiz</title>
         <script src="js/createQuiz.js"></script>
