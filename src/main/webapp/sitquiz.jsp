@@ -1,29 +1,26 @@
 <%-- 
-    Document   : viewquiz
-    Created on : 20-Feb-2017, 21:28:52
+    Document   : quiz
+    Created on : 23-Feb-2017, 16:18:16
     Author     : joshcorps
 --%>
 
-<%@page import="uk.ac.dundee.computing.team7.agilequiz.stores.AnswerBean"%>
 <%@page import="java.util.Iterator"%>
+<%@page import="uk.ac.dundee.computing.team7.agilequiz.stores.AnswerBean"%>
 <%@page import="uk.ac.dundee.computing.team7.agilequiz.stores.QuestionBean"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
-    <head>
+     <head>
+	<%@ include file="header.jsp" %>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>View Quiz</title>
-        <script src="js/createQuiz.js"></script>
+        <title>Sit Quiz</title>
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
         <!-- Latest compiled and minified CSS -->
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
-        <link rel="stylesheet" content= "text/css" href="${pageContext.request.contextPath}/style.css">
     </head>
     <body>
-
-    <%@ include file="header.jsp" %>
-
+    <form method="POST"  action="SitQuiz">	
     <div class="container"><!-- style="text-align:center">-->
         <div style="text-align: center">
             <h1>Quiz Name Here</h1>
@@ -69,8 +66,8 @@
                         j++;
         %>
         <div class="col-sm-3">
-            <div class="radio disabled">
-                <label><input style="text-align:left" type="radio" name="optradio<%=i%>"<% if(j==1){%> checked="checked" <%}else{%> disabled <%}%>><%=ab.getAnswerText()%></label>
+            <div class="radio">
+                <label><input style="text-align:left" type="radio" name="optradio<%=j%>" value="ab.getAnswerID()."><%=ab.getAnswerText()%></label>
             </div>
         </div>
         <%
@@ -78,11 +75,19 @@
                 }
             %>
                 </div>
+                
             </div>
         <%
-            }
-        }
+            }%>
+            
+           <input type="text" value="<%=i%>" hidden > 
+        <%}
         %>
     </div>
+    <div style="text-align:center">
+        <input type="submit" class="btn btn-success" value="Submit">
+    </div>
+    <br>
+    </form>
     </body>
 </html>

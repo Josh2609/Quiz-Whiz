@@ -55,7 +55,6 @@ public class EditQuiz extends HttpServlet
         
         Iterator<QuestionBean> iterator;
         iterator = questions.iterator();
-        int z = 0;
         while (iterator.hasNext()) 
         {
             QuestionBean qb = (QuestionBean) iterator.next();
@@ -63,20 +62,14 @@ public class EditQuiz extends HttpServlet
             questionIDList.add(questionID);
             Iterator<AnswerBean> iterator2;
             iterator2 = answers.iterator();
-            
-             int answerNum = 0;
-                while (iterator2.hasNext()) 
-                {
-                    AnswerBean ab = (AnswerBean) iterator2.next();
 
-                    if (ab.getQuestionID() == qb.getQuestionID() )
-                    {
-                        answerIDList.add(ab.getAnswerID());
-                        answerNum++;
-                    }
+            while (iterator2.hasNext()) {
+                AnswerBean ab = (AnswerBean) iterator2.next();
+
+                if (ab.getQuestionID() == qb.getQuestionID()) {
+                    answerIDList.add(ab.getAnswerID());
                 }
-           //answers.add(quiz.getAnswers(questionID));
-           z++;
+            }
         }
         
         RequestDispatcher rd = request.getRequestDispatcher("/editquiz.jsp");
@@ -90,19 +83,54 @@ public class EditQuiz extends HttpServlet
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         Quiz quiz = new Quiz();
+        
+        String args[] = Converters.SplitRequestPath(request);
+        String quizID = args[2];
+        
+        ArrayList<QuestionBean> questions = quiz.getQuestions(Integer.parseInt(quizID));
+        ArrayList<AnswerBean> answers = quiz.getAnswers2();
+        
         int oldQuizID = Integer.parseInt(request.getParameter("oldQuizID"));
-        int oldQuizVersion;
         
         QuizBean qb = quiz.getQuiz(oldQuizID);
-        oldQuizVersion = qb.getQuizVersion();
         
         int numQuestions =  Integer.parseInt(request.getParameter("numQuestions"));
 
         String[] questionArray = new String[numQuestions+1];
         ArrayList<ArrayList<String>> QandAlist2d = new ArrayList<ArrayList<String>>();
         
-        for (int i = 1; i <= numQuestions; i++)
+        AnswerBean ab = new AnswerBean();
+        QuestionBean questionBean = new QuestionBean();
+        
+        Iterator<QuestionBean> iterator;
+        iterator = questions.iterator();
+        while (iterator.hasNext()) 
         {
+            questionBean = (QuestionBean) iterator.next();
+            int questionID = questionBean.getQuestionID();
+            questionIDList.add(questionID);
+            Iterator<AnswerBean> iterator2;
+            iterator2 = answers.iterator();
+
+            while (iterator2.hasNext()) 
+            {
+                ab = (AnswerBean) iterator2.next();
+
+                if (ab.getQuestionID() == questionBean.getQuestionID()) 
+                {
+                    
+                }
+            }
+        }
+        
+        for (int i = 1; i <= questionIDList.size(); i++)
+        {
+            //compare answer-questionID to question-questionID
+            if (ab.getQuestionID() == questionBean.getQuestionID())
+            {
+                    
+            }
+            
             ArrayList<String> QandAlist1d = new ArrayList<>();
             String qName = questionIDList.get(i-1) + "_numAnswers";
             int numAnswers = Integer.parseInt(request.getParameter(qName));
@@ -113,9 +141,9 @@ public class EditQuiz extends HttpServlet
             for (int j = 1; j <= numAnswers; j++)
             {
                 //not getting all answers TODO
-                System.out.println("ayyayayya: " + questionIDList.get(i-1) + "_answer_" + answerIDList.get(j-1));
-                QandAlist1d.add(request.getParameter(questionIDList.get(i-1) + "_answer_" + answerIDList.get(j-1)));
-                System.out.println("QAND ++++++++==++=+=++ " +QandAlist1d.get(j-1));
+                System.out.println("test: " + questionIDList.get(i-1) + "_answer_" + answerIDList.get(j-1));
+                //QandAlist1d.add(request.getParameter(questionIDList.get(i-1) + "_answer_" + answerIDList.get(j-1)));
+                //System.out.println("QAND ++++++++==++=+=++ " +QandAlist1d.get(j-1));
             }
             QandAlist2d.add(QandAlist1d);
         }
