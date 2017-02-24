@@ -57,6 +57,7 @@ public class Login extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         
+        // refactored some of login into User.java
         String matric = request.getParameter("matric");
         String password = request.getParameter("password");
 	

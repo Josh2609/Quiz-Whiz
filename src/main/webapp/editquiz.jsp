@@ -20,7 +20,7 @@
         <%
             java.util.ArrayList<QuestionBean> questions = (java.util.ArrayList<QuestionBean>) request.getAttribute("questions");
             java.util.ArrayList<AnswerBean> answers = (java.util.ArrayList<AnswerBean>) request.getAttribute("answers");
-            if (questions == null) {
+            if (questions.isEmpty()) {
         %>
         <p>No Questions found</p>
         <%

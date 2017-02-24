@@ -11,12 +11,12 @@
 	<%@ include file="header.jsp" %>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>Create a Quiz</title>
-        <script src="js/createQuiz.js"></script>
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
         <!-- Latest compiled and minified CSS -->
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
-         <style>
+        <script src="js/createQuiz.js"></script> 
+        <style>
   body {
       position: relative;
   }
@@ -117,8 +117,12 @@
                     <input type="text" id="numQuestions" name="numQuestions" value="0" hidden>
                         <div class="STYLE">
                             <input type="submit" class="btn btn-success" value="Create">
-                        </div> 
-                    </form>
+                        </div>
+                    </div> 
+                    </form>       
+                    <input type="button" class="btn btn-primary" onclick="addQuestion()" value="Add Question">
+                    
+
                     <br>   
             </div>
         </div>
