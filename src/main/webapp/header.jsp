@@ -1,4 +1,4 @@
-<nav class="navbar navbar-inverse">
+<nav class="navbar navbar-default">
         <div class="container-fluid">
                 <div class="navbar-header">
                     <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
@@ -10,13 +10,14 @@
                 </div>
                 <div class="collapse navbar-collapse" id="myNavbar">
                     <ul class="nav navbar-nav">
-                        <li><a href="#">Home</a></li>
-                        <li><a href="#">View Quizzes</a></li>
-                        <li class="active"><a href="#">Create Quiz</a></li>
-                    </ul>
-                    <ul class="nav navbar-nav navbar-right">
-                        <li><a href="#"><span class="glyphicon glyphicon-user"></span> Sign Up</a></li>
-                        <li><a href="#"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
+                        <li><a href="${pageContext.request.contextPath}/">Home</a></li>
+                        <li><a href="${pageContext.request.contextPath}/ViewQuizzes">View Quizzes</a></li>
+						<li><a href="${pageContext.request.contextPath}/CreateQuiz">Create a quiz</a></li>
+						<li><a href="${pageContext.request.contextPath}/EditQuizzes">Edit your quizzes</a></li>
+                   </ul>
+				   <ul class="nav navbar-nav navbar-right">
+                        <li><a href="${pageContext.request.contextPath}/signup.jsp"><span class="glyphicon glyphicon-user"></span> Sign Up</a></li>
+                        <li><a href="${pageContext.request.contextPath}/Login"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
                     </ul>
                     <!--Search bar, if wanted <form class="navbar-form navbar-left">
                         <div class="form-group">
@@ -24,6 +25,6 @@
                         </div>
                         <button type="submit" class="btn btn-success">Submit</button>
                     </form> -->
-                </div>
+               </div>
         </div>
 </nav>

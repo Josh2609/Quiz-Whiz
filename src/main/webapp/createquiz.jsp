@@ -47,9 +47,9 @@
    
     
     
-    
-<body data-spy="scroll" data-target="#myScrollspy" data-offset="20">
-    <!--<div class="row">
+    <body>   
+<!--<body data-spy="scroll" data-target="#myScrollspy" data-offset="20">
+    <div class="row">
         <nav class="col-sm-3" id="myScrollspy">
             <ul class="nav nav-pills nav-stacked">
             <div class="navBarAdd">
@@ -61,12 +61,11 @@
         </nav>
     </div>-->
       
-   <div class="container">
-        <div class="col-sm-12" style="text-align:center">
+   <div class="container" style="text-align:center">
         
-<!--START OF SECTION 1-->        
-            <div id="section1">    
-                <h1 style="text-align:center">Details for the Quiz</h1><br>
+<!--START OF SECTION 1      
+            <div id="section1" style="text-align:center">    -->  
+                <h1>Details for the Quiz</h1><br>
                     <form>
                         <div class="input-group">
                             <span class="input-group-addon">Title/Name</span>
@@ -86,7 +85,7 @@
                     <option>AC360NoScope</option>
                     <option>AC12:51</option>
                 </select><br>
-                <label for="sel1">Select a Time a limit for your quiz</label>
+                <label for="sel2">Select a Time a limit for your quiz</label>
                 <select class="form-control">
                     <option>None</option>
                     <option>1</option>
@@ -102,18 +101,20 @@
                     <option>45</option>
                 </select>
                 <br>
-                <div class="span12" style="text-align:center">
+                <!--<div class="span12" style="text-align:center">
                     <input type="button" class="btn btn-primary" value="Done">
-                </div><br><br>
+                </div><br><br>-->
             </div><br><br>
       
       <!-- Questions START HERE-->
       
-            <div id=questions>   
-                <div id="section2">
+            <div id=questions style="text-align:center">   
+                <!--<div id="section2" style="text-align:center">-->
+                    
                     <form class="questions" method="POST"  action="CreateQuiz">
+                               
+                    <input type="button" class="btn btn-primary" onclick="addQuestion()" value="Add Question"><br><br>
                     <input type="text" id="numQuestions" name="numQuestions" value="0" hidden>
-                    <div class="span12" style="text-align:center">
                         <div class="STYLE">
                             <input type="submit" class="btn btn-success" value="Create">
                         </div>
@@ -121,10 +122,9 @@
                     </form>       
                     <input type="button" class="btn btn-primary" onclick="addQuestion()" value="Add Question">
                     
+
                     <br>   
-                </div>
             </div>
         </div>
-    </div>
 </body>
 </html>
