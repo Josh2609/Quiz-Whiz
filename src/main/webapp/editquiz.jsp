@@ -12,11 +12,14 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+        <link rel="stylesheet" content= "text/css" href="${pageContext.request.contextPath}/style.css">
         <title>Edit Quiz</title>
     </head>
     <body>
-        <h1>Hello World!</h1>
         
+        <%@ include file="header.jsp" %>
+        <!--<div class="container">  -->      
         <%
             java.util.ArrayList<QuestionBean> questions = (java.util.ArrayList<QuestionBean>) request.getAttribute("questions");
             java.util.ArrayList<AnswerBean> answers = (java.util.ArrayList<AnswerBean>) request.getAttribute("answers");
@@ -68,6 +71,7 @@
             <%
         }
         %>
+        <!--</div>-->
     </body>
 </html>
 
