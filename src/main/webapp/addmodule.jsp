@@ -1,7 +1,7 @@
 <%-- 
     Document   : addmodule
     Created on : 21-Feb-2017, 18:00:09
-    Author     : joshcorps
+    Author     : team7
 --%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
