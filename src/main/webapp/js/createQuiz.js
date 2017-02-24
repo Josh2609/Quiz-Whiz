@@ -12,7 +12,7 @@ function addQuestion()
     numQuestions++;
     numAnswers[numQuestions] = 1;
     document.getElementById("numQuestions").value = numQuestions;
-    var html, html2;   
+    var html;   
     html = [
         '<div id="section' + numQuestions + '">',
         '<div class="panel panel-primary" name"panel' + numQuestions + '" >',
@@ -37,10 +37,6 @@ function addQuestion()
     ].join("\n");
     $("#questions").before(html);
     
-    html = [
-        '<li><a href="#section' + numQuestions + '">Question' + numQuestions + '</a></li>'
-    ].join("\n");
-    $(".navBarAdd").append(html);
 }
 
 function addAnswer(questionNum)

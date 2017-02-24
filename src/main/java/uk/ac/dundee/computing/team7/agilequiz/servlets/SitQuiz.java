@@ -29,12 +29,13 @@ import uk.ac.dundee.computing.team7.agilequiz.stores.QuestionBean;
 })
 public class SitQuiz extends HttpServlet 
 {  
+    private String quizID;
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) 
             throws ServletException, IOException {     
         
         String args[] = Converters.SplitRequestPath(request);
-        String quizID = args[2];
+        quizID = args[2];
         request.setAttribute("quizID", args[2]);
         System.out.println(args[2]);
         
@@ -66,6 +67,43 @@ public class SitQuiz extends HttpServlet
         
         Quiz quiz = new Quiz();
         
+        ArrayList<QuestionBean> questions = quiz.getQuestions(Integer.parseInt(quizID));
+        ArrayList<AnswerBean> answers = quiz.getAnswers2();
         
+        int numQuestions = Integer.parseInt(request.getParameter("i"));
+        
+        int[] radioBtn = new int[numQuestions];
+        
+        for (int i = 0; i < numQuestions; i++)
+        {
+            radioBtn[i] = Integer.parseInt(request.getParameter("optradio"+i));
+        }
+        
+        Iterator<QuestionBean> iterator;
+            iterator = questions.iterator();
+            int i = 0;
+            while (iterator.hasNext()) 
+            {
+                i++;
+                QuestionBean qb = (QuestionBean) iterator.next();
+                System.out.println(qb.getQuestionText());
+
+              
+                Iterator<AnswerBean> iterator2;
+                iterator2 = answers.iterator();
+                int j = 0;
+                while (iterator2.hasNext()) 
+                {
+                    AnswerBean ab = (AnswerBean) iterator2.next();
+
+                    if (ab.getQuestionID() == qb.getQuestionID() )
+                    {
+                        j++;
+
+                    }
+                }
+            }
+    
+
     }
 }
