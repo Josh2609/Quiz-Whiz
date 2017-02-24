@@ -16,7 +16,8 @@
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
         <!-- Latest compiled and minified CSS -->
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
-         <style>
+        <link rel="stylesheet" type= "text/css" href="style.css">
+        <style>
   body {
       position: relative;
   }
@@ -63,8 +64,8 @@
       
    <div class="container" style="text-align:center">
         
-<!--START OF SECTION 1      
-            <div id="section1" style="text-align:center">    -->  
+<!--START OF SECTION 1  
+            <div id="section1" style="text-align:center">   -->
                 <h1>Details for the Quiz</h1><br>
                     <form>
                         <div class="input-group">
@@ -104,23 +105,22 @@
                 <!--<div class="span12" style="text-align:center">
                     <input type="button" class="btn btn-primary" value="Done">
                 </div><br><br>-->
-            </div><br><br>
+            <br><br>
       
-      <!-- Questions START HERE-->
-      
-            <div id=questions style="text-align:center">   
-                <!--<div id="section2" style="text-align:center">-->
+      <!-- Questions START HERE-->  
+                <div id="section2" style="text-align:center">
                     
                     <form class="questions" method="POST"  action="CreateQuiz">
-                               
+                     <div id=questions style="text-align:center"> 
                     <input type="button" class="btn btn-primary" onclick="addQuestion()" value="Add Question"><br><br>
                     <input type="text" id="numQuestions" name="numQuestions" value="0" hidden>
                         <div class="STYLE">
                             <input type="submit" class="btn btn-success" value="Create">
                         </div> 
+                     </div>
                     </form>
                     <br>   
             </div>
-        </div>
+    </div>
 </body>
 </html>

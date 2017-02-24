@@ -11,9 +11,9 @@
                 <div class="collapse navbar-collapse" id="myNavbar">
                     <ul class="nav navbar-nav">
                         <li><a href="${pageContext.request.contextPath}/">Home</a></li>
-                        <li><a href="${pageContext.request.contextPath}/ViewQuizzes">View Quizzes</a></li>
+                        <li><a href="${pageContext.request.contextPath}/ViewQuiz/1">View Quizzes</a></li>
 						<li><a href="${pageContext.request.contextPath}/CreateQuiz">Create a quiz</a></li>
-						<li><a href="${pageContext.request.contextPath}/EditQuizzes">Edit your quizzes</a></li>
+						<li><a href="${pageContext.request.contextPath}/EditQuiz/1">Edit your quizzes</a></li>
                    </ul>
 				   <ul class="nav navbar-nav navbar-right">
                         <li><a href="${pageContext.request.contextPath}/signup.jsp"><span class="glyphicon glyphicon-user"></span> Sign Up</a></li>

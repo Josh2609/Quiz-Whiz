@@ -48,6 +48,8 @@ public class CreateQuiz extends HttpServlet {
         {
             ArrayList<String> QandAlist1d = new ArrayList<>();
             String qName = i + "_numAnswers";
+            
+            System.out.println("TEST: " + request.getParameter(qName));
             int numAnswers = Integer.parseInt(request.getParameter(qName));
             questionArray[i] = request.getParameter("question_" + i);
             //QandAlist.add(new ArrayList<String>());
