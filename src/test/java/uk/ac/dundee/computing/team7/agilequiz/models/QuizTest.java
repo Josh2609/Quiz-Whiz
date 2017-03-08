@@ -108,4 +108,40 @@ public class QuizTest {
         boolean result = instance.createQuiz(numQuestions, questionArray, QandAlist2d);
         assertEquals(expResult, result);
     } 
+
+    /**
+     * Test of getAnswers2 method, of class Quiz.
+     */
+    @Test
+    public void testGetAnswers2() {
+//        System.out.println("getAnswers2");
+//        Quiz instance = new Quiz();
+//        ArrayList<AnswerBean> expResult = null;
+//        ArrayList<AnswerBean> result = instance.getAnswers2();
+//        assertEquals(expResult, result);
+//   
+    }
+
+    /**
+     * Test of compareAnswer method, of class Quiz.
+     */
+    @Test
+    public void testCompareAnswer() {
+//        System.out.println("compareAnswer");
+//        Quiz instance = new Quiz();
+//        instance.compareAnswer();
+
+    }
+
+    /**
+     * Test of getNumQuestions method, of class Quiz.
+     */
+    @Test
+    public void testGetNumQuestions() {
+        System.out.println("getNumQuestions");
+        Quiz instance = new Quiz();
+        int expResult = 0;
+        int result = instance.getNumQuestions();
+        assertEquals(expResult, result);
+    }
 }

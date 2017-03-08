@@ -231,4 +231,15 @@ public class Quiz {
     }
     
     
+    public int getNumQuestions()
+    {
+        return 0;
+    }
+    
+    public boolean compareAnswer()
+    {
+        
+        return true;
+    }
+    
 }

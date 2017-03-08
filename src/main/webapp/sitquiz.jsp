@@ -18,6 +18,7 @@
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
         <!-- Latest compiled and minified CSS -->
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+        <link rel="stylesheet" type= "text/css" href="${pageContext.request.contextPath}/style.css">        
     </head>
     <body>
     <form method="POST"  action="SitQuiz">	
@@ -67,7 +68,7 @@
         %>
         <div class="col-sm-3">
             <div class="radio">
-                <label><input style="text-align:left" type="radio" name="optradio<%=j%>" value="ab.getAnswerID()."><%=ab.getAnswerText()%></label>
+                <label><input style="text-align:left" type="radio" name="optradio<%=ab.getQuestionID()%>" value="<%=ab.getAnswerID()%>"><%=ab.getAnswerText()%></label>
             </div>
         </div>
         <%

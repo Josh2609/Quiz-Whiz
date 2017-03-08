@@ -9,7 +9,7 @@
 <html>
     <head>
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-		<link rel="stylesheet" type= "text/css" href="style.css">        
+		<link rel="stylesheet" type= "text/css" href="${pageContext.request.contextPath}/style.css">        
 		<%@ include file="header.jsp" %>
         <title>Qu¡zWh¡z</title>
         
@@ -38,6 +38,6 @@
         </div></div>
     </body>
     
-    <input type="submit" value="Log In" onclick=window.location="/AgileQuiz/login.jsp";>
-    <input type="submit" value="Sign Up"onclick=window.location="/AgileQuiz/signup.jsp";>
+    <input type="submit" value="Log In" onclick=window.location="${pageContext.request.contextPath}/Login";>
+    <input type="submit" value="Sign Up" onclick=window.location="${pageContext.request.contextPath}/SignUp";>
 </html>
