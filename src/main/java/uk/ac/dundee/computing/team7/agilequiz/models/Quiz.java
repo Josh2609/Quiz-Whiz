@@ -240,7 +240,14 @@ public class Quiz {
     
     public int getQuizScore(ArrayList<String> answerList)
     {
-        
+        int correctAnswers = 0;
+        for (int i = 0; i < answerList.size(); i++)
+        {
+            if(compareAnswer(answerList.get(i)))
+            {
+                correctAnswers++;
+            }
+        }
         return 0;
     }
     

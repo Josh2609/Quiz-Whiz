@@ -94,6 +94,10 @@ public class SitQuiz extends HttpServlet
         }
         System.out.println("Number of correct answers: " + correctAnswers);
         
+        RequestDispatcher rd = request.getRequestDispatcher("/quizresults.jsp");
+        request.setAttribute("correctAnswers", correctAnswers);
+        rd.forward(request, response);
+        
     }
         
 //    {

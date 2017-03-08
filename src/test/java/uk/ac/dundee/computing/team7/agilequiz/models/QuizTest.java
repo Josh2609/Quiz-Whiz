@@ -156,6 +156,7 @@ public class QuizTest {
         Quiz instance = new Quiz();
         int expResult = 0;
         ArrayList<String> answerList = new ArrayList<>();
+        answerList.add("90");
         int result = instance.getQuizScore(answerList);
         assertEquals(expResult, result);
     }
