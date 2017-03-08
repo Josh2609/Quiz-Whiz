@@ -82,15 +82,17 @@ public class SitQuiz extends HttpServlet
         ArrayList<QuestionBean> questions = quiz.getQuestions(Integer.parseInt(quizID));
         ArrayList<AnswerBean> answers = quiz.getAnswers2();
 
+        int correctAnswers = 0;
         for (int i = 0; i < answerRadio.size(); i++)
         {
             if(quiz.compareAnswer(answerRadio.get(i)))
             {
-                
+                correctAnswers++;
             } else {
             
             }   
         }
+        System.out.println("Number of correct answers: " + correctAnswers);
         
     }
         

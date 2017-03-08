@@ -11,6 +11,8 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import uk.ac.dundee.computing.team7.agilequiz.lib.dbconnect;
 import uk.ac.dundee.computing.team7.agilequiz.stores.AnswerBean;
 import uk.ac.dundee.computing.team7.agilequiz.stores.QuestionBean;
@@ -238,7 +240,25 @@ public class Quiz {
     
     public boolean compareAnswer(String answerID)
     {
+        dbconnect dbCon = new dbconnect();
+	Connection con = dbCon.mysqlConnect();
+	PreparedStatement stmt;
+        String sql = "SELECT Correct_Answer_Flag From Answer WHERE Answer_ID=?";
+        System.out.println("lakjFALSK " + answerID);
         
+        try {
+            stmt = con.prepareStatement(sql);
+            stmt.setInt(1, Integer.parseInt(answerID));
+	    ResultSet rs=stmt.executeQuery(); 
+            
+            while(rs.next())
+            {
+                return rs.getInt("Correct_Answer_Flag") == 1;
+            }
+            
+        } catch (SQLException ex) {
+            Logger.getLogger(Quiz.class.getName()).log(Level.SEVERE, null, ex);
+        }
         return true;
     }
     
