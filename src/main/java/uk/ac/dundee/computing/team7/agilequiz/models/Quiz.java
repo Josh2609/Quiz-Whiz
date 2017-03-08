@@ -236,7 +236,7 @@ public class Quiz {
         return 0;
     }
     
-    public boolean compareAnswer()
+    public boolean compareAnswer(String answerID)
     {
         
         return true;

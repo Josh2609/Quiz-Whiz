@@ -123,17 +123,6 @@ public class QuizTest {
     }
 
     /**
-     * Test of compareAnswer method, of class Quiz.
-     */
-    @Test
-    public void testCompareAnswer() {
-//        System.out.println("compareAnswer");
-//        Quiz instance = new Quiz();
-//        instance.compareAnswer();
-
-    }
-
-    /**
      * Test of getNumQuestions method, of class Quiz.
      */
     @Test
@@ -142,6 +131,19 @@ public class QuizTest {
         Quiz instance = new Quiz();
         int expResult = 0;
         int result = instance.getNumQuestions();
+        assertEquals(expResult, result);
+    }
+
+    /**
+     * Test of compareAnswer method, of class Quiz.
+     */
+    @Test
+    public void testCompareAnswer() {
+        System.out.println("compareAnswer");
+        String answerID = "90";
+        Quiz instance = new Quiz();
+        boolean expResult = true;
+        boolean result = instance.compareAnswer(answerID);
         assertEquals(expResult, result);
     }
 }
