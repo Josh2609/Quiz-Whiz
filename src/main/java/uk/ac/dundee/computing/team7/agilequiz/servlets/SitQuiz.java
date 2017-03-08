@@ -78,9 +78,6 @@ public class SitQuiz extends HttpServlet
             }
         }
         Quiz quiz = new Quiz();
-        
-        ArrayList<QuestionBean> questions = quiz.getQuestions(Integer.parseInt(quizID));
-        ArrayList<AnswerBean> answers = quiz.getAnswers2();
 
         int correctAnswers = 0;
         for (int i = 0; i < answerRadio.size(); i++)
@@ -91,56 +88,9 @@ public class SitQuiz extends HttpServlet
             } else {
             
             }   
-        }
-        System.out.println("Number of correct answers: " + correctAnswers);
-        
+        }     
         RequestDispatcher rd = request.getRequestDispatcher("/quizresults.jsp");
         request.setAttribute("correctAnswers", correctAnswers);
-        rd.forward(request, response);
-        
+        rd.forward(request, response);   
     }
-        
-//    {
-//        //old post
-//        Quiz quiz = new Quiz();
-//        
-//        ArrayList<QuestionBean> questions = quiz.getQuestions(Integer.parseInt(quizID));
-//        ArrayList<AnswerBean> answers = quiz.getAnswers2();
-//        
-//        int numQuestions = Integer.parseInt(request.getParameter("i"));
-//        
-//        int[] radioBtn = new int[numQuestions];
-//        
-//        for (int i = 0; i < numQuestions; i++)
-//        {
-//            radioBtn[i] = Integer.parseInt(request.getParameter("optradio"+i));
-//        }
-//        
-//        Iterator<QuestionBean> iterator;
-//            iterator = questions.iterator();
-//            int i = 0;
-//            while (iterator.hasNext()) 
-//            {
-//                i++;
-//                QuestionBean qb = (QuestionBean) iterator.next();
-//                System.out.println(qb.getQuestionText());
-//
-//              
-//                Iterator<AnswerBean> iterator2;
-//                iterator2 = answers.iterator();
-//                int j = 0;
-//                while (iterator2.hasNext()) 
-//                {
-//                    AnswerBean ab = (AnswerBean) iterator2.next();
-//
-//                    if (ab.getQuestionID() == qb.getQuestionID() )
-//                    {
-//                        j++;
-//
-//                    }
-//                }
-//            }
-//    
-//
-//    }
 }
