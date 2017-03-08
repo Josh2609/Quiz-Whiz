@@ -238,6 +238,12 @@ public class Quiz {
         return 0;
     }
     
+    public int getQuizScore(ArrayList<String> answerList)
+    {
+        
+        return 0;
+    }
+    
     public boolean compareAnswer(String answerID)
     {
         dbconnect dbCon = new dbconnect();
