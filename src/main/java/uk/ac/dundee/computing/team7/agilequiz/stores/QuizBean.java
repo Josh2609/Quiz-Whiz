@@ -15,6 +15,7 @@ public class QuizBean {
     private String quizName;
     private int moduleID;
     private boolean available;
+    int numQuestions;
     //TODO
     
     public void setQuizID(int quizID)
@@ -28,5 +29,12 @@ public class QuizBean {
     
     public int getQuizVersion()
     {   return quizVersion;   }
+    
+    public void setNumQuestions(int numQuestions)
+    {   this.numQuestions = numQuestions;   }
+    
+    public int getNumQuestions()
+    {   return numQuestions;   }
+    
     
 }

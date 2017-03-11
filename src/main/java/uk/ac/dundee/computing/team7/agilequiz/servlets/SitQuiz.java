@@ -8,6 +8,7 @@ package uk.ac.dundee.computing.team7.agilequiz.servlets;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Iterator;
+import java.util.Map;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -65,45 +66,31 @@ public class SitQuiz extends HttpServlet
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         
-        Quiz quiz = new Quiz();
+        ArrayList<String> answerRadio = new ArrayList<>();
+        Map<String, String[]> parameters = request.getParameterMap();
         
-        ArrayList<QuestionBean> questions = quiz.getQuestions(Integer.parseInt(quizID));
-        ArrayList<AnswerBean> answers = quiz.getAnswers2();
-        
-        int numQuestions = Integer.parseInt(request.getParameter("i"));
-        
-        int[] radioBtn = new int[numQuestions];
-        
-        for (int i = 0; i < numQuestions; i++)
-        {
-            radioBtn[i] = Integer.parseInt(request.getParameter("optradio"+i));
-        }
-        
-        Iterator<QuestionBean> iterator;
-            iterator = questions.iterator();
-            int i = 0;
-            while (iterator.hasNext()) 
+        for(String parameter : parameters.keySet()) 
+        { 
+            if(parameter.toLowerCase().startsWith("optradio")) 
             {
-                i++;
-                QuestionBean qb = (QuestionBean) iterator.next();
-                System.out.println(qb.getQuestionText());
-
-              
-                Iterator<AnswerBean> iterator2;
-                iterator2 = answers.iterator();
-                int j = 0;
-                while (iterator2.hasNext()) 
-                {
-                    AnswerBean ab = (AnswerBean) iterator2.next();
-
-                    if (ab.getQuestionID() == qb.getQuestionID() )
-                    {
-                        j++;
-
-                    }
-                }
+                String[] temp = parameters.get(parameter);
+                answerRadio.add(temp[0]);
             }
-    
+        }
+        Quiz quiz = new Quiz();
 
+        int correctAnswers = 0;
+        for (int i = 0; i < answerRadio.size(); i++)
+        {
+            if(quiz.compareAnswer(answerRadio.get(i)))
+            {
+                correctAnswers++;
+            } else {
+            
+            }   
+        }     
+        RequestDispatcher rd = request.getRequestDispatcher("/quizresults.jsp");
+        request.setAttribute("correctAnswers", correctAnswers);
+        rd.forward(request, response);   
     }
 }
