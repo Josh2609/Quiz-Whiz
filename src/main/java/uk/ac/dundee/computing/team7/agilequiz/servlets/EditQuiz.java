@@ -86,7 +86,7 @@ public class EditQuiz extends HttpServlet
         }
         Quiz quiz = new Quiz();
         // refactored create code into quiz model class
-        quiz.createQuiz(numQuestions-1, questionArray, QandAlist2d);
+       // quiz.createQuiz(numQuestions-1, questionArray, QandAlist2d);
     
     }
 }

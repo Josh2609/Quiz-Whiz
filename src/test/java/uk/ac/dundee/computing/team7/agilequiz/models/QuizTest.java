@@ -97,15 +97,21 @@ public class QuizTest {
     public void testCreateQuiz() {
         System.out.println("createQuiz");
         int numQuestions = 1;
+        String quizName = "test";
+        String quizDescription = "test";
+        int available = 0;
+        String moduleID = "-1";
+        int creatorID = -1;
         String[] questionArray = new String[numQuestions+1];
         questionArray[numQuestions] = "test";
-        ArrayList<ArrayList<String>> QandAlist2d = new ArrayList<ArrayList<String>>();
+        ArrayList<ArrayList<String>> QandAlist2d = new ArrayList<>();
         ArrayList<String> QandAlist1d = new ArrayList<>();
         QandAlist1d.add("test");
         QandAlist2d.add(QandAlist1d);
         Quiz instance = new Quiz();
         boolean expResult = true;
-        boolean result = instance.createQuiz(numQuestions, questionArray, QandAlist2d);
+        boolean result = instance.createQuiz(quizName, quizDescription, moduleID, available, 
+                creatorID, numQuestions, questionArray, QandAlist2d);
         assertEquals(expResult, result);
     } 
 

@@ -180,23 +180,44 @@ public class Quiz {
     }
     
     // refactored from CreateQuiz post
-    public boolean createQuiz(int numQuestions, String[] questionArray, ArrayList<ArrayList<String>> QandAlist2d)
+    public boolean createQuiz(String quizName, String quizDescription, String moduleID, 
+            int available, int creatorID, int numQuestions, String[] questionArray, 
+            ArrayList<ArrayList<String>> QandAlist2d)
     {
         boolean success;
         dbconnect dbCon = new dbconnect();
 	Connection con = dbCon.mysqlConnect();
 	PreparedStatement stmt;
 	try {
-            String sql = "INSERT INTO question (Question_ID, Question_Text, Quiz_ID) VALUES (NULL, ?, 1)";
+            String sql = "INSERT INTO quiz (Quiz_ID, Quiz_Name, Available_Flag, Quiz_Version,"
+                    + " Module_ID, Quiz_Creator_ID, Quiz_Description)"
+                    + " VALUES (NULL, ?, ?, 1, ?, ?, ?)";
+            stmt = con.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
+            stmt.setString(1, quizName);
+            stmt.setInt(2, available);
+            stmt.setString(3, moduleID);
+            stmt.setInt(4, creatorID);
+            stmt.setString(5, quizDescription);
+            stmt.execute();
+            
+            int quizID = -1;
+            ResultSet rs = stmt.getGeneratedKeys();
+            while (rs.next()) {
+                quizID = rs.getInt(1);
+            }
+                    
+                    
+            sql = "INSERT INTO question (Question_ID, Question_Text, Quiz_ID) VALUES (NULL, ?, ?)";
             stmt = con.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
             for (int x = 1; x <= numQuestions; x++)
             {
                 stmt.setString(1, questionArray[x]);
+                stmt.setInt(2, quizID);
                 stmt.addBatch();
             }
             int [] questionID = new int[numQuestions+1];
             stmt.executeBatch();
-            ResultSet rs = stmt.getGeneratedKeys();
+            rs = stmt.getGeneratedKeys();
             int c = 0;
             while (rs.next()) {
                 int id = rs.getInt(1);

@@ -6,12 +6,7 @@
 package uk.ac.dundee.computing.team7.agilequiz.servlets;
 
 
-import com.mysql.cj.api.jdbc.Statement;
 import java.io.IOException;
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
 import java.util.*;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -19,7 +14,6 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import uk.ac.dundee.computing.team7.agilequiz.lib.dbconnect;
 import uk.ac.dundee.computing.team7.agilequiz.models.Quiz;
 
 
@@ -38,10 +32,17 @@ public class CreateQuiz extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         
+        String quizName = request.getParameter("quizName");
+        String quizDescription = request.getParameter("quizDescription");
+        String moduleID = request.getParameter("moduleSelect");
+        System.out.println(moduleID);
+        int available = 1;
+        int creatorID = 1;
+        
         int numQuestions = Integer.parseInt(request.getParameter("numQuestions"));
 
         String[] questionArray = new String[numQuestions+1];
-        ArrayList<ArrayList<String>> QandAlist2d = new ArrayList<ArrayList<String>>();
+        ArrayList<ArrayList<String>> QandAlist2d = new ArrayList<>();
 
         
         for (int i = 1; i <= numQuestions; i++)
@@ -59,6 +60,7 @@ public class CreateQuiz extends HttpServlet {
         }
         Quiz quiz = new Quiz();
         // refactored create code into quiz model class
-        quiz.createQuiz(numQuestions, questionArray, QandAlist2d);
+        quiz.createQuiz(quizName, quizDescription, moduleID, available, 
+                creatorID, numQuestions, questionArray, QandAlist2d);
     }
 }

@@ -71,22 +71,27 @@
         
 <!--START OF SECTION 1  
             <div id="section1" style="text-align:center">   -->
-                <h1>Details for the Quiz</h1><br>
-                    <form>
+                
+      
+      <!-- Questions START HERE-->  
+                
+
+      <form class="questions" method="POST"  action="CreateQuiz">
+          
+          <h1>Details for the Quiz</h1><br>
                         <div class="input-group">
                             <span class="input-group-addon">Title/Name</span>
-                            <input id="msg" type="text" class="form-control" name="msg" placeholder="Enter the Title for your Quiz here">
+                            <input type="text" class="form-control" name="quizName" placeholder="Enter the Name for your Quiz here">
                         </div>
                         <br>
                         <div class="input-group">
                             <span class="input-group-addon">Description</span>
-                            <textarea id="msg" type="text" class="form-control" name="msg" style="height:100px;" placeholder="Enter a short description of this Quiz here"></textarea>
+                            <textarea type="text" class="form-control" name="quizDescription" style="height:100px;" placeholder="Enter a short description of this Quiz here"></textarea>
                         </div>
-                    </form>
                 <br>
                 <label for="sel1">Select the Module code that this Quiz is contained within</label>
                 
-                <select class="form-control" id="sel1">
+                <select class="form-control" id="moduleSelect" name="moduleSelect">
                     <%
                     Module module = new Module();
                     ArrayList<String[]> moduleList = new ArrayList<>();
@@ -118,23 +123,21 @@
                     <input type="button" class="btn btn-primary" value="Done">
                 </div><br><br>-->
             <br><br>
-      
-      <!-- Questions START HERE-->  
-                <div id="section2" style="text-align:center">
-                    
-                    <form class="questions" method="POST"  action="CreateQuiz">
-                     <div id=questions style="text-align:center"> 
-                    <input type="button" class="btn btn-primary" onclick="addQuestion()" value="Add Question"><br><br>
-                    <input type="text" id="numQuestions" name="numQuestions" value="0" hidden>
-                        <div class="STYLE">
-                            <input type="submit" class="btn btn-success" value="Create">
+          
+          <div id="section2" style="text-align:center">
+              <div id=questions style="text-align:center"> 
+                  <input type="button" class="btn btn-primary" onclick="addQuestion()" value="Add Question"><br><br>
+                  <input type="text" id="numQuestions" name="numQuestions" value="0" hidden>
+                  <div class="STYLE">
+                      <input type="submit" class="btn btn-success" value="Create">
 
-                        </div> 
-                     </div>
-                    </form>
+                  </div> 
+              </div>
+          </div>
+      </form>
 
                     <br>   
-            </div>
+            
     </div>
 </body>
 </html>
