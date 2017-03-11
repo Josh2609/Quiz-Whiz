@@ -46,4 +46,10 @@ public class User
 	
 	return passwordHash;
     }
+    
+    public boolean CreateUser()
+    {
+        
+        return true;
+    }
 }
