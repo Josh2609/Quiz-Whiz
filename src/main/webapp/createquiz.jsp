@@ -8,7 +8,6 @@
 <!DOCTYPE html>
 <html>
     <head>
-	<%@ include file="header.jsp" %>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>Create a Quiz</title>
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
@@ -52,6 +51,8 @@
     
     
     <body>   
+        
+	<%@ include file="header.jsp" %>
 <!--<body data-spy="scroll" data-target="#myScrollspy" data-offset="20">
     <div class="row">
         <nav class="col-sm-3" id="myScrollspy">
