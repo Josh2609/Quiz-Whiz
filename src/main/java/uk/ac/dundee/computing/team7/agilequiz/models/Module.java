@@ -7,8 +7,11 @@ package uk.ac.dundee.computing.team7.agilequiz.models;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import uk.ac.dundee.computing.team7.agilequiz.lib.dbconnect;
 
 /**
@@ -63,10 +66,28 @@ public class Module {
         return success;
     }
     
-    public ArrayList<String> getModules()
+    public ArrayList<String[]> getModules()
     {
-        ArrayList<String> moduleList = new ArrayList<>();
+        ArrayList<String[]> moduleList = new ArrayList<>();
+        dbconnect dbCon = new dbconnect();
+	Connection con = dbCon.mysqlConnect();
+	PreparedStatement stmt;
+	String sql = "SELECT * From Module";
         
-        return null;
+        try {
+            stmt = con.prepareStatement(sql);
+	    ResultSet rs=stmt.executeQuery(); 
+            while(rs.next())
+            {
+                String[] temp = new String[3];
+                temp[0] = Integer.toString(rs.getInt("Module_ID"));
+                temp[1] = rs.getString("Module_Code");
+                temp[2] = rs.getString("Module_Name");
+                moduleList.add(temp);
+            }    
+        } catch (SQLException ex) {
+            Logger.getLogger(Quiz.class.getName()).log(Level.SEVERE, null, ex);
+        }  
+        return moduleList;
     }
 }

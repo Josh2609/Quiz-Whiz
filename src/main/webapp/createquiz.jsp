@@ -4,6 +4,8 @@
     Author     : Josh Corps
 --%>
 
+<%@page import="java.util.ArrayList"%>
+<%@page import="uk.ac.dundee.computing.team7.agilequiz.models.Module"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
@@ -83,11 +85,18 @@
                     </form>
                 <br>
                 <label for="sel1">Select the Module code that this Quiz is contained within</label>
+                
                 <select class="form-control" id="sel1">
-                    <option>AC007</option>
-                    <option>AC420</option>
-                    <option>AC360NoScope</option>
-                    <option>AC12:51</option>
+                    <%
+                    Module module = new Module();
+                    ArrayList<String[]> moduleList = new ArrayList<>();
+                    moduleList = module.getModules();
+                    for (int i = 0; i < moduleList.size(); i++)
+                    {
+                        String[] temp = moduleList.get(i);
+                        //for (int j = 0; j < temp.length; j++)%>
+                        <option value="<%=temp[0]%>"><%=temp[1]%></option>
+                   <%}%>
                 </select><br>
                 <label for="sel2">Select a Time a limit for your quiz</label>
                 <select class="form-control">

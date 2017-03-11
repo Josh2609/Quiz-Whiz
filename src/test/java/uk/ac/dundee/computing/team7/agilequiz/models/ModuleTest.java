@@ -75,10 +75,27 @@ public class ModuleTest {
     @Test
     public void testGetModules() {
         System.out.println("getModules");
-        Module instance = new Module();
+        Module module = new Module();
+        String[] moduleTestInfo = new String[3];
+        moduleTestInfo[0] = "1"; 
+        moduleTestInfo[1] = "AC31007";
+        moduleTestInfo[2] = "Agile Software Engineering";
         ArrayList<String> expResult = null;
-        ArrayList<String> result = instance.getModules();
-        assertEquals(expResult, result);
+        ArrayList<String[]> moduleList = new ArrayList<>();
+        moduleList = module.getModules();
+        
+        String[] moduleInfo = moduleList.get(0);
+        
+        for (int i = 0; i < moduleInfo.length; i++)
+        {
+            if (moduleInfo[i].equalsIgnoreCase(moduleTestInfo[i]))
+            {
+            } else {
+                fail();
+            }
+        }
+        
+        //assertEquals(expResult, moduleList);
     }
     
 }
