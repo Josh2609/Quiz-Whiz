@@ -50,5 +50,17 @@ public class UserTest {
 	boolean result = instance.checkDetails(matric, password);
 	assertEquals(expResult, result);
     }
+
+    /**
+     * Test of CreateUser method, of class User.
+     */
+    @Test
+    public void testCreateUser() {
+        System.out.println("CreateUser");
+        User instance = new User();
+        boolean expResult = true;
+        boolean result = instance.CreateUser();
+        assertEquals(expResult, result);
+    }
     
 }
