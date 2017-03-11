@@ -227,7 +227,8 @@ public class Quiz {
 	} catch (SQLException e)
 	{
             success = false;
-            System.out.println("Yo, SQLException thrown");
+            System.out.println("Yo1, SQLException thrown");
+            e.printStackTrace();
         }
         return success;
     }
