@@ -13,6 +13,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Iterator;
+import java.util.Map;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -52,26 +53,6 @@ public class EditQuiz extends HttpServlet
         ArrayList<QuestionBean> questions = quiz.getQuestions(Integer.parseInt(quizID));
         ArrayList<AnswerBean> answers = quiz.getAnswers2();
         
-        
-        Iterator<QuestionBean> iterator;
-        iterator = questions.iterator();
-        while (iterator.hasNext()) 
-        {
-            QuestionBean qb = (QuestionBean) iterator.next();
-            int questionID = qb.getQuestionID();
-            questionIDList.add(questionID);
-            Iterator<AnswerBean> iterator2;
-            iterator2 = answers.iterator();
-
-            while (iterator2.hasNext()) {
-                AnswerBean ab = (AnswerBean) iterator2.next();
-
-                if (ab.getQuestionID() == qb.getQuestionID()) {
-                    answerIDList.add(ab.getAnswerID());
-                }
-            }
-        }
-        
         RequestDispatcher rd = request.getRequestDispatcher("/editquiz.jsp");
         request.setAttribute("questions", questions);
         request.setAttribute("answers", answers);
@@ -82,127 +63,155 @@ public class EditQuiz extends HttpServlet
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        Quiz quiz = new Quiz();
         
-        String args[] = Converters.SplitRequestPath(request);
-        String quizID = args[2];
-        
-        ArrayList<QuestionBean> questions = quiz.getQuestions(Integer.parseInt(quizID));
-        ArrayList<AnswerBean> answers = quiz.getAnswers2();
-        
-        int oldQuizID = Integer.parseInt(request.getParameter("oldQuizID"));
-        
-        QuizBean qb = quiz.getQuiz(oldQuizID);
-        
-        int numQuestions =  Integer.parseInt(request.getParameter("numQuestions"));
+        int numQuestions = Integer.parseInt(request.getParameter("numQuestions"));
 
         String[] questionArray = new String[numQuestions+1];
         ArrayList<ArrayList<String>> QandAlist2d = new ArrayList<ArrayList<String>>();
-        
-        AnswerBean ab = new AnswerBean();
-        QuestionBean questionBean = new QuestionBean();
-        
-        Iterator<QuestionBean> iterator;
-        iterator = questions.iterator();
-        while (iterator.hasNext()) 
-        {
-            questionBean = (QuestionBean) iterator.next();
-            int questionID = questionBean.getQuestionID();
-            questionIDList.add(questionID);
-            Iterator<AnswerBean> iterator2;
-            iterator2 = answers.iterator();
 
-            while (iterator2.hasNext()) 
-            {
-                ab = (AnswerBean) iterator2.next();
-
-                if (ab.getQuestionID() == questionBean.getQuestionID()) 
-                {
-                    
-                }
-            }
-        }
         
-        for (int i = 1; i <= questionIDList.size(); i++)
+        for (int i = 1; i < numQuestions; i++)
         {
-            //compare answer-questionID to question-questionID
-            if (ab.getQuestionID() == questionBean.getQuestionID())
-            {
-                    
-            }
-            
             ArrayList<String> QandAlist1d = new ArrayList<>();
-            String qName = questionIDList.get(i-1) + "_numAnswers";
+            String qName = i + "_numAnswers";
+            System.out.println(request.getParameter(qName));
             int numAnswers = Integer.parseInt(request.getParameter(qName));
-            System.out.println("q: " + i + " a:" +numAnswers);
-            questionArray[i] = request.getParameter("question_" + questionIDList.get(i-1));
-            System.out.println("QARR " + i +" :"+questionArray[i]  );
+            questionArray[i] = request.getParameter("question_" + i);
             //QandAlist.add(new ArrayList<String>());
             for (int j = 1; j <= numAnswers; j++)
             {
-                //not getting all answers TODO
-                System.out.println("test: " + questionIDList.get(i-1) + "_answer_" + answerIDList.get(j-1));
-                //QandAlist1d.add(request.getParameter(questionIDList.get(i-1) + "_answer_" + answerIDList.get(j-1)));
-                //System.out.println("QAND ++++++++==++=+=++ " +QandAlist1d.get(j-1));
+                QandAlist1d.add(request.getParameter(i + "_answer_" + j));
             }
             QandAlist2d.add(QandAlist1d);
         }
-        
-        dbconnect dbCon = new dbconnect();
-	Connection con = dbCon.mysqlConnect();
-	PreparedStatement stmt;
-        
-        int newQuizID = 0;
-        
-	try {
-            String sql = "UPDATE question SET Question_Text=? WHERE Question_ID=?";
-            stmt = con.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
-            
-            for (int x = 1; x <= numQuestions; x++)
-            {
-                stmt.setString(1, questionArray[x]);
-                stmt.setInt(2, questionIDList.get(x-1));
-                stmt.addBatch();
-            }
-            int [] questionID = new int[numQuestions+1];
-            stmt.executeBatch();
-            ResultSet rs = stmt.getGeneratedKeys();
-            int c = 0;
-            while (rs.next()) {
-                int id = rs.getInt(1);
-                questionID[c] = id;
-                c++;
-            }
-            
-            sql = "UPDATE answer SET Answer_Text=? WHERE Answer_ID=?";
-            stmt = con.prepareStatement(sql);
-            for (int y = 1; y <= numQuestions; y++)
-            {
-                ArrayList<String> testList;
-                testList = QandAlist2d.get(y-1);
-                for (int i = 0; i < testList.size(); i++)
-                {
-                    
-                        System.out.println("testList item "+y+":" + i + " = " + testList.get(i));
-                     
-                }
-                for (int z = 1; z <= testList.size(); z++)
-                {                  
-                    if (testList.get(z-1) != null)
-                    {
-                        stmt.setString(1, testList.get(z-1));
-                        stmt.setInt(2, answerIDList.get(z-1));
-                        stmt.addBatch();
-                    }
-                }
-            }
-	    stmt.executeBatch();  
-	} catch (SQLException e)
-	{
-            System.out.println("Yo, SQLException thrown");
-            e.printStackTrace();
-        }
-        
-    }
+        Quiz quiz = new Quiz();
+        // refactored create code into quiz model class
+       // quiz.createQuiz(numQuestions-1, questionArray, QandAlist2d);
     
+    }
 }
+    
+//        Quiz quiz = new Quiz();
+//        
+//        String args[] = Converters.SplitRequestPath(request);
+//        String quizID = args[2];
+//        
+//        ArrayList<QuestionBean> questions = quiz.getQuestions(Integer.parseInt(quizID));
+//        ArrayList<AnswerBean> answers = quiz.getAnswers2();
+//        
+//        int oldQuizID = Integer.parseInt(request.getParameter("oldQuizID"));
+//        
+//        QuizBean qb = quiz.getQuiz(oldQuizID);
+//        
+//        int numQuestions =  Integer.parseInt(request.getParameter("numQuestions"));
+//
+//        String[] questionArray = new String[numQuestions+1];
+//        ArrayList<ArrayList<String>> QandAlist2d = new ArrayList<ArrayList<String>>();
+//        
+//        AnswerBean ab = new AnswerBean();
+//        QuestionBean questionBean = new QuestionBean();
+//        
+//        Iterator<QuestionBean> iterator;
+//        iterator = questions.iterator();
+//        while (iterator.hasNext()) 
+//        {
+//            questionBean = (QuestionBean) iterator.next();
+//            int questionID = questionBean.getQuestionID();
+//            questionIDList.add(questionID);
+//            Iterator<AnswerBean> iterator2;
+//            iterator2 = answers.iterator();
+//
+//            while (iterator2.hasNext()) 
+//            {
+//                ab = (AnswerBean) iterator2.next();
+//
+//                if (ab.getQuestionID() == questionBean.getQuestionID()) 
+//                {
+//                    
+//                }
+//            }
+//        }
+//        
+//        for (int i = 1; i <= questionIDList.size(); i++)
+//        {
+//            //compare answer-questionID to question-questionID
+//            if (ab.getQuestionID() == questionBean.getQuestionID())
+//            {
+//                    
+//            }
+//            
+//            ArrayList<String> QandAlist1d = new ArrayList<>();
+//            String qName = questionIDList.get(i-1) + "_numAnswers";
+//            int numAnswers = Integer.parseInt(request.getParameter(qName));
+//            System.out.println("q: " + i + " a:" +numAnswers);
+//            questionArray[i] = request.getParameter("question_" + questionIDList.get(i-1));
+//            System.out.println("QARR " + i +" :"+questionArray[i]  );
+//            //QandAlist.add(new ArrayList<String>());
+//            for (int j = 1; j <= numAnswers; j++)
+//            {
+//                //not getting all answers TODO
+//                System.out.println("test: " + questionIDList.get(i-1) + "_answer_" + answerIDList.get(j-1));
+//                //QandAlist1d.add(request.getParameter(questionIDList.get(i-1) + "_answer_" + answerIDList.get(j-1)));
+//                //System.out.println("QAND ++++++++==++=+=++ " +QandAlist1d.get(j-1));
+//            }
+//            QandAlist2d.add(QandAlist1d);
+//        }
+//        
+//        dbconnect dbCon = new dbconnect();
+//	Connection con = dbCon.mysqlConnect();
+//	PreparedStatement stmt;
+//        
+//        int newQuizID = 0;
+//        
+//	try {
+//            String sql = "UPDATE question SET Question_Text=? WHERE Question_ID=?";
+//            stmt = con.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
+//            
+//            for (int x = 1; x <= numQuestions; x++)
+//            {
+//                stmt.setString(1, questionArray[x]);
+//                stmt.setInt(2, questionIDList.get(x-1));
+//                stmt.addBatch();
+//            }
+//            int [] questionID = new int[numQuestions+1];
+//            stmt.executeBatch();
+//            ResultSet rs = stmt.getGeneratedKeys();
+//            int c = 0;
+//            while (rs.next()) {
+//                int id = rs.getInt(1);
+//                questionID[c] = id;
+//                c++;
+//            }
+//            
+//            sql = "UPDATE answer SET Answer_Text=? WHERE Answer_ID=?";
+//            stmt = con.prepareStatement(sql);
+//            for (int y = 1; y <= numQuestions; y++)
+//            {
+//                ArrayList<String> testList;
+//                testList = QandAlist2d.get(y-1);
+//                for (int i = 0; i < testList.size(); i++)
+//                {
+//                    
+//                        System.out.println("testList item "+y+":" + i + " = " + testList.get(i));
+//                     
+//                }
+//                for (int z = 1; z <= testList.size(); z++)
+//                {                  
+//                    if (testList.get(z-1) != null)
+//                    {
+//                        stmt.setString(1, testList.get(z-1));
+//                        stmt.setInt(2, answerIDList.get(z-1));
+//                        stmt.addBatch();
+//                    }
+//                }
+//            }
+//	    stmt.executeBatch();  
+//	} catch (SQLException e)
+//	{
+//            System.out.println("Yo, SQLException thrown");
+//            e.printStackTrace();
+//        }
+//        
+//    }
+//    
+//}

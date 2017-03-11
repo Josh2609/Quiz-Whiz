@@ -46,11 +46,12 @@
 
 
         %>
-        <br>Question&nbsp;&nbsp;&nbsp;&nbsp;<input type="text" name="question_<%=qb.getQuestionID()%>" value="<%=qb.getQuestionText()%>"><br>Answer(s)
+        <br>Question&nbsp;&nbsp;&nbsp;&nbsp;<input type="text" name="question_<%=questionNum%>" value="<%=qb.getQuestionText()%>"><br>Answer(s)
         <%
                 Iterator<AnswerBean> iterator2;
                 iterator2 = answers.iterator();
                 int answerNum = 1;
+                
                 while (iterator2.hasNext()) 
                 {
                     AnswerBean ab = (AnswerBean) iterator2.next();
@@ -58,13 +59,13 @@
                     if (ab.getQuestionID() == qb.getQuestionID() )
                     {
                         %>
-                        <input type="text" name="<%=qb.getQuestionID()%>_answer_<%=ab.getAnswerID()%>" value="<%=ab.getAnswerText()%>">
+                        <input type="text" name="<%=questionNum%>_answer_<%=answerNum%>" value="<%=ab.getAnswerText()%>">
                         <%
                         answerNum++;
                     }
                 }  
                 %>
-                <input type="text" name="<%=qb.getQuestionID()%>_numAnswers" value="<%=answerNum%>" hidden>
+                <input type="text" id="<%=questionNum%>_numAnswers" name="<%=questionNum%>_numAnswers" value="<%=answerNum-1%>" hidden>
                 <%
                 questionNum++;
             }

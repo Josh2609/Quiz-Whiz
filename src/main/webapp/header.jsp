@@ -20,10 +20,13 @@
                     <ul class="nav navbar-nav">
                         <li><a href="${pageContext.request.contextPath}/">Home</a></li>
                         <li><a href="${pageContext.request.contextPath}/ViewQuiz/1">View Quizzes</a></li>
+
                         <li><a href="${pageContext.request.contextPath}/CreateQuiz">Create a quiz</a></li>
                         <li><a href="${pageContext.request.contextPath}/EditQuiz/1">Edit your quizzes</a></li>
+                        <li><a href="${pageContext.request.contextPath}/SitQuiz/1">Sit Quiz</a></li>
                    </ul>
                    <ul class="nav navbar-nav navbar-right">
+
                         <li><a href="${pageContext.request.contextPath}/signup.jsp"><span class="glyphicon glyphicon-user"></span> Sign Up</a></li>
                         <li><a href="${pageContext.request.contextPath}/Login"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
                    </ul>

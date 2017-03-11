@@ -5,6 +5,7 @@
  */
 package uk.ac.dundee.computing.team7.agilequiz.models;
 
+import java.util.ArrayList;
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;
@@ -66,6 +67,35 @@ public class ModuleTest {
         boolean expResult = true;
         boolean result = instance.removeModule(moduleCode);
         assertEquals(expResult, result);
+    }
+
+    /**
+     * Test of getModules method, of class Module.
+     */
+    @Test
+    public void testGetModules() {
+        System.out.println("getModules");
+        Module module = new Module();
+        String[] moduleTestInfo = new String[3];
+        moduleTestInfo[0] = "1"; 
+        moduleTestInfo[1] = "AC31007";
+        moduleTestInfo[2] = "Agile Software Engineering";
+        ArrayList<String> expResult = null;
+        ArrayList<String[]> moduleList = new ArrayList<>();
+        moduleList = module.getModules();
+        
+        String[] moduleInfo = moduleList.get(0);
+        
+        for (int i = 0; i < moduleInfo.length; i++)
+        {
+            if (moduleInfo[i].equalsIgnoreCase(moduleTestInfo[i]))
+            {
+            } else {
+                fail();
+            }
+        }
+        
+        //assertEquals(expResult, moduleList);
     }
     
 }

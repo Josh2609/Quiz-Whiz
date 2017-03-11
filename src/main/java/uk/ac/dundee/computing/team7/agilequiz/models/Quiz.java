@@ -11,6 +11,8 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import uk.ac.dundee.computing.team7.agilequiz.lib.dbconnect;
 import uk.ac.dundee.computing.team7.agilequiz.stores.AnswerBean;
 import uk.ac.dundee.computing.team7.agilequiz.stores.QuestionBean;
@@ -178,23 +180,44 @@ public class Quiz {
     }
     
     // refactored from CreateQuiz post
-    public boolean createQuiz(int numQuestions, String[] questionArray, ArrayList<ArrayList<String>> QandAlist2d)
+    public boolean createQuiz(String quizName, String quizDescription, String moduleID, 
+            int available, int creatorID, int numQuestions, String[] questionArray, 
+            ArrayList<ArrayList<String>> QandAlist2d)
     {
         boolean success;
         dbconnect dbCon = new dbconnect();
 	Connection con = dbCon.mysqlConnect();
 	PreparedStatement stmt;
 	try {
-            String sql = "INSERT INTO question (Question_ID, Question_Text, Quiz_ID) VALUES (NULL, ?, 1)";
+            String sql = "INSERT INTO quiz (Quiz_ID, Quiz_Name, Available_Flag, Quiz_Version,"
+                    + " Module_ID, Quiz_Creator_ID, Quiz_Description)"
+                    + " VALUES (NULL, ?, ?, 1, ?, ?, ?)";
+            stmt = con.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
+            stmt.setString(1, quizName);
+            stmt.setInt(2, available);
+            stmt.setString(3, moduleID);
+            stmt.setInt(4, creatorID);
+            stmt.setString(5, quizDescription);
+            stmt.execute();
+            
+            int quizID = -1;
+            ResultSet rs = stmt.getGeneratedKeys();
+            while (rs.next()) {
+                quizID = rs.getInt(1);
+            }
+                    
+                    
+            sql = "INSERT INTO question (Question_ID, Question_Text, Quiz_ID) VALUES (NULL, ?, ?)";
             stmt = con.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
             for (int x = 1; x <= numQuestions; x++)
             {
                 stmt.setString(1, questionArray[x]);
+                stmt.setInt(2, quizID);
                 stmt.addBatch();
             }
             int [] questionID = new int[numQuestions+1];
             stmt.executeBatch();
-            ResultSet rs = stmt.getGeneratedKeys();
+            rs = stmt.getGeneratedKeys();
             int c = 0;
             while (rs.next()) {
                 int id = rs.getInt(1);
@@ -225,10 +248,53 @@ public class Quiz {
 	} catch (SQLException e)
 	{
             success = false;
-            System.out.println("Yo, SQLException thrown");
+            System.out.println("Yo1, SQLException thrown");
+            e.printStackTrace();
         }
         return success;
     }
     
+    
+    public int getNumQuestions()
+    {
+        return 0;
+    }
+    
+    public int getQuizScore(ArrayList<String> answerList)
+    {
+        int correctAnswers = 0;
+        for (int i = 0; i < answerList.size(); i++)
+        {
+            if(compareAnswer(answerList.get(i)))
+            {
+                correctAnswers++;
+            }
+        }
+        return 0;
+    }
+    
+    public boolean compareAnswer(String answerID)
+    {
+        dbconnect dbCon = new dbconnect();
+	Connection con = dbCon.mysqlConnect();
+	PreparedStatement stmt;
+        String sql = "SELECT Correct_Answer_Flag From Answer WHERE Answer_ID=?";
+        System.out.println("lakjFALSK " + answerID);
+        
+        try {
+            stmt = con.prepareStatement(sql);
+            stmt.setInt(1, Integer.parseInt(answerID));
+	    ResultSet rs=stmt.executeQuery(); 
+            
+            while(rs.next())
+            {
+                return rs.getInt("Correct_Answer_Flag") == 1;
+            }
+            
+        } catch (SQLException ex) {
+            Logger.getLogger(Quiz.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return true;
+    }
     
 }
