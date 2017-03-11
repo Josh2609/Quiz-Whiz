@@ -8,6 +8,7 @@ package uk.ac.dundee.computing.team7.agilequiz.models;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import uk.ac.dundee.computing.team7.agilequiz.lib.dbconnect;
 
 /**
@@ -60,5 +61,12 @@ public class Module {
         }
         success = numAffectedRows > 0;
         return success;
+    }
+    
+    public ArrayList<String> getModules()
+    {
+        ArrayList<String> moduleList = new ArrayList<>();
+        
+        return null;
     }
 }

@@ -5,6 +5,7 @@
  */
 package uk.ac.dundee.computing.team7.agilequiz.models;
 
+import java.util.ArrayList;
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;
@@ -65,6 +66,18 @@ public class ModuleTest {
         Module instance = new Module();
         boolean expResult = true;
         boolean result = instance.removeModule(moduleCode);
+        assertEquals(expResult, result);
+    }
+
+    /**
+     * Test of getModules method, of class Module.
+     */
+    @Test
+    public void testGetModules() {
+        System.out.println("getModules");
+        Module instance = new Module();
+        ArrayList<String> expResult = null;
+        ArrayList<String> result = instance.getModules();
         assertEquals(expResult, result);
     }
     
