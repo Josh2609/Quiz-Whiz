@@ -11,15 +11,20 @@
 <!DOCTYPE html>
 <html>
     <head>
-		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-		<link rel="stylesheet" type= "text/css" href="style.css">    
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-		<%@ include file="header.jsp" %>
+        <title>Login</title>
+        <script src="js/createQuiz.js"></script>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+        <!-- Latest compiled and minified CSS -->
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+        <link rel="stylesheet" content= "text/css" href="${pageContext.request.contextPath}/style.css">
         <title>Login</title>
     </head>
 	
 	
     <body>
+        <%@ include file="header.jsp" %>
 	<div class="container">
     <div class="col-sm-9">
 	<h1 style="text-align:center">Login</h1><br>
