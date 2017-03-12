@@ -279,7 +279,6 @@ public class Quiz {
 	Connection con = dbCon.mysqlConnect();
 	PreparedStatement stmt;
         String sql = "SELECT Correct_Answer_Flag From Answer WHERE Answer_ID=?";
-        System.out.println("lakjFALSK " + answerID);
         
         try {
             stmt = con.prepareStatement(sql);
@@ -297,9 +296,35 @@ public class Quiz {
         return true;
     }
     
-    public ArrayList<String> getQuizList()
+    public ArrayList<String[]> getAvailableQuizList()
     {
-        ArrayList<String> quizList = new ArrayList<>();
+        ArrayList<String[]> quizList = new ArrayList<>();
+        
+        dbconnect dbCon = new dbconnect();
+	Connection con = dbCon.mysqlConnect();
+	PreparedStatement stmt;
+        String sql = "SELECT Quiz_ID, Quiz_Name, Quiz_Version, Module_ID,"
+                + " Quiz_Creator_ID, Quiz_Description From quiz WHERE Available_Flag = 1";
+        
+        try {
+            stmt = con.prepareStatement(sql);
+	    ResultSet rs=stmt.executeQuery();       
+
+            while(rs.next())
+            {
+                String[] tempArr = new String[6];
+                tempArr[0] = Integer.toString(rs.getInt("Quiz_ID"));
+                tempArr[1] = rs.getString("Quiz_Name");
+                tempArr[2] = Integer.toString(rs.getInt("Quiz_Version"));
+                tempArr[3] = rs.getString("Module_ID");
+                tempArr[4] = Integer.toString(rs.getInt("Quiz_Creator_ID"));
+                tempArr[5] = rs.getString("Quiz_Description");
+                quizList.add(tempArr);
+            }
+            
+        } catch (SQLException ex) {
+            Logger.getLogger(Quiz.class.getName()).log(Level.SEVERE, null, ex);
+        }
         
         return quizList;
     }

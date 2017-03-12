@@ -171,11 +171,15 @@ public class QuizTest {
      * Test of getQuizList method, of class Quiz.
      */
     @Test
-    public void testGetQuizList() {
+    public void testGetAvailableQuizList() {
         System.out.println("getQuizList");
-        ArrayList<String> testList = new ArrayList<>();
+        ArrayList<String[]> testList = new ArrayList<>();
         Quiz instance = new Quiz();
-        ArrayList<String> quizList = instance.getQuizList();
-        Assert.assertEquals(testList, quizList);
+        ArrayList<String[]> quizList = instance.getAvailableQuizList();
+        if (quizList.size() > 0)
+            assertTrue(true);
+        else 
+            fail();
+        //Assert.assertEquals(testList, quizList);
     }
 }
