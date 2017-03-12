@@ -64,5 +64,18 @@ public class StudentUserTest {
         boolean result = instance.createStudentUser(matric, password);
         assertEquals(expResult, result);
     }
+
+    /**
+     * Test of removeStudent method, of class StudentUser.
+     */
+    @Test
+    public void testRemoveStudent() {
+        System.out.println("removeStudent");
+        String matric = "matric";
+        StudentUser instance = new StudentUser();
+        boolean expResult = true;
+        boolean result = instance.removeStudent(matric);
+        assertEquals(expResult, result);
+    }
     
 }

@@ -66,4 +66,23 @@ public class StudentUser
         }
         return numAffectedRows > 0;
     }
+    
+    public boolean removeStudent(String matric)
+    {
+        int numAffectedRows = 0;
+        dbconnect dbCon = new dbconnect();
+	Connection con = dbCon.mysqlConnect();
+	PreparedStatement stmt;
+	try {
+            String sql = "DELETE FROM student_user WHERE Matric_Number=?";
+            stmt = con.prepareStatement(sql);
+            stmt.setString(1, matric);
+            numAffectedRows = stmt.executeUpdate();
+        } 
+        catch (SQLException e)
+	{
+            e.printStackTrace();
+        }
+        return numAffectedRows > 0;
+    }
 }
