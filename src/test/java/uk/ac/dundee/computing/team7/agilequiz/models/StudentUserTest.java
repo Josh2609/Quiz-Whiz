@@ -38,41 +38,41 @@ public class StudentUserTest {
     }
 
     /**
-     * Test of checkDetails method, of class StudentUser.
+     * Test of checkDetails method, of class Student.
      */
     @Test
     public void testCheckDetails() {
 	System.out.println("checkDetails");
 	String matric = "130012977";
 	String password = "password";
-	StudentUser instance = new StudentUser();
+	Student instance = new Student();
 	boolean expResult = true;
 	boolean result = instance.checkDetails(matric, password);
 	assertEquals(expResult, result);
     }
 
     /**
-     * Test of CreateUser method, of class StudentUser.
+     * Test of CreateUser method, of class Student.
      */
     @Test
-    public void testCreateStudentUser() {
+    public void testCreateStudent() {
         System.out.println("CreateUser");
         String matric = "matric";
         String password = "password";         
-        StudentUser instance = new StudentUser();
+        Student instance = new Student();
         boolean expResult = true;
-        boolean result = instance.createStudentUser(matric, password);
+        boolean result = instance.createStudent(matric, password);
         assertEquals(expResult, result);
     }
 
     /**
-     * Test of removeStudent method, of class StudentUser.
+     * Test of removeStudent method, of class Student.
      */
     @Test
     public void testRemoveStudent() {
         System.out.println("removeStudent");
         String matric = "matric";
-        StudentUser instance = new StudentUser();
+        Student instance = new Student();
         boolean expResult = true;
         boolean result = instance.removeStudent(matric);
         assertEquals(expResult, result);

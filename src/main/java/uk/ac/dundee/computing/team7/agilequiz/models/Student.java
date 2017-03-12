@@ -15,7 +15,7 @@ import uk.ac.dundee.computing.team7.agilequiz.lib.dbconnect;
  *
  * @author Josh Corps
  */
-public class StudentUser 
+public class Student 
 {
  
     public boolean checkDetails(String matric, String password)
@@ -47,14 +47,14 @@ public class StudentUser
 	return passwordHash;
     }
     
-    public boolean createStudentUser(String matric, String password)
+    public boolean createStudent(String matric, String password)
     {
         int numAffectedRows = 0;
         dbconnect dbCon = new dbconnect();
 	Connection con = dbCon.mysqlConnect();
 	PreparedStatement stmt;
 	try {
-	    String sql = "INSERT INTO student_user (User_ID, Matric_Number, User_Password) VALUES (NULL, ?, ?)";
+	    String sql = "INSERT INTO student (User_ID, Matric_Number, User_Password) VALUES (NULL, ?, ?)";
 	    stmt = con.prepareStatement(sql);
 	    stmt.setString(1, matric);
 	    stmt.setString(2, password);
@@ -74,7 +74,7 @@ public class StudentUser
 	Connection con = dbCon.mysqlConnect();
 	PreparedStatement stmt;
 	try {
-            String sql = "DELETE FROM student_user WHERE Matric_Number=?";
+            String sql = "DELETE FROM student WHERE Matric_Number=?";
             stmt = con.prepareStatement(sql);
             stmt.setString(1, matric);
             numAffectedRows = stmt.executeUpdate();

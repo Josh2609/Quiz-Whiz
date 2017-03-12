@@ -12,7 +12,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import uk.ac.dundee.computing.team7.agilequiz.models.StudentUser;
+import uk.ac.dundee.computing.team7.agilequiz.models.Student;
 
 /**
  *
@@ -35,7 +35,7 @@ public class StudentSignup extends HttpServlet
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         
-        // refactored some of login into StudentUser.java
+        // refactored some of login into Student.java
         String matric = request.getParameter("matric");
         String password = request.getParameter("password");
         String repeatPassword = request.getParameter("repeatPassword");
@@ -48,8 +48,8 @@ public class StudentSignup extends HttpServlet
             rd.forward(request, response);
             return;
         }
-        StudentUser user = new StudentUser();
-        user.createStudentUser(matric, password);
+        Student user = new Student();
+        user.createStudent(matric, password);
         
     }
 }

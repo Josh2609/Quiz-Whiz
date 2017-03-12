@@ -14,7 +14,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.http.HttpSession;
-import uk.ac.dundee.computing.team7.agilequiz.models.StudentUser;
+import uk.ac.dundee.computing.team7.agilequiz.models.Student;
 import uk.ac.dundee.computing.team7.agilequiz.stores.LoggedIn;
 
 /**
@@ -57,11 +57,11 @@ public class Login extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         
-        // refactored some of login into StudentUser.java
+        // refactored some of login into Student.java
         String matric = request.getParameter("matric");
         String password = request.getParameter("password");
 	
-	StudentUser user = new StudentUser();
+	Student user = new Student();
 	HttpSession session=request.getSession();
 
 	
