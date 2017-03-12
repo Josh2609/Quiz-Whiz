@@ -16,9 +16,9 @@ import static org.junit.Assert.*;
  *
  * @author Josh
  */
-public class UserTest {
+public class StudentUserTest {
     
-    public UserTest() {
+    public StudentUserTest() {
     }
     
     @BeforeClass
@@ -38,28 +38,30 @@ public class UserTest {
     }
 
     /**
-     * Test of checkDetails method, of class User.
+     * Test of checkDetails method, of class StudentUser.
      */
     @Test
     public void testCheckDetails() {
 	System.out.println("checkDetails");
 	String matric = "130012977";
 	String password = "password";
-	User instance = new User();
+	StudentUser instance = new StudentUser();
 	boolean expResult = true;
 	boolean result = instance.checkDetails(matric, password);
 	assertEquals(expResult, result);
     }
 
     /**
-     * Test of CreateUser method, of class User.
+     * Test of CreateUser method, of class StudentUser.
      */
     @Test
-    public void testCreateUser() {
+    public void testCreateStudentUser() {
         System.out.println("CreateUser");
-        User instance = new User();
+        String matric = "matric";
+        String password = "password";         
+        StudentUser instance = new StudentUser();
         boolean expResult = true;
-        boolean result = instance.CreateUser();
+        boolean result = instance.createStudentUser(matric, password);
         assertEquals(expResult, result);
     }
     

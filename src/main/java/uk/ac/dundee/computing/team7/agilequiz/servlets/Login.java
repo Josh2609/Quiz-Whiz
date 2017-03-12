@@ -14,7 +14,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.http.HttpSession;
-import uk.ac.dundee.computing.team7.agilequiz.models.User;
+import uk.ac.dundee.computing.team7.agilequiz.models.StudentUser;
 import uk.ac.dundee.computing.team7.agilequiz.stores.LoggedIn;
 
 /**
@@ -57,11 +57,11 @@ public class Login extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         
-        // refactored some of login into User.java
+        // refactored some of login into StudentUser.java
         String matric = request.getParameter("matric");
         String password = request.getParameter("password");
 	
-	User user = new User();
+	StudentUser user = new StudentUser();
 	HttpSession session=request.getSession();
 
 	
@@ -74,9 +74,8 @@ public class Login extends HttpServlet {
 	    session.setAttribute("Matric", matric);
 	    session.setAttribute("LoggedIn", lg);
 	    System.out.println("Session in servlet "+session);
-            RequestDispatcher rd=request.getRequestDispatcher("index.jsp");
-	    rd.forward(request,response);
-            
+            RequestDispatcher rd=request.getRequestDispatcher("/index.jsp");
+	    rd.forward(request,response);           
 	} else {
 	    RequestDispatcher rd = request.getRequestDispatcher("/login.jsp");
 	    request.setAttribute("Message", "The Matriculation Number or Password entered is incorrect.");

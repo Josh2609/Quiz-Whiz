@@ -15,7 +15,7 @@ import uk.ac.dundee.computing.team7.agilequiz.lib.dbconnect;
  *
  * @author Josh Corps
  */
-public class User 
+public class StudentUser 
 {
  
     public boolean checkDetails(String matric, String password)
@@ -24,7 +24,7 @@ public class User
 	Connection con = dbCon.mysqlConnect();
 	PreparedStatement stmt;
 	try {
-	    String sql = "SELECT Matric_Number, User_Password FROM User WHERE Matric_Number=? AND User_Password=?";
+	    String sql = "SELECT Matric_Number, User_Password FROM student_user WHERE Matric_Number=? AND User_Password=?";
 	    stmt = con.prepareStatement(sql);
 	    stmt.setString(1, matric);
 	    stmt.setString(2, password);
@@ -47,9 +47,23 @@ public class User
 	return passwordHash;
     }
     
-    public boolean CreateUser()
+    public boolean createStudentUser(String matric, String password)
     {
-        
-        return true;
+        int numAffectedRows = 0;
+        dbconnect dbCon = new dbconnect();
+	Connection con = dbCon.mysqlConnect();
+	PreparedStatement stmt;
+	try {
+	    String sql = "INSERT INTO student_user (User_ID, Matric_Number, User_Password) VALUES (NULL, ?, ?)";
+	    stmt = con.prepareStatement(sql);
+	    stmt.setString(1, matric);
+	    stmt.setString(2, password);
+	    numAffectedRows = stmt.executeUpdate();
+        } 
+        catch (SQLException e)
+	{
+            e.printStackTrace();
+        }
+        return numAffectedRows > 0;
     }
 }

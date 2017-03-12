@@ -27,7 +27,7 @@
                    </ul>
                    <ul class="nav navbar-nav navbar-right">
 
-                        <li><a href="${pageContext.request.contextPath}/signup.jsp"><span class="glyphicon glyphicon-user"></span> Sign Up</a></li>
+                        <li><a href="${pageContext.request.contextPath}/SignUp"><span class="glyphicon glyphicon-user"></span> Sign Up</a></li>
                         <li><a href="${pageContext.request.contextPath}/Login"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
                    </ul>
                     <!--Search bar, if wanted <form class="navbar-form navbar-left">

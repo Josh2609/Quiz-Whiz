@@ -22,7 +22,6 @@ public class Module {
     // code refactored from AddModule servlet
     public boolean addModule(String moduleCode, String moduleName)
     {
-        boolean success;
         int numAffectedRows = 0;
         dbconnect dbCon = new dbconnect();
 	Connection con = dbCon.mysqlConnect();
@@ -36,13 +35,9 @@ public class Module {
         } 
         catch (SQLException e)
 	{
-            System.out.println("Yo, SQLException thrown");
+            e.printStackTrace();
         }
-        if (numAffectedRows > 0)
-            success = true;
-        else 
-            success = false;
-        return success;
+        return numAffectedRows > 0;
     }
     
     public boolean removeModule(String moduleCode)
