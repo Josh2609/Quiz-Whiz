@@ -1,3 +1,4 @@
+<%@page import="uk.ac.dundee.computing.team7.agilequiz.stores.LoggedIn"%>
 <head>
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
     <link rel="stylesheet" content= "text/css" href="${pageContext.request.contextPath}/style.css">
@@ -25,10 +26,20 @@
                         <li><a href="${pageContext.request.contextPath}/EditQuiz/1">Edit your quizzes</a></li>
                         <li><a href="${pageContext.request.contextPath}/SitQuiz/1">Sit Quiz</a></li>
                    </ul>
-                   <ul class="nav navbar-nav navbar-right">
+                        <ul class="nav navbar-nav navbar-right">
 
-                        <li><a href="${pageContext.request.contextPath}/SignUp"><span class="glyphicon glyphicon-user"></span> Sign Up</a></li>
-                        <li><a href="${pageContext.request.contextPath}/Login"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
+                            <%
+                            LoggedIn lg = (LoggedIn) session.getAttribute("LoggedIn");
+                            if (lg != null) {
+                                String matric = lg.getMatric();
+                                if (lg.getloggedIn()) {%>
+                                    <li><a href=""><span></span><%=lg.getMatric()%></a></li>
+                                <%}
+                            } else {%>
+                                <li><a href="${pageContext.request.contextPath}/signup.jsp"><span class="glyphicon glyphicon-user"></span> Sign Up</a></li>
+                                <li><a href="${pageContext.request.contextPath}/Login"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
+                            <%}%>
+                        </ul>
                    </ul>
                     <!--Search bar, if wanted <form class="navbar-form navbar-left">
                         <div class="form-group">

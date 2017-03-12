@@ -33,22 +33,15 @@
             {
                 String[] tempArr = iterator.next();
                 %>
-                <p>
+                <p><a href="${pageContext.request.contextPath}/ViewQuiz/<%=tempArr[0]%>">
                 <%
                 for (int i = 0; i < tempArr.length; i++)
                 {
-                    if (i == 0)
-                    {
-                        %>
-                        <a href="${pageContext.request.contextPath}/ViewQuiz/<%=tempArr[i]%>"></a>
-                        <%
-                        continue;
-                    }
                 %>
                     &nbsp; <%=tempArr[i]%>  &nbsp;
                 <%}
                 %>
-                </p>
+                </a></p>
                 <%
             }
             

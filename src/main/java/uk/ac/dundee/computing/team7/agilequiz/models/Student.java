@@ -9,6 +9,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import org.mindrot.jbcrypt.BCrypt;
 import uk.ac.dundee.computing.team7.agilequiz.lib.dbconnect;
 
 /**
@@ -22,18 +23,23 @@ public class Student
     {
 	dbconnect dbCon = new dbconnect();
 	Connection con = dbCon.mysqlConnect();
+        boolean passwordMatch = false;
 	PreparedStatement stmt;
 	try {
-	    String sql = "SELECT Matric_Number, User_Password FROM student WHERE Matric_Number=? AND User_Password=?";
+	    String sql = "SELECT Matric_Number, User_Password FROM student WHERE Matric_Number=?";
 	    stmt = con.prepareStatement(sql);
 	    stmt.setString(1, matric);
-	    stmt.setString(2, password);
 	    ResultSet rs=stmt.executeQuery();  
-	    return rs.isBeforeFirst();
+            
+            while(rs.next())
+            {
+                passwordMatch = BCrypt.checkpw(password, rs.getString("User_Password"));
+            }
+	    return passwordMatch;
 
 	} catch (SQLException e)
 	{
-	    	System.out.println("TODO");
+	    	e.printStackTrace();
 	}
 	return false;
     }
@@ -41,10 +47,8 @@ public class Student
     // TODO
     private String hashPassword(String password)
     {
-	String passwordHash = null;
-	
-	
-	return passwordHash;
+	String hashedPassword = BCrypt.hashpw(password, BCrypt.gensalt());
+	return hashedPassword;
     }
     
     public boolean createStudent(String matric, String password)
@@ -53,11 +57,12 @@ public class Student
         dbconnect dbCon = new dbconnect();
 	Connection con = dbCon.mysqlConnect();
 	PreparedStatement stmt;
+        String hashedPassword = hashPassword(password);
 	try {
 	    String sql = "INSERT INTO student (User_ID, Matric_Number, User_Password) VALUES (NULL, ?, ?)";
 	    stmt = con.prepareStatement(sql);
 	    stmt.setString(1, matric);
-	    stmt.setString(2, password);
+	    stmt.setString(2, hashedPassword);
 	    numAffectedRows = stmt.executeUpdate();
         } 
         catch (SQLException e)
