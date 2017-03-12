@@ -55,9 +55,11 @@
             if (currentPage != 1)
             {%>
                 <button class="btn btn-success" onclick="location.href = '${pageContext.request.contextPath}/ViewQuiz?page=<%=currentPage-1%>'" type="button">Previous Page</button>
+            <%}
+            if (quizList.size() > 9)
+            {%>
+                <button class="btn btn-success" onclick="location.href = '${pageContext.request.contextPath}/ViewQuiz?page=<%=currentPage+1%>'" type="button">Next Page</button>
             <%}%>
-            <button class="btn btn-success" onclick="location.href = '${pageContext.request.contextPath}/ViewQuiz?page=<%=currentPage+1%>'" type="button">Next Page</button>
-
         </div>
     </body>
 </html>
