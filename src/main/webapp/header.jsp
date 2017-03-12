@@ -19,7 +19,7 @@
                 <div class="collapse navbar-collapse" id="myNavbar">
                     <ul class="nav navbar-nav">
                         <li><a href="${pageContext.request.contextPath}/">Home</a></li>
-                        <li><a href="${pageContext.request.contextPath}/ViewQuizzes?page=1">View Quizzes</a></li>
+                        <li><a href="${pageContext.request.contextPath}/ViewQuiz">View Quizzes</a></li>
 
                         <li><a href="${pageContext.request.contextPath}/CreateQuiz">Create a quiz</a></li>
                         <li><a href="${pageContext.request.contextPath}/EditQuiz/1">Edit your quizzes</a></li>
