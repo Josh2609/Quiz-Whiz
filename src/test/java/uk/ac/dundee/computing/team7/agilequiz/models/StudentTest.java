@@ -16,9 +16,9 @@ import static org.junit.Assert.*;
  *
  * @author Josh
  */
-public class StudentUserTest {
+public class StudentTest {
     
-    public StudentUserTest() {
+    public StudentTest() {
     }
     
     @BeforeClass
@@ -56,7 +56,7 @@ public class StudentUserTest {
      */
     @Test
     public void testCreateStudent() {
-        System.out.println("CreateUser");
+        System.out.println("createStudent");
         String matric = "matric";
         String password = "password";         
         Student instance = new Student();

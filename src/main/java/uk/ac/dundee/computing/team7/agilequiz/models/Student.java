@@ -24,7 +24,7 @@ public class Student
 	Connection con = dbCon.mysqlConnect();
 	PreparedStatement stmt;
 	try {
-	    String sql = "SELECT Matric_Number, User_Password FROM student_user WHERE Matric_Number=? AND User_Password=?";
+	    String sql = "SELECT Matric_Number, User_Password FROM student WHERE Matric_Number=? AND User_Password=?";
 	    stmt = con.prepareStatement(sql);
 	    stmt.setString(1, matric);
 	    stmt.setString(2, password);

@@ -18,19 +18,20 @@
                if(msg != null) { %>
             <p id="flash_message"><%= msg %></p>
             <% } %>
-	<form method="POST"  action="SignUp">	
+	<form method="POST"  action="StaffSignup">	
                 <ul>
                     <div class="input-group">
-                        <span class="input-group-addon">&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&nbsp;Staff ID</span>
-                        <input id="msg" type="text" class="form-control" name="matric" placeholder="Enter your staff ID number here">
+                        <span class="input-group-addon">Matriculation Number</span>
+                        <input type="text" class="form-control" name="staffNumber" placeholder="Enter your Staff Number here"
+                               <%if(request.getAttribute("staffNumber") != null){%> value=<%=request.getAttribute("staffNumber")%><%}%>>
                     </div>
                     <div class="input-group">
                         <span class="input-group-addon">&emsp;&emsp;&emsp;&emsp;&emsp;&nbsp;Password</span>
-                        <input id="msg" type="password" class="form-control" name="password" placeholder="Enter your password here">
+                        <input type="password" class="form-control" name="password" placeholder="Enter your password here">
                     </div>
 					 <div class="input-group">
                         <span class="input-group-addon">&emsp;&nbsp;&nbsp;Confirm password</span>
-                        <input id="msg" type="password" class="form-control" name="password" placeholder="Enter your password again">
+                        <input type="password" class="form-control" name="repeatPassword" placeholder="Enter your password again">
                     </div>
                 </ul>
                 <br/>
