@@ -7,14 +7,12 @@ package uk.ac.dundee.computing.team7.agilequiz.servlets;
 
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Iterator;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import uk.ac.dundee.computing.team7.agilequiz.lib.Converters;
 import uk.ac.dundee.computing.team7.agilequiz.models.Quiz;
 
 /**
@@ -22,8 +20,7 @@ import uk.ac.dundee.computing.team7.agilequiz.models.Quiz;
  * @author joshcorps
  */
 @WebServlet(urlPatterns = {
-    "/ViewQuizzes",
-    "/ViewQuizzes/*",
+    "/ViewQuiz",
 })
 public class ViewQuizzes extends HttpServlet 
 {  
@@ -31,18 +28,18 @@ public class ViewQuizzes extends HttpServlet
     protected void doGet(HttpServletRequest request, HttpServletResponse response) 
             throws ServletException, IOException {   
         
-        String args[] = Converters.SplitRequestPath(request);
-        System.out.println(args.length);
-        int currentPage = 1;
-        if (args.length > 2)
+        int cPage = 1;
+        if (request.getParameter("page") != null)
         {
-            currentPage = Integer.parseInt(args[2]);
+            cPage = Integer.parseInt(request.getParameter("page"));
         }
+        
         Quiz quiz = new Quiz();
-        ArrayList<String[]> quizList = quiz.getAvailableQuizList(currentPage);
+        ArrayList<String[]> quizList = quiz.getAvailableQuizList(cPage);
 
         RequestDispatcher rd = request.getRequestDispatcher("/viewquizzes.jsp");
         request.setAttribute("quizList", quizList);
+        request.setAttribute("currentPage", cPage);
         rd.forward(request, response);  
     }
 }
