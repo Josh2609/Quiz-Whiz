@@ -14,6 +14,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import uk.ac.dundee.computing.team7.agilequiz.lib.Converters;
 import uk.ac.dundee.computing.team7.agilequiz.models.Quiz;
 
 /**
@@ -21,7 +22,8 @@ import uk.ac.dundee.computing.team7.agilequiz.models.Quiz;
  * @author joshcorps
  */
 @WebServlet(urlPatterns = {
-    "/ViewQuiz",
+    "/ViewQuizzes",
+    "/ViewQuizzes/*",
 })
 public class ViewQuizzes extends HttpServlet 
 {  
@@ -29,8 +31,15 @@ public class ViewQuizzes extends HttpServlet
     protected void doGet(HttpServletRequest request, HttpServletResponse response) 
             throws ServletException, IOException {   
         
+        String args[] = Converters.SplitRequestPath(request);
+        System.out.println(args.length);
+        int currentPage = 1;
+        if (args.length > 2)
+        {
+            currentPage = Integer.parseInt(args[2]);
+        }
         Quiz quiz = new Quiz();
-        ArrayList<String[]> quizList = quiz.getAvailableQuizList();
+        ArrayList<String[]> quizList = quiz.getAvailableQuizList(currentPage);
 
         RequestDispatcher rd = request.getRequestDispatcher("/viewquizzes.jsp");
         request.setAttribute("quizList", quizList);
