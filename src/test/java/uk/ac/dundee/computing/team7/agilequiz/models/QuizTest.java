@@ -166,4 +166,16 @@ public class QuizTest {
         int result = instance.getQuizScore(answerList);
         assertEquals(expResult, result);
     }
+
+    /**
+     * Test of getQuizList method, of class Quiz.
+     */
+    @Test
+    public void testGetQuizList() {
+        System.out.println("getQuizList");
+        ArrayList<String> testList = new ArrayList<>();
+        Quiz instance = new Quiz();
+        ArrayList<String> quizList = instance.getQuizList();
+        Assert.assertEquals(testList, quizList);
+    }
 }

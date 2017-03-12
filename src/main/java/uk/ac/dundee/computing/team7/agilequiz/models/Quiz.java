@@ -297,4 +297,11 @@ public class Quiz {
         return true;
     }
     
+    public ArrayList<String> getQuizList()
+    {
+        ArrayList<String> quizList = new ArrayList<>();
+        
+        return quizList;
+    }
+    
 }
