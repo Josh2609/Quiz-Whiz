@@ -26,11 +26,10 @@
                         {       
                             if (lg.getloggedIn()) 
                             { %>
-                        <li><a href="${pageContext.request.contextPath}/ViewQuiz">View Quizzes</a></li>
+                        <li><a href="${pageContext.request.contextPath}/ViewQuiz">Quizzes</a></li>
 
                         <li><a href="${pageContext.request.contextPath}/CreateQuiz">Create Quiz</a></li>
                         <li><a href="${pageContext.request.contextPath}/EditQuiz/1">Edit Quizzes</a></li>
-                        <li><a href="${pageContext.request.contextPath}/SitQuiz/1">Sit Quiz</a></li>
                             <%}
                         }%>
                    </ul>
