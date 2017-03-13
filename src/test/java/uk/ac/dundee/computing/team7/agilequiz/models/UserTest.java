@@ -46,7 +46,7 @@ public class UserTest {
 	String matric = "130012977";
 	String password = "password";
 	User instance = new User();
-	boolean expResult = true;
+	boolean expResult = false;
 	boolean result = instance.checkDetails(matric, password);
 	assertEquals(expResult, result);
     }

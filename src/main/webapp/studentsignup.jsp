@@ -30,7 +30,7 @@
                     </div>
 					 <div class="input-group">
                         <span class="input-group-addon">&emsp;&nbsp;&nbsp;Confirm password</span>
-                        <input id="msg" type="password" class="form-control" name="password" placeholder="Enter your password again">
+                        <input id="msg" type="password" class="form-control" name="passwordconfirm" placeholder="Enter your password again">
                     </div>
                 </ul>
                 <br/>
