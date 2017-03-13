@@ -26,32 +26,33 @@
 
         <h1>Quiz List!</h1>
         <%
-            ArrayList<String[]> quizList = (ArrayList<String[]>) request.getAttribute("quizList");;
+            ArrayList<String[]> quizList = (ArrayList<String[]>) request.getAttribute("quizList");
+            int currentPage = (int) request.getAttribute("currentPage");;
             Iterator<String[]> iterator = quizList.iterator();
             while (iterator.hasNext())
             {
                 String[] tempArr = iterator.next();
                 %>
-                <p>
+                <p><a href="${pageContext.request.contextPath}/ViewQuiz/<%=tempArr[0]%>">
                 <%
                 for (int i = 0; i < tempArr.length; i++)
                 {
-                    if (i == 0)
-                    {
-                        %>
-                        <a href="${pageContext.request.contextPath}/ViewQuiz/<%=tempArr[i]%>"/>
-                        <%
-                        continue;
-                    }
                 %>
                     &nbsp; <%=tempArr[i]%>  &nbsp;
                 <%}
                 %>
-                </p>
+                </a></p>
                 <%
             }
             
-            %>
+            if (currentPage != 1)
+            {%>
+                <button class="btn btn-success" onclick="location.href = '${pageContext.request.contextPath}/ViewQuiz?page=<%=currentPage-1%>'" type="button">Previous Page</button>
+            <%}
+            if (quizList.size() > 9)
+            {%>
+                <button class="btn btn-success" onclick="location.href = '${pageContext.request.contextPath}/ViewQuiz?page=<%=currentPage+1%>'" type="button">Next Page</button>
+            <%}%>
         </div>
     </body>
 </html>

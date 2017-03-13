@@ -175,7 +175,7 @@ public class QuizTest {
         System.out.println("getQuizList");
         ArrayList<String[]> testList = new ArrayList<>();
         Quiz instance = new Quiz();
-        ArrayList<String[]> quizList = instance.getAvailableQuizList();
+        ArrayList<String[]> quizList = instance.getAvailableQuizList(1);
         if (quizList.size() > 0)
             assertTrue(true);
         else 

@@ -296,7 +296,7 @@ public class Quiz {
         return true;
     }
     
-    public ArrayList<String[]> getAvailableQuizList()
+    public ArrayList<String[]> getAvailableQuizList(int currentPage)
     {
         ArrayList<String[]> quizList = new ArrayList<>();
         
@@ -304,10 +304,20 @@ public class Quiz {
 	Connection con = dbCon.mysqlConnect();
 	PreparedStatement stmt;
         String sql = "SELECT Quiz_ID, Quiz_Name, Quiz_Version, Module_ID,"
-                + " Quiz_Creator_ID, Quiz_Description From quiz WHERE Available_Flag = 1";
+                + " Quiz_Creator_ID, Quiz_Description From quiz WHERE Available_Flag=1"
+                + " LIMIT ? OFFSET ?";
+        
+        int limit = currentPage*10;
+        int offset = (currentPage*10)-9;
+        if (currentPage == 1)
+        {
+            offset = 0;
+        }
         
         try {
             stmt = con.prepareStatement(sql);
+            stmt.setInt(1, limit);
+            stmt.setInt(2, offset);
 	    ResultSet rs=stmt.executeQuery();       
 
             while(rs.next())

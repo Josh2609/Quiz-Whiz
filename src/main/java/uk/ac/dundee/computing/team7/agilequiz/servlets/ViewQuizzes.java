@@ -7,7 +7,6 @@ package uk.ac.dundee.computing.team7.agilequiz.servlets;
 
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Iterator;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -29,11 +28,18 @@ public class ViewQuizzes extends HttpServlet
     protected void doGet(HttpServletRequest request, HttpServletResponse response) 
             throws ServletException, IOException {   
         
+        int cPage = 1;
+        if (request.getParameter("page") != null)
+        {
+            cPage = Integer.parseInt(request.getParameter("page"));
+        }
+        
         Quiz quiz = new Quiz();
-        ArrayList<String[]> quizList = quiz.getAvailableQuizList();
+        ArrayList<String[]> quizList = quiz.getAvailableQuizList(cPage);
 
         RequestDispatcher rd = request.getRequestDispatcher("/viewquizzes.jsp");
         request.setAttribute("quizList", quizList);
+        request.setAttribute("currentPage", cPage);
         rd.forward(request, response);  
     }
 }
