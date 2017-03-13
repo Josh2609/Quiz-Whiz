@@ -25,7 +25,6 @@ import uk.ac.dundee.computing.team7.agilequiz.stores.QuestionBean;
  * @author Josh Corps
  */
 @WebServlet(urlPatterns = {
-    "/ViewQuiz", 
     "/ViewQuiz/*",
 })
 public class ViewQuiz extends HttpServlet 

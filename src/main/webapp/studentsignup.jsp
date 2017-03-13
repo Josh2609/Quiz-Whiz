@@ -18,25 +18,26 @@
                if(msg != null) { %>
             <p id="flash_message"><%= msg %></p>
             <% } %>
-	<form method="POST"  action="SignUp">	
+	<form method="POST" action="StudentSignup">	
                 <ul>
                     <div class="input-group">
                         <span class="input-group-addon">Matriculation Number</span>
-                        <input id="msg" type="text" class="form-control" name="matric" placeholder="Enter your matriculation number here">
+                        <input type="text" class="form-control" name="matric" placeholder="Enter your matriculation number here"
+                               <%if(request.getAttribute("matric") != null){%> value=<%=request.getAttribute("matric")%><%}%>>
                     </div>
                     <div class="input-group">
                         <span class="input-group-addon">&emsp;&emsp;&emsp;&emsp;&emsp;&nbsp;Password</span>
-                        <input id="msg" type="password" class="form-control" name="password" placeholder="Enter your password here">
+                        <input type="password" class="form-control" name="password" placeholder="Enter your password here">
                     </div>
 					 <div class="input-group">
                         <span class="input-group-addon">&emsp;&nbsp;&nbsp;Confirm password</span>
-                        <input id="msg" type="password" class="form-control" name="passwordconfirm" placeholder="Enter your password again">
+                        <input type="password" class="form-control" name="repeatPassword" placeholder="Enter your password again">
                     </div>
                 </ul>
                 <br/>
                 <div class="span12" style="text-align:center">
                     <div class="STYLE">
-                                    <input type="submit" class="btn btn-success" value="Sign Up">
+                        <input type="submit" class="btn btn-success" value="Sign Up">
                     </div>
                 </div> 
 		

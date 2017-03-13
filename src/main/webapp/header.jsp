@@ -1,3 +1,4 @@
+<%@page import="uk.ac.dundee.computing.team7.agilequiz.stores.LoggedIn"%>
 <head>
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
     <link rel="stylesheet" content= "text/css" href="${pageContext.request.contextPath}/style.css">
@@ -19,18 +20,26 @@
                 <div class="collapse navbar-collapse" id="myNavbar">
                     <ul class="nav navbar-nav">
                         <li><a href="${pageContext.request.contextPath}/">Home</a></li>
-                        <li><a href="${pageContext.request.contextPath}/ViewQuiz/1">View Quizzes</a></li>
+                        <li><a href="${pageContext.request.contextPath}/ViewQuiz">View Quizzes</a></li>
 
                         <li><a href="${pageContext.request.contextPath}/CreateQuiz">Create Quiz</a></li>
                         <li><a href="${pageContext.request.contextPath}/EditQuiz/1">Edit Quizzes</a></li>
                         <li><a href="${pageContext.request.contextPath}/SitQuiz/1">Sit Quiz</a></li>
                    </ul>
-                   <ul class="nav navbar-nav navbar-right">
+                        <ul class="nav navbar-nav navbar-right">
 
-                        <!--<li><a href="${pageContext.request.contextPath}/signup.jsp"><span class="glyphicon glyphicon-user"></span> Sign Up</a></li>
-                        <li><a href="${pageContext.request.contextPath}/Login"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>-->
-                        <li><a href="#register" data-toggle="modal" data-target="#logModal" class="modal-toggle"><span class="glyphicon glyphicon-user"></span> Sign Up</a></li>
-                        <li><a href="#login" data-toggle="modal" data-target="#logModal" class="modal-toggle"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
+                            <%
+                            LoggedIn lg = (LoggedIn) session.getAttribute("LoggedIn");
+                            if (lg != null) {
+                                String matric = lg.getMatric();
+                                if (lg.getloggedIn()) {%>
+                                    <li><a href=""><span></span><%=lg.getMatric()%></a></li>
+                                <%}
+                            } else {%>
+                                <li><a href="#register" data-toggle="modal" data-target="#logModal" class="modal-toggle"><span class="glyphicon glyphicon-user"></span> Sign Up</a></li>
+                                <li><a href="#login" data-toggle="modal" data-target="#logModal" class="modal-toggle"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
+                            <%}%>
+                        </ul>
                    </ul>
                     <!--Search bar, if wanted <form class="navbar-form navbar-left">
                         <div class="form-group">
@@ -76,13 +85,13 @@
 		</form>
             </div>
             <div id="register" class="tab-pane fade">
-                <form method="POST"  action="SignUp">
+                <form method="POST"  action="StudentSignup">
                     <div style="text-align:center;">
                         <input id="msg" type="text" class="inputDesign" name="matric" placeholder="Enter your matriculation number here"><br>
                             <br>
                         <input id="msg" type="password" class="inputDesign" name="password" placeholder="Enter your password here"><br>
                             <br>
-                        <input id="msg" type="password" class="inputDesign" name="password" placeholder="Enter your password again"><br>
+                        <input id="msg" type="password" class="inputDesign" name="repeatPassword" placeholder="Enter your password again"><br>
                         <br>
                     </div>    
                     <br><br>
