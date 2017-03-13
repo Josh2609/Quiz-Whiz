@@ -20,20 +20,26 @@
                 <div class="collapse navbar-collapse" id="myNavbar">
                     <ul class="nav navbar-nav">
                         <li><a href="${pageContext.request.contextPath}/">Home</a></li>
-                        <li><a href="${pageContext.request.contextPath}/ViewQuiz">View Quizzes</a></li>
+                         <%
+                        LoggedIn lg = (LoggedIn) session.getAttribute("LoggedIn");
+                        if (lg != null) 
+                        {       
+                            if (lg.getloggedIn()) 
+                            { %>
+                        <li><a href="${pageContext.request.contextPath}/ViewQuiz">Quizzes</a></li>
 
                         <li><a href="${pageContext.request.contextPath}/CreateQuiz">Create Quiz</a></li>
                         <li><a href="${pageContext.request.contextPath}/EditQuiz/1">Edit Quizzes</a></li>
-                        <li><a href="${pageContext.request.contextPath}/SitQuiz/1">Sit Quiz</a></li>
+                            <%}
+                        }%>
                    </ul>
                         <ul class="nav navbar-nav navbar-right">
 
                             <%
-                            LoggedIn lg = (LoggedIn) session.getAttribute("LoggedIn");
                             if (lg != null) {
-                                String matric = lg.getMatric();
                                 if (lg.getloggedIn()) {%>
                                     <li><a href=""><span></span><%=lg.getMatric()%></a></li>
+                                    <li><a href="${pageContext.request.contextPath}/Logout"><span></span>Logout</a></li>
                                 <%}
                             } else {%>
                                 <li><a href="#register" data-toggle="modal" data-target="#logModal" class="modal-toggle"><span class="glyphicon glyphicon-user"></span> Sign Up</a></li>
