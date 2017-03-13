@@ -77,9 +77,9 @@
             <div id="login" class="tab-pane">
                 <form method="POST"  action="Login">	
                     <div style="text-align:center;">
-                        <input id="msg" type="text" class="inputDesign" name="matric" placeholder="Enter your matriculation number here"><br>
+                        <input id="msg" type="text" class="inputDesign" name="matric" placeholder="Matriculation Number"><br>
                             <br>
-                        <input id="msg" type="password" class="inputDesign" name="password" placeholder="Enter your password here"><br>
+                        <input id="msg" type="password" class="inputDesign" name="password" placeholder="Password"><br>
                         <br><br><br>
                     </div>
                     <div class="span12" style="text-align:center">
@@ -93,11 +93,11 @@
             <div id="register" class="tab-pane fade">
                 <form method="POST"  action="StudentSignup">
                     <div style="text-align:center;">
-                        <input id="msg" type="text" class="inputDesign" name="matric" placeholder="Enter your matriculation number here"><br>
+                        <input id="msg" type="text" class="inputDesign" name="matric" placeholder="Matriculation Number"><br>
                             <br>
-                        <input id="msg" type="password" class="inputDesign" name="password" placeholder="Enter your password here"><br>
+                        <input id="msg" type="password" class="inputDesign" name="password" placeholder="Password"><br>
                             <br>
-                        <input id="msg" type="password" class="inputDesign" name="repeatPassword" placeholder="Enter your password again"><br>
+                        <input id="msg" type="password" class="inputDesign" name="repeatPassword" placeholder="Confirm Password"><br>
                         <br>
                     </div>    
                     <br><br>
