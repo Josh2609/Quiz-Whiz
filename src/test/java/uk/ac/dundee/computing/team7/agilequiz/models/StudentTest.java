@@ -45,6 +45,7 @@ public class StudentTest {
 	System.out.println("checkDetails");
 	String matric = "130012977";
 	String password = "password";
+
 	Student instance = new Student();
 	boolean expResult = true;
 	boolean result = instance.checkDetails(matric, password);

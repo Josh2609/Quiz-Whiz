@@ -51,5 +51,7 @@ public class StudentSignup extends HttpServlet
         Student user = new Student();
         user.createStudent(matric, password);
         
+        RequestDispatcher rd = request.getRequestDispatcher("/index.jsp");
+        rd.forward(request, response);
     }
 }
