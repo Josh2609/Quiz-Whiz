@@ -92,7 +92,10 @@ public class SitQuiz extends HttpServlet
             } else {
                 incorrectAnswerList.add(Integer.parseInt(answerRadio.get(i)));
             }   
-        }     
+        }
+        int completedQuizID = 0;
+        quiz.addCompletedAnswers(correctAnswerList, incorrectAnswerList, completedQuizID);
+        
         RequestDispatcher rd = request.getRequestDispatcher("/quizresults.jsp");
         request.setAttribute("correctAnswers", correctAnswers);
         rd.forward(request, response);   

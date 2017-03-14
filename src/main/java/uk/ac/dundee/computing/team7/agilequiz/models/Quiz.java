@@ -339,9 +339,43 @@ public class Quiz {
         return quizList;
     }
     
-    public boolean addCompletedAnswers(ArrayList<Integer> correctAnswerList, ArrayList<Integer> incorrectAnswerList)
+    
+    public boolean AddCompletedQuiz(int score, int attempt, int quizID, int studentID)
     {
-        
+     
+        return true;
+    }
+    
+    public boolean addCompletedAnswers(ArrayList<Integer> correctAnswerList, ArrayList<Integer> incorrectAnswerList, int completedQuizID)
+    {
+        dbconnect dbCon = new dbconnect();
+	Connection con = dbCon.mysqlConnect();
+	PreparedStatement stmt;
+	try {       
+            
+            String sql = "INSERT INTO completed_answer (Comleted_Answer_ID, Correct_Answer_Flag,"
+                    + " Answer_ID, Completed_Quiz_ID) VALUES (NULL, ?, ?, ?)";
+            stmt = con.prepareStatement(sql);
+            for (int i = 0; i < correctAnswerList.size(); i++)
+            {
+                stmt.setInt(1, 1);
+                stmt.setInt(2, correctAnswerList.get(i));
+                stmt.setInt(3, completedQuizID);
+                stmt.addBatch();
+            }
+            for (int i = 0; i < correctAnswerList.size(); i++)
+            {
+                stmt.setInt(1, 0);
+                stmt.setInt(2, incorrectAnswerList.get(i));
+                stmt.setInt(3, completedQuizID);
+                stmt.addBatch();
+            }
+            stmt.executeBatch();
+        } 
+        catch (SQLException e)
+	{
+            e.printStackTrace();
+        }
         return true;
     }
 }

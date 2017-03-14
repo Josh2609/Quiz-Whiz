@@ -193,7 +193,23 @@ public class QuizTest {
         ArrayList<Integer> incorrectAnswerList = null;
         Quiz instance = new Quiz();
         boolean expResult = true;
-        boolean result = instance.addCompletedAnswers(correctAnswerList, incorrectAnswerList);
+        boolean result = instance.addCompletedAnswers(correctAnswerList, incorrectAnswerList, 1);
+        assertEquals(expResult, result);
+    }
+
+    /**
+     * Test of AddCompletedQuiz method, of class Quiz.
+     */
+    @Test
+    public void testAddCompletedQuiz() {
+        System.out.println("AddCompletedQuiz");
+        int score = 0;
+        int attempt = 0;
+        int quizID = 0;
+        int studentID = 0;
+        Quiz instance = new Quiz();
+        boolean expResult = false;
+        boolean result = instance.AddCompletedQuiz(score, attempt, quizID, studentID);
         assertEquals(expResult, result);
     }
 }
