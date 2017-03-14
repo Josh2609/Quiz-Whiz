@@ -37,6 +37,8 @@ public class StudentSignup extends HttpServlet
         
         // refactored some of login into Student.java
         String matric = request.getParameter("matric");
+        String fname = request.getParameter("fname");
+        String sname = request.getParameter("sname");
         String password = request.getParameter("password");
         String repeatPassword = request.getParameter("repeatPassword");
         
@@ -49,7 +51,7 @@ public class StudentSignup extends HttpServlet
             return;
         }
         Student user = new Student();
-        user.createStudent(matric, password);
+        user.createStudent(matric, fname, sname, password);
         
         RequestDispatcher rd = request.getRequestDispatcher("/index.jsp");
         rd.forward(request, response);

@@ -9,7 +9,9 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import org.mindrot.jbcrypt.BCrypt;
 import uk.ac.dundee.computing.team7.agilequiz.lib.dbconnect;
+import uk.ac.dundee.computing.team7.agilequiz.stores.ProfileBean;
 
 /**
  *
@@ -22,18 +24,23 @@ public class Staff
     {
 	dbconnect dbCon = new dbconnect();
 	Connection con = dbCon.mysqlConnect();
+        boolean passwordMatch = false;
 	PreparedStatement stmt;
 	try {
-	    String sql = "SELECT Staff_Number, User_Password FROM staff WHERE Staff_Number=? AND User_Password=?";
+	    String sql = "SELECT Staff_Number, User_Password FROM staff WHERE Staff_Number=?";
 	    stmt = con.prepareStatement(sql);
 	    stmt.setString(1, staffNumber);
-	    stmt.setString(2, password);
 	    ResultSet rs=stmt.executeQuery();  
-	    return rs.isBeforeFirst();
-
+           
+            while(rs.next())
+            {
+                passwordMatch = BCrypt.checkpw(password, rs.getString("User_Password"));
+            }
+	    return passwordMatch;
+            
 	} catch (SQLException e)
 	{
-	    	System.out.println("TODO");
+	    	e.printStackTrace();
 	}
 	return false;
     }
@@ -41,23 +48,24 @@ public class Staff
     // TODO
     private String hashPassword(String password)
     {
-	String passwordHash = null;
-	
-	
-	return passwordHash;
+	String hashedPassword = BCrypt.hashpw(password, BCrypt.gensalt());
+	return hashedPassword;
     }
     
-    public boolean createStaff(String staffNumber, String password)
+    public boolean createStaff(String staffNumber, String fname, String sname, String password)
     {
         int numAffectedRows = 0;
         dbconnect dbCon = new dbconnect();
 	Connection con = dbCon.mysqlConnect();
-	PreparedStatement stmt;
+	PreparedStatement stmt;                
+        String hashedPassword = hashPassword(password);
 	try {
-	    String sql = "INSERT INTO staff (User_ID, Staff_Number, User_Password) VALUES (NULL, ?, ?)";
+	    String sql = "INSERT INTO staff (User_ID, Staff_Number, User_Password, First_Name, Surname) VALUES (NULL, ?, ?, ?, ?)";
 	    stmt = con.prepareStatement(sql);
 	    stmt.setString(1, staffNumber);
-	    stmt.setString(2, password);
+	    stmt.setString(2, hashedPassword);
+            stmt.setString(3, fname);
+            stmt.setString(4, sname);
 	    numAffectedRows = stmt.executeUpdate();
         } 
         catch (SQLException e)
@@ -84,5 +92,29 @@ public class Staff
             e.printStackTrace();
         }
         return numAffectedRows > 0;
+    }
+    
+    public ProfileBean getStaffProfile(ProfileBean profile, String staffNumber){
+        dbconnect dbCon = new dbconnect();
+	Connection con = dbCon.mysqlConnect();
+	PreparedStatement stmt;
+	try {
+	    String sql = "SELECT * FROM staff WHERE Staff_Number=?";
+	    stmt = con.prepareStatement(sql);
+	    stmt.setString(1, staffNumber);
+	    ResultSet rs=stmt.executeQuery();    
+            
+            while(rs.next()){
+                profile.setFirstName(rs.getString("First_Name"));
+                profile.setSurname(rs.getString("Surname"));
+                
+            }
+            profile.setMatric(staffNumber);
+
+	} catch (SQLException e)
+	{
+	    	e.printStackTrace();
+	}
+        return profile;
     }
 }

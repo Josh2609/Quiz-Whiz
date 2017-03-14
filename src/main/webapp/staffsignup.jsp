@@ -21,8 +21,18 @@
 	<form method="POST"  action="StaffSignup">	
                 <ul>
                     <div class="input-group">
-                        <span class="input-group-addon">Matriculation Number</span>
-                        <input type="text" class="form-control" name="staffNumber" placeholder="Enter your Staff Number here"
+                        <span class="input-group-addon">Staff ID</span>
+                        <input type="text" class="form-control" name="staffid" placeholder="Enter your Staff Number here"
+                               <%if(request.getAttribute("staffNumber") != null){%> value=<%=request.getAttribute("staffNumber")%><%}%>>
+                    </div>
+                    <div class="input-group">
+                        <span class="input-group-addon">First Name</span>
+                        <input type="text" class="form-control" name="fname" placeholder="Enter your First Name here"
+                               <%if(request.getAttribute("staffNumber") != null){%> value=<%=request.getAttribute("staffNumber")%><%}%>>
+                    </div>
+                    <div class="input-group">
+                        <span class="input-group-addon">Surname</span>
+                        <input type="text" class="form-control" name="sname" placeholder="Enter your Surname here"
                                <%if(request.getAttribute("staffNumber") != null){%> value=<%=request.getAttribute("staffNumber")%><%}%>>
                     </div>
                     <div class="input-group">

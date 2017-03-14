@@ -11,7 +11,9 @@ package uk.ac.dundee.computing.team7.agilequiz.stores;
  */
 public class LoggedIn {
     private boolean loggedIn = false;
+    private boolean staff = false;
     private String matric = null;
+    private String staffID = null;
     
       
     public void LoggedIn(){
@@ -23,6 +25,24 @@ public class LoggedIn {
     public String getMatric(){
         return matric;
     }
+    
+    public void setStudent(){
+        this.staff = false;
+    }
+    public void setStaff(){
+        this.staff = true;
+    }
+    public boolean getStaff(){
+        return staff;
+    }
+    
+    public void setStaffID(String staffid){
+        this.staffID = staffid;
+    }
+    public String getStaffID(){
+        return staffID;
+    }
+    
     public void setLoggedIn(){
         loggedIn=true;
     }
