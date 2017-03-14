@@ -43,8 +43,8 @@
          <br>
          </div></div>
         <div style="text-align:center">
-		<input type="submit" class="btn btn-success" value="Log In" onclick=window.location="/AgileQuiz/login.jsp";>
-		<input type="submit" class="btn btn-success" value="Sign Up"onclick=window.location="/AgileQuiz/signup.jsp";>
+		<input type="submit" class="btn btn-success" value="Log In" onclick=window.location="${pageContext.request.contextPath}/Login";>
+		<input type="submit" class="btn btn-success" value="Sign Up"onclick=window.location="${pageContext.request.contextPath}/SignUp";>
 		</div>
 	</div>
      </body>

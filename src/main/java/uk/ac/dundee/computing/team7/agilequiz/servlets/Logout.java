@@ -26,7 +26,7 @@ public class Logout extends HttpServlet {
             throws ServletException, IOException {
         
         request.getSession().invalidate();
-        response.sendRedirect("/AgileQuiz");    
+        response.sendRedirect("${pageContext.request.contextPath}/");    
     }
     
 }
