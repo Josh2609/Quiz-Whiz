@@ -90,4 +90,25 @@ public class Student
         }
         return numAffectedRows > 0;
     }
+    
+    public int getStudentIDFromMatric(String matric)
+    {
+        int studentID = 0;
+        dbconnect dbCon = new dbconnect();
+	Connection con = dbCon.mysqlConnect();
+	PreparedStatement stmt;
+	try {
+	    String sql = "SELECT User_ID FROM student WHERE Matric_Number=?";
+	    stmt = con.prepareStatement(sql);
+	    stmt.setString(1, matric);
+	    ResultSet rs=stmt.executeQuery();
+            while (rs.next()) {
+                studentID = rs.getInt("User_ID");
+            }
+	} catch (SQLException e)
+	{
+            e.printStackTrace();
+	}
+        return studentID;
+    }
 }

@@ -189,8 +189,10 @@ public class QuizTest {
     @Test
     public void testAddCompletedAnswers() {
         System.out.println("addCompletedAnswers");
-        ArrayList<Integer> correctAnswerList = null;
-        ArrayList<Integer> incorrectAnswerList = null;
+        ArrayList<Integer> correctAnswerList = new ArrayList<>();
+        correctAnswerList.add(1);
+        ArrayList<Integer> incorrectAnswerList = new ArrayList<>();
+        incorrectAnswerList.add(1);
         Quiz instance = new Quiz();
         boolean expResult = true;
         boolean result = instance.addCompletedAnswers(correctAnswerList, incorrectAnswerList, 1);
@@ -208,8 +210,11 @@ public class QuizTest {
         int quizID = 0;
         int studentID = 0;
         Quiz instance = new Quiz();
-        boolean expResult = false;
-        boolean result = instance.AddCompletedQuiz(score, attempt, quizID, studentID);
-        assertEquals(expResult, result);
+        int expResult = 0;
+        int result = instance.addCompletedQuiz(score, attempt, quizID, studentID);
+        if (expResult < result)
+            assertTrue(true);
+        else
+            fail();
     }
 }

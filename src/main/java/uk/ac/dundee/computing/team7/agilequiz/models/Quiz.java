@@ -340,10 +340,35 @@ public class Quiz {
     }
     
     
-    public boolean AddCompletedQuiz(int score, int attempt, int quizID, int studentID)
+    public int addCompletedQuiz(int score, int attempt, int quizID, int studentID)
     {
-     
-        return true;
+        int numAffectedRows = 0;
+        dbconnect dbCon = new dbconnect();
+	Connection con = dbCon.mysqlConnect();
+	PreparedStatement stmt;
+        int completedQuizID = -1;
+
+	try {
+            String sql = "INSERT INTO completed_quiz (Completed_Quiz_ID, Score, Attempt,"
+                    + " Quiz_ID, User_ID) VALUES (NULL, ?, ?, ?, ?)";
+            stmt = con.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
+            stmt.setInt(1, score);
+            stmt.setInt(2, attempt);
+            stmt.setInt(3, quizID);
+            stmt.setInt(4, studentID);
+            stmt.executeUpdate();
+            
+            completedQuizID = -1;
+            ResultSet rs = stmt.getGeneratedKeys();
+            while (rs.next()) {
+                completedQuizID = rs.getInt(1);
+            }
+        } 
+        catch (SQLException e)
+	{
+            e.printStackTrace();
+        }
+        return completedQuizID;
     }
     
     public boolean addCompletedAnswers(ArrayList<Integer> correctAnswerList, ArrayList<Integer> incorrectAnswerList, int completedQuizID)
@@ -353,7 +378,7 @@ public class Quiz {
 	PreparedStatement stmt;
 	try {       
             
-            String sql = "INSERT INTO completed_answer (Comleted_Answer_ID, Correct_Answer_Flag,"
+            String sql = "INSERT INTO completed_answer (Completed_Answer_ID, Correct_Answer_Flag,"
                     + " Answer_ID, Completed_Quiz_ID) VALUES (NULL, ?, ?, ?)";
             stmt = con.prepareStatement(sql);
             for (int i = 0; i < correctAnswerList.size(); i++)
@@ -371,11 +396,13 @@ public class Quiz {
                 stmt.addBatch();
             }
             stmt.executeBatch();
+            return true;
         } 
         catch (SQLException e)
 	{
             e.printStackTrace();
+            return false;
         }
-        return true;
+        //return true;
     }
 }

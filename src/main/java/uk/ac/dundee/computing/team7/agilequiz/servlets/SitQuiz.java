@@ -15,6 +15,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import uk.ac.dundee.computing.team7.agilequiz.lib.Converters;
 import uk.ac.dundee.computing.team7.agilequiz.models.Quiz;
 import uk.ac.dundee.computing.team7.agilequiz.stores.AnswerBean;
@@ -93,7 +94,9 @@ public class SitQuiz extends HttpServlet
                 incorrectAnswerList.add(Integer.parseInt(answerRadio.get(i)));
             }   
         }
-        int completedQuizID = 0;
+        HttpSession session = request.getSession();
+        int studentID = (Integer) session.getAttribute("StudentID");
+        int completedQuizID = quiz.addCompletedQuiz(correctAnswers, 1, Integer.parseInt(quizID), studentID);
         quiz.addCompletedAnswers(correctAnswerList, incorrectAnswerList, completedQuizID);
         
         RequestDispatcher rd = request.getRequestDispatcher("/quizresults.jsp");
