@@ -339,4 +339,9 @@ public class Quiz {
         return quizList;
     }
     
+    public boolean addCompletedAnswers(ArrayList<Integer> correctAnswerList, ArrayList<Integer> incorrectAnswerList)
+    {
+        
+        return true;
+    }
 }

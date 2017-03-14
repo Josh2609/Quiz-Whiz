@@ -77,6 +77,9 @@ public class SitQuiz extends HttpServlet
                 answerRadio.add(temp[0]);
             }
         }
+        
+        ArrayList<Integer> correctAnswerList = new ArrayList<>();
+        ArrayList<Integer> incorrectAnswerList = new ArrayList<>();
         Quiz quiz = new Quiz();
 
         int correctAnswers = 0;
@@ -84,9 +87,10 @@ public class SitQuiz extends HttpServlet
         {
             if(quiz.compareAnswer(answerRadio.get(i)))
             {
+                correctAnswerList.add(Integer.parseInt(answerRadio.get(i)));
                 correctAnswers++;
             } else {
-            
+                incorrectAnswerList.add(Integer.parseInt(answerRadio.get(i)));
             }   
         }     
         RequestDispatcher rd = request.getRequestDispatcher("/quizresults.jsp");

@@ -182,4 +182,18 @@ public class QuizTest {
             fail();
         //Assert.assertEquals(testList, quizList);
     }
+
+    /**
+     * Test of addCompletedAnswers method, of class Quiz.
+     */
+    @Test
+    public void testAddCompletedAnswers() {
+        System.out.println("addCompletedAnswers");
+        ArrayList<Integer> correctAnswerList = null;
+        ArrayList<Integer> incorrectAnswerList = null;
+        Quiz instance = new Quiz();
+        boolean expResult = true;
+        boolean result = instance.addCompletedAnswers(correctAnswerList, incorrectAnswerList);
+        assertEquals(expResult, result);
+    }
 }
