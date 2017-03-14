@@ -9,6 +9,8 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import org.mindrot.jbcrypt.BCrypt;
 import uk.ac.dundee.computing.team7.agilequiz.lib.dbconnect;
 
@@ -35,6 +37,7 @@ public class Student
             {
                 passwordMatch = BCrypt.checkpw(password, rs.getString("User_Password"));
             }
+            con.close();
 	    return passwordMatch;
 
 	} catch (SQLException e)
@@ -64,12 +67,14 @@ public class Student
 	    stmt.setString(1, matric);
 	    stmt.setString(2, hashedPassword);
 	    numAffectedRows = stmt.executeUpdate();
+            con.close();
+            return numAffectedRows > 0;
         } 
         catch (SQLException e)
 	{
             e.printStackTrace();
         }
-        return numAffectedRows > 0;
+        return false;
     }
     
     public boolean removeStudent(String matric)
@@ -83,12 +88,14 @@ public class Student
             stmt = con.prepareStatement(sql);
             stmt.setString(1, matric);
             numAffectedRows = stmt.executeUpdate();
+            con.close();
+            return numAffectedRows > 0;
         } 
         catch (SQLException e)
 	{
             e.printStackTrace();
         }
-        return numAffectedRows > 0;
+        return false;
     }
     
     public int getStudentIDFromMatric(String matric)
@@ -108,7 +115,12 @@ public class Student
 	} catch (SQLException e)
 	{
             e.printStackTrace();
-	}
+        }
+        try {
+            con.close();
+        } catch (SQLException ex) {
+            Logger.getLogger(Student.class.getName()).log(Level.SEVERE, null, ex);
+        }
         return studentID;
     }
 }

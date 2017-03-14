@@ -331,7 +331,7 @@ public class Quiz {
                 tempArr[5] = rs.getString("Quiz_Description");
                 quizList.add(tempArr);
             }
-            
+            con.close();
         } catch (SQLException ex) {
             Logger.getLogger(Quiz.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -363,6 +363,7 @@ public class Quiz {
             while (rs.next()) {
                 completedQuizID = rs.getInt(1);
             }
+            con.close();
         } 
         catch (SQLException e)
 	{
@@ -396,6 +397,7 @@ public class Quiz {
                 stmt.addBatch();
             }
             stmt.executeBatch();
+            con.close();
             return true;
         } 
         catch (SQLException e)
@@ -424,6 +426,7 @@ public class Quiz {
                 answerID = rs.getInt("Answer_ID");
                 studentAnswers.add(answerID);
             }    
+            con.close();
         } catch (SQLException ex) {
             Logger.getLogger(Quiz.class.getName()).log(Level.SEVERE, null, ex);
         }  
