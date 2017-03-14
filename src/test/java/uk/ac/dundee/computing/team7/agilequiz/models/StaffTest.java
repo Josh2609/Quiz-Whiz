@@ -11,6 +11,7 @@ import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
 import static org.junit.Assert.*;
+import uk.ac.dundee.computing.team7.agilequiz.stores.ProfileBean;
 
 /**
  *
@@ -58,10 +59,12 @@ public class StaffTest {
     public void testCreateStaff() {
         System.out.println("createStaff");
         String staffNumber = "staffNumber";
-        String password = "password";         
+        String password = "password";      
+        String fname = "fname";
+	String sname = "sname";
         Staff instance = new Staff();
         boolean expResult = true;
-        boolean result = instance.createStaff(staffNumber, password);
+        boolean result = instance.createStaff(staffNumber, fname, sname, password);
         assertEquals(expResult, result);
     }
 
@@ -76,6 +79,22 @@ public class StaffTest {
         boolean expResult = true;
         boolean result = instance.removeStaff(matric);
         assertEquals(expResult, result);
+    }
+
+    /**
+     * Test of getStaffProfile method, of class Staff.
+     */
+    @Test
+    public void testGetStaffProfile() {
+        System.out.println("getStaffProfile");
+        ProfileBean profile = null;
+        String staffNumber = "";
+        Staff instance = new Staff();
+        ProfileBean expResult = null;
+        ProfileBean result = instance.getStaffProfile(profile, staffNumber);
+        assertEquals(expResult, result);
+        // TODO review the generated test code and remove the default call to fail.
+        fail("The test case is a prototype.");
     }
     
 }
