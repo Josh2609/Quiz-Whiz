@@ -6,6 +6,8 @@
 package uk.ac.dundee.computing.team7.agilequiz.servlets;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Iterator;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -13,6 +15,9 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import uk.ac.dundee.computing.team7.agilequiz.lib.Converters;
+import uk.ac.dundee.computing.team7.agilequiz.models.Quiz;
+import uk.ac.dundee.computing.team7.agilequiz.stores.AnswerBean;
+import uk.ac.dundee.computing.team7.agilequiz.stores.QuestionBean;
 
 /**
  *
@@ -29,10 +34,32 @@ public class QuizResults extends HttpServlet
             throws ServletException, IOException {     
         
         String args[] = Converters.SplitRequestPath(request);
-        System.out.println(args[2]);
-        int correctAnswers = Integer.parseInt(args[2]);
+
+        //int correctAnswers = Integer.parseInt(args[2]);
+        
+        String quizID = args[2];
+        
+        Quiz quiz = new Quiz();
+        
+        ArrayList<QuestionBean> questions = quiz.getQuestions(Integer.parseInt(quizID));
+        ArrayList<AnswerBean> answers = quiz.getAnswers2();
+        ArrayList<Integer> studentAnswers = quiz.getStudentAnswers(1); //TODO
+        
+        Iterator<QuestionBean> iterator;
+        iterator = questions.iterator();
+        while (iterator.hasNext()) 
+        {
+           QuestionBean qb = (QuestionBean) iterator.next();
+           int questionID = qb.getQuestionID();
+           //answers.add(quiz.getAnswers(questionID));
+        }
+        
         RequestDispatcher rd = request.getRequestDispatcher("/quizresults.jsp");
-        request.setAttribute("correctAnswers", correctAnswers);
+        request.setAttribute("quizID", args[2]);
+        request.setAttribute("questions", questions);
+        request.setAttribute("answers", answers);
+        request.setAttribute("correctAnswers", 2);
         rd.forward(request, response);
     }
+    
 }

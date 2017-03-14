@@ -99,7 +99,9 @@ public class SitQuiz extends HttpServlet
         int completedQuizID = quiz.addCompletedQuiz(correctAnswers, 1, Integer.parseInt(quizID), studentID);
         quiz.addCompletedAnswers(correctAnswerList, incorrectAnswerList, completedQuizID);
         
-        RequestDispatcher rd = request.getRequestDispatcher("/quizresults.jsp");
+        RequestDispatcher rd = request.getRequestDispatcher("quizresults.jsp");
+        request.setAttribute("quizID", quizID);
+        request.setAttribute("completedQuizID", completedQuizID);
         request.setAttribute("correctAnswers", correctAnswers);
         rd.forward(request, response);   
     }

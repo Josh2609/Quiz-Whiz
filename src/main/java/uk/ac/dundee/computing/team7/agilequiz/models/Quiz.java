@@ -403,6 +403,31 @@ public class Quiz {
             e.printStackTrace();
             return false;
         }
-        //return true;
+    }
+    
+    public ArrayList<Integer> getStudentAnswers(int completedQuizID)
+    {
+        ArrayList<Integer> studentAnswers = new ArrayList<>();
+        
+        dbconnect dbCon = new dbconnect();
+	Connection con = dbCon.mysqlConnect();
+	PreparedStatement stmt;
+	String sql = "SELECT Answer_ID From completed_answer WHERE Completed_Quiz_ID=?";
+        
+        try {
+            stmt = con.prepareStatement(sql);
+            stmt.setInt(1, completedQuizID);
+	    ResultSet rs=stmt.executeQuery(); 
+            while(rs.next())
+            {
+                int answerID;
+                answerID = rs.getInt("Answer_ID");
+                studentAnswers.add(answerID);
+            }    
+        } catch (SQLException ex) {
+            Logger.getLogger(Quiz.class.getName()).log(Level.SEVERE, null, ex);
+        }  
+        
+        return studentAnswers;
     }
 }

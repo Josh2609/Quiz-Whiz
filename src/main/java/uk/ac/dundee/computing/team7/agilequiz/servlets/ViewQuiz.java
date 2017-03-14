@@ -35,7 +35,7 @@ public class ViewQuiz extends HttpServlet
         
         String args[] = Converters.SplitRequestPath(request);
         String quizID = args[2];
-        request.setAttribute("quizID", args[2]);
+
         System.out.println(args[2]);
         
         Quiz quiz = new Quiz();
@@ -54,6 +54,7 @@ public class ViewQuiz extends HttpServlet
         }
         
         RequestDispatcher rd = request.getRequestDispatcher("/viewquiz.jsp");
+        request.setAttribute("quizID", args[2]);
         request.setAttribute("questions", questions);
         request.setAttribute("answers", answers);
         rd.forward(request, response);
