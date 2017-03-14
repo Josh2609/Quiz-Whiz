@@ -94,8 +94,6 @@ public class StudentTest {
         ProfileBean expResult = null;
         ProfileBean result = instance.getStudentProfile(profile, matric);
         assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
     }
     
 }
