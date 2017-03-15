@@ -88,4 +88,11 @@ public class Module {
         }  
         return moduleList;
     }
+    
+    public String getModuleNameFromCode(String moduleCode)
+    {
+        String moduleName = null;
+        
+        return moduleName;
+    }
 }

@@ -3,10 +3,14 @@
     Created on : 23-Feb-2017, 16:18:16
     Author     : joshcorps
 --%>
-
+<%LoggedIn lg2 = (LoggedIn) session.getAttribute("LoggedIn");
+   if (lg2 == null) 
+   {    response.sendRedirect(response.encodeRedirectURL(request.getContextPath() + "/")); }
+%>
 <%@page import="java.util.Iterator"%>
 <%@page import="uk.ac.dundee.computing.team7.agilequiz.stores.AnswerBean"%>
 <%@page import="uk.ac.dundee.computing.team7.agilequiz.stores.QuestionBean"%>
+<%@page import="uk.ac.dundee.computing.team7.agilequiz.stores.QuizBean"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
@@ -25,17 +29,19 @@
 	<%@ include file="header.jsp" %>
     <form method="POST"  action="${pageContext.request.contextPath}/QuizResults?quizid=<%=request.getAttribute("quizID")%>">	
     <div class="container"><!-- style="text-align:center">-->
-        <div style="text-align: center">
-            <h1>Quiz Name Here</h1>
-            <p>Description displayed here.</p>
-            <h3>Date Added: 01/01/0001</h3>
-            <h3>Module Code - Module Name</h3>
-            <h3>Quiz Author</h3><br>
-        </div>
         <%
             java.util.ArrayList<QuestionBean> questions = (java.util.ArrayList<QuestionBean>) request.getAttribute("questions");
             java.util.ArrayList<AnswerBean> answers = (java.util.ArrayList<AnswerBean>) request.getAttribute("answers");
-            if (questions.isEmpty()) {
+            QuizBean quizBean = (QuizBean) request.getAttribute("quizBean");
+            %>
+        <div style="text-align: center">
+            <h1><%=quizBean.getQuizName()%></h1>
+            <p><%=quizBean.getQuizDescription()%></p>
+            <h3>Date Added: <%=quizBean.getDateAdded()%></h3>
+            <h3><%=quizBean.getModuleCode()%> - <%=quizBean.getModuleName()%></h3>
+            <h3>Created By: <%=quizBean.getQuizCreator()%></h3><br>
+        </div>    
+            <%if (questions.isEmpty()) {
         %>
         <h2 style="text-align:center">No Questions found</h2>
         <%

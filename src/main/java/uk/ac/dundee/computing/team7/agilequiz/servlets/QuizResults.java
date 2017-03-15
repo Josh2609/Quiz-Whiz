@@ -21,6 +21,7 @@ import uk.ac.dundee.computing.team7.agilequiz.models.AnswerList;
 import uk.ac.dundee.computing.team7.agilequiz.models.Quiz;
 import uk.ac.dundee.computing.team7.agilequiz.stores.AnswerBean;
 import uk.ac.dundee.computing.team7.agilequiz.stores.QuestionBean;
+import uk.ac.dundee.computing.team7.agilequiz.stores.QuizBean;
 
 /**
  *
@@ -50,6 +51,7 @@ public class QuizResults extends HttpServlet
         ArrayList<AnswerBean> answers = quiz.getAnswers2();
         ArrayList<Integer> studentAnswers = quiz.getStudentAnswers(completedQuizID); //TODO
         Collections.sort(studentAnswers);
+        
         
         RequestDispatcher rd = request.getRequestDispatcher("/quizresults.jsp");
         request.setAttribute("completedQuizID", args[2]);
@@ -93,18 +95,7 @@ public class QuizResults extends HttpServlet
         AnswerList answerList = new AnswerList(answerRadio);
         correctAnswerList = answerList.getCorrectAnswerList();
         incorrectAnswerList = answerList.getIncorrectAnswerList();
-//        for (int i = 0; i < answerRadio.size(); i++)
-//        {
-//            if(quiz.compareAnswer(answerRadio.get(i)))
-//            {
-//                correctAnswerList.add(Integer.parseInt(answerRadio.get(i)));
-//                System.out.println("cAL.length = " + correctAnswerList.size());
-//                correctAnswers++;
-//            } else {
-//                incorrectAnswerList.add(Integer.parseInt(answerRadio.get(i)));
-//                System.out.println("iAL.length = " + incorrectAnswerList.size());
-//            }   
-//        }
+
         HttpSession session = request.getSession();
         int studentID = (Integer) session.getAttribute("StudentID");
         int completedQuizID = quiz.addCompletedQuiz(correctAnswers, 1, quizID, studentID);
@@ -115,8 +106,11 @@ public class QuizResults extends HttpServlet
         studentAnswers.addAll(incorrectAnswerList);
         Collections.sort(studentAnswers);
         
+        QuizBean qb = new QuizBean();
+        qb = quiz.getQuizDetails(quizID);
         
         RequestDispatcher rd = request.getRequestDispatcher("/quizresults.jsp");
+        request.setAttribute("quizBean", qb);
         request.setAttribute("questions", questions);
         request.setAttribute("answers", answers);
         request.setAttribute("studentAnswers", studentAnswers);

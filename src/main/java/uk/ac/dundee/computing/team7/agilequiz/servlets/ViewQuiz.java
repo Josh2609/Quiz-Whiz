@@ -7,16 +7,17 @@ package uk.ac.dundee.computing.team7.agilequiz.servlets;
 
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Iterator;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import uk.ac.dundee.computing.team7.agilequiz.lib.Converters;
 import uk.ac.dundee.computing.team7.agilequiz.models.Quiz;
 import uk.ac.dundee.computing.team7.agilequiz.stores.AnswerBean;
+import uk.ac.dundee.computing.team7.agilequiz.stores.LoggedIn;
 import uk.ac.dundee.computing.team7.agilequiz.stores.QuestionBean;
 
 
