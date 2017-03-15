@@ -275,6 +275,14 @@ public class Quiz {
         return 0;
     }
     
+    
+    public ArrayList<Integer> getAnswerList()
+    {
+        ArrayList<Integer> answerList = new ArrayList<>();
+        
+        return answerList;
+    }
+    
     public boolean compareAnswer(String answerID)
     {
         dbconnect dbCon = new dbconnect();
@@ -456,8 +464,7 @@ public class Quiz {
             con.close();
         } catch (SQLException ex) {
             Logger.getLogger(Quiz.class.getName()).log(Level.SEVERE, null, ex);
-        }  
-        
+        }      
         return quizID;
     }
 }

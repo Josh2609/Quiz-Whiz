@@ -17,6 +17,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import uk.ac.dundee.computing.team7.agilequiz.lib.Converters;
+import uk.ac.dundee.computing.team7.agilequiz.models.AnswerList;
 import uk.ac.dundee.computing.team7.agilequiz.models.Quiz;
 import uk.ac.dundee.computing.team7.agilequiz.stores.AnswerBean;
 import uk.ac.dundee.computing.team7.agilequiz.stores.QuestionBean;
@@ -88,18 +89,22 @@ public class QuizResults extends HttpServlet
 
         // needs optimised
         int correctAnswers = 0;
-        for (int i = 0; i < answerRadio.size(); i++)
-        {
-            if(quiz.compareAnswer(answerRadio.get(i)))
-            {
-                correctAnswerList.add(Integer.parseInt(answerRadio.get(i)));
-                System.out.println("cAL.length = " + correctAnswerList.size());
-                correctAnswers++;
-            } else {
-                incorrectAnswerList.add(Integer.parseInt(answerRadio.get(i)));
-                System.out.println("iAL.length = " + incorrectAnswerList.size());
-            }   
-        }
+        
+        AnswerList answerList = new AnswerList(answerRadio);
+        correctAnswerList = answerList.getCorrectAnswerList();
+        incorrectAnswerList = answerList.getIncorrectAnswerList();
+//        for (int i = 0; i < answerRadio.size(); i++)
+//        {
+//            if(quiz.compareAnswer(answerRadio.get(i)))
+//            {
+//                correctAnswerList.add(Integer.parseInt(answerRadio.get(i)));
+//                System.out.println("cAL.length = " + correctAnswerList.size());
+//                correctAnswers++;
+//            } else {
+//                incorrectAnswerList.add(Integer.parseInt(answerRadio.get(i)));
+//                System.out.println("iAL.length = " + incorrectAnswerList.size());
+//            }   
+//        }
         HttpSession session = request.getSession();
         int studentID = (Integer) session.getAttribute("StudentID");
         int completedQuizID = quiz.addCompletedQuiz(correctAnswers, 1, quizID, studentID);
@@ -118,48 +123,4 @@ public class QuizResults extends HttpServlet
         request.setAttribute("completedQuizID", completedQuizID);
         rd.forward(request, response);   
     }
-    
-    
-//    @Override
-//    protected void doPost(HttpServletRequest request, HttpServletResponse response)
-//            throws ServletException, IOException {
-//        
-//        ArrayList<String> answerRadio = new ArrayList<>();
-//        Map<String, String[]> parameters = request.getParameterMap();
-//        
-//        for(String parameter : parameters.keySet()) 
-//        { 
-//            if(parameter.toLowerCase().startsWith("optradio")) 
-//            {
-//                String[] temp = parameters.get(parameter);
-//                answerRadio.add(temp[0]);
-//            }
-//        }
-//        
-//        ArrayList<Integer> correctAnswerList = new ArrayList<>();
-//        ArrayList<Integer> incorrectAnswerList = new ArrayList<>();
-//        Quiz quiz = new Quiz();
-//
-//        int correctAnswers = 0;
-//        for (int i = 0; i < answerRadio.size(); i++)
-//        {
-//            if(quiz.compareAnswer(answerRadio.get(i)))
-//            {
-//                //correctAnswerList.add(Integer.parseInt(answerRadio.get(i)));
-//                correctAnswers++;
-//            } else {
-//                //incorrectAnswerList.add(Integer.parseInt(answerRadio.get(i)));
-//            }   
-//        }
-//        HttpSession session = request.getSession();
-//        int studentID = (Integer) session.getAttribute("StudentID");
-//        //int completedQuizID = quiz.addCompletedQuiz(correctAnswers, 1, Integer.parseInt(quizID), studentID);
-//        //quiz.addCompletedAnswers(correctAnswerList, incorrectAnswerList, completedQuizID);
-//        
-//        RequestDispatcher rd = request.getRequestDispatcher("/quizresults.jsp");
-//        request.setAttribute("quizID", quizID);
-//        //request.setAttribute("completedQuizID", completedQuizID);
-//        request.setAttribute("correctAnswers", correctAnswers);
-//        rd.forward(request, response);   
-//    }
 }
