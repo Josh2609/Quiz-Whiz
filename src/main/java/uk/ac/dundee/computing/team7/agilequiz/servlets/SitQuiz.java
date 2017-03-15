@@ -20,6 +20,7 @@ import uk.ac.dundee.computing.team7.agilequiz.lib.Converters;
 import uk.ac.dundee.computing.team7.agilequiz.models.Quiz;
 import uk.ac.dundee.computing.team7.agilequiz.stores.AnswerBean;
 import uk.ac.dundee.computing.team7.agilequiz.stores.QuestionBean;
+import uk.ac.dundee.computing.team7.agilequiz.stores.QuizBean;
 
 /**
  *
@@ -45,18 +46,11 @@ public class SitQuiz extends HttpServlet
         
         ArrayList<QuestionBean> questions = quiz.getQuestions(Integer.parseInt(quizID));
         ArrayList<AnswerBean> answers = quiz.getAnswers2();
-        
-        
-        Iterator<QuestionBean> iterator;
-        iterator = questions.iterator();
-        while (iterator.hasNext()) 
-        {
-           QuestionBean qb = (QuestionBean) iterator.next();
-           int questionID = qb.getQuestionID();
-           //answers.add(quiz.getAnswers(questionID));
-        }
+        QuizBean qb = new QuizBean();
+        qb = quiz.getQuizDetails(Integer.parseInt(quizID));
         
         RequestDispatcher rd = request.getRequestDispatcher("/sitquiz.jsp");
+        request.setAttribute("quizBean", qb);
         request.setAttribute("questions", questions);
         request.setAttribute("answers", answers);
         rd.forward(request, response);

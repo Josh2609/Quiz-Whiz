@@ -147,15 +147,15 @@ public class Quiz {
         return answerList;
     }
     
-    public QuizBean getQuiz(int quizID)
+    public QuizBean getQuizDetails(int quizID)
     {
         QuizBean qb = new QuizBean();
         dbconnect dbCon = new dbconnect();
 	Connection con = dbCon.mysqlConnect();
 	PreparedStatement stmt;
 	try { //TODO
-	    String sql = "SELECT Quiz_ID, Quiz_Name, Available_Flag, Quiz_Version"
-                    + " FROM quiz WHERE Quiz_ID=?";
+	    String sql = "SELECT *"
+                    + " FROM quizmodulecreatorview WHERE Quiz_ID=?";
 	    stmt = con.prepareStatement(sql);
 	    stmt.setString(1, Integer.toString(quizID));
 	    ResultSet rs=stmt.executeQuery();  
@@ -165,7 +165,13 @@ public class Quiz {
                 while(rs.next())
                 {
                    qb.setQuizID(rs.getInt("Quiz_ID"));
+                   qb.setQuizName(rs.getString("Quiz_Name"));
+                   qb.setQuizDescription(rs.getString("Quiz_Description"));
                    qb.setQuizVersion(rs.getInt("Quiz_Version"));
+                   qb.setQuizCreator(rs.getString("First_Name") + " " + rs.getString("Surname"));
+                   qb.setModuleCode(rs.getString("Module_Code"));
+                   qb.setModuleName(rs.getString("Module_Name"));
+                   qb.setDateAdded(rs.getDate("Date_Added"));
                 }
             } else {
                 //no results for this question id, shouldn't happend really
@@ -191,8 +197,8 @@ public class Quiz {
 	PreparedStatement stmt;
 	try {
             String sql = "INSERT INTO quiz (Quiz_ID, Quiz_Name, Available_Flag, Quiz_Version,"
-                    + " Module_ID, Quiz_Creator_ID, Quiz_Description)"
-                    + " VALUES (NULL, ?, ?, 1, ?, ?, ?)";
+                    + " Module_ID, Quiz_Creator_ID, Quiz_Description, Date_Added)"
+                    + " VALUES (NULL, ?, ?, 1, ?, ?, ?, CURDATE())";
             stmt = con.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
             stmt.setString(1, quizName);
             stmt.setInt(2, available);
