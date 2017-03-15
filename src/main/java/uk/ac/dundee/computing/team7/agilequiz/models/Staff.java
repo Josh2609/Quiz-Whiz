@@ -28,12 +28,13 @@ public class Staff
 	    stmt = con.prepareStatement(sql);
 	    stmt.setString(1, staffNumber);
 	    stmt.setString(2, password);
-	    ResultSet rs=stmt.executeQuery();  
+	    ResultSet rs=stmt.executeQuery(); 
+            //con.close();
 	    return rs.isBeforeFirst();
-
 	} catch (SQLException e)
 	{
-	    	System.out.println("TODO");
+	    	System.out.println("Exception staffCheckDetails");
+                e.printStackTrace();
 	}
 	return false;
     }
@@ -59,6 +60,7 @@ public class Staff
 	    stmt.setString(1, staffNumber);
 	    stmt.setString(2, password);
 	    numAffectedRows = stmt.executeUpdate();
+            con.close();
         } 
         catch (SQLException e)
 	{
@@ -78,6 +80,7 @@ public class Staff
             stmt = con.prepareStatement(sql);
             stmt.setString(1, staffNumber);
             numAffectedRows = stmt.executeUpdate();
+            con.close();
         } 
         catch (SQLException e)
 	{

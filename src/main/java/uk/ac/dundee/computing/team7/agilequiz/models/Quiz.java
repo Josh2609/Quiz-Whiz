@@ -93,7 +93,7 @@ public class Quiz {
                 //no results for this quiz id
             }
             
-
+            con.close();
 	} catch (SQLException e)
 	{
             e.printStackTrace();
@@ -138,7 +138,7 @@ public class Quiz {
                 //no results for this question id, shouldn't happend really
             }
             
-
+            con.close();
 	} catch (SQLException e)
 	{
 	    	System.out.println("SQLException2");
@@ -170,6 +170,7 @@ public class Quiz {
             } else {
                 //no results for this question id, shouldn't happend really
             }
+            con.close();
         } catch (SQLException e)
 	{
 	    	System.out.println("SQLException3");
@@ -245,6 +246,7 @@ public class Quiz {
             }
 	    stmt.executeBatch(); 
             success = true;
+            con.close();
 	} catch (SQLException e)
 	{
             success = false;
@@ -289,7 +291,7 @@ public class Quiz {
             {
                 return rs.getInt("Correct_Answer_Flag") == 1;
             }
-            
+            con.close();
         } catch (SQLException ex) {
             Logger.getLogger(Quiz.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -389,7 +391,7 @@ public class Quiz {
                 stmt.setInt(3, completedQuizID);
                 stmt.addBatch();
             }
-            for (int i = 0; i < correctAnswerList.size(); i++)
+            for (int i = 0; i < incorrectAnswerList.size(); i++)
             {
                 stmt.setInt(1, 0);
                 stmt.setInt(2, incorrectAnswerList.get(i));

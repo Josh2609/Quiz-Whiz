@@ -35,23 +35,11 @@ public class ViewQuiz extends HttpServlet
         
         String args[] = Converters.SplitRequestPath(request);
         String quizID = args[2];
-
-        System.out.println(args[2]);
         
         Quiz quiz = new Quiz();
         
         ArrayList<QuestionBean> questions = quiz.getQuestions(Integer.parseInt(quizID));
         ArrayList<AnswerBean> answers = quiz.getAnswers2();
-        
-        
-        Iterator<QuestionBean> iterator;
-        iterator = questions.iterator();
-        while (iterator.hasNext()) 
-        {
-           QuestionBean qb = (QuestionBean) iterator.next();
-           int questionID = qb.getQuestionID();
-           //answers.add(quiz.getAnswers(questionID));
-        }
         
         RequestDispatcher rd = request.getRequestDispatcher("/viewquiz.jsp");
         request.setAttribute("quizID", args[2]);
@@ -60,11 +48,4 @@ public class ViewQuiz extends HttpServlet
         rd.forward(request, response);
        
     }
-    
-    @Override
-    protected void doPost(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
-        
-    }
-    
 }

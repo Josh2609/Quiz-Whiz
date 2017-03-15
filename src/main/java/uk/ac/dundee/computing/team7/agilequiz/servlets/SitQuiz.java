@@ -63,46 +63,5 @@ public class SitQuiz extends HttpServlet
        
     }
     
-    @Override
-    protected void doPost(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
-        
-        ArrayList<String> answerRadio = new ArrayList<>();
-        Map<String, String[]> parameters = request.getParameterMap();
-        
-        for(String parameter : parameters.keySet()) 
-        { 
-            if(parameter.toLowerCase().startsWith("optradio")) 
-            {
-                String[] temp = parameters.get(parameter);
-                answerRadio.add(temp[0]);
-            }
-        }
-        
-        ArrayList<Integer> correctAnswerList = new ArrayList<>();
-        ArrayList<Integer> incorrectAnswerList = new ArrayList<>();
-        Quiz quiz = new Quiz();
-
-        int correctAnswers = 0;
-        for (int i = 0; i < answerRadio.size(); i++)
-        {
-            if(quiz.compareAnswer(answerRadio.get(i)))
-            {
-                correctAnswerList.add(Integer.parseInt(answerRadio.get(i)));
-                correctAnswers++;
-            } else {
-                incorrectAnswerList.add(Integer.parseInt(answerRadio.get(i)));
-            }   
-        }
-        HttpSession session = request.getSession();
-        int studentID = (Integer) session.getAttribute("StudentID");
-        int completedQuizID = quiz.addCompletedQuiz(correctAnswers, 1, Integer.parseInt(quizID), studentID);
-        quiz.addCompletedAnswers(correctAnswerList, incorrectAnswerList, completedQuizID);
-        
-        RequestDispatcher rd = request.getRequestDispatcher("quizresults.jsp");
-        request.setAttribute("quizID", quizID);
-        request.setAttribute("completedQuizID", completedQuizID);
-        request.setAttribute("correctAnswers", correctAnswers);
-        rd.forward(request, response);   
-    }
+   
 }

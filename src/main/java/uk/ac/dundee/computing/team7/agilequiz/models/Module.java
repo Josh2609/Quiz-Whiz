@@ -32,6 +32,7 @@ public class Module {
             stmt.setString(1, moduleCode);
             stmt.setString(2, moduleName);
             numAffectedRows = stmt.executeUpdate();
+            con.close();
         } 
         catch (SQLException e)
 	{
@@ -52,6 +53,7 @@ public class Module {
             stmt = con.prepareStatement(sql);
             stmt.setString(1, moduleCode);
             numAffectedRows = stmt.executeUpdate();
+            con.close();
         } 
         catch (SQLException e)
 	{
@@ -80,6 +82,7 @@ public class Module {
                 temp[2] = rs.getString("Module_Name");
                 moduleList.add(temp);
             }    
+            con.close();
         } catch (SQLException ex) {
             Logger.getLogger(Quiz.class.getName()).log(Level.SEVERE, null, ex);
         }  
