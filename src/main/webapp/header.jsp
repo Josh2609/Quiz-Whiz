@@ -1,4 +1,4 @@
-<%@page import="uk.ac.dundee.computing.team7.agilequiz.stores.LoggedIn"%>
+<%@page import="uk.ac.dundee.computing.team7.agilequiz.stores.*"%>
 <head>
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
     <link rel="stylesheet" content= "text/css" href="${pageContext.request.contextPath}/style.css">
@@ -38,7 +38,11 @@
                             <%
                             if (lg != null) {
                                 if (lg.getloggedIn()) {%>
-                                    <li><a href=""><span></span><%=lg.getMatric()%></a></li>
+                                    <li><a href="${pageContext.request.contextPath}/Profile"><span></span><%if(lg.getStaff()==false){%>
+                                                                                                                <%=lg.getMatric()%>
+                                                                                                            <%}else{%>
+                                                                                                                <%=lg.getStaffID()%>
+                                                                                                            <%}%></a></li>
                                     <li><a href="${pageContext.request.contextPath}/Logout"><span></span>Logout</a></li>
                                 <%}
                             } else {%>
@@ -68,6 +72,7 @@
           <button type="button" class="close" data-dismiss="modal">&times;</button>
           <ul class="nav nav-tabs">
             <li><a data-toggle="tab" href="#login"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
+            <li><a data-toggle="tab" href="#Stafflogin"><span class="glyphicon glyphicon-log-in"></span>Staff Login</a></li>
             <li><a data-toggle="tab" href="#register"><span class="glyphicon glyphicon-user"></span> Sign Up</a></li>
           </ul>
           <!--<h4 class="modal-title">Login</h4>-->
@@ -90,10 +95,34 @@
                     <br>
 		</form>
             </div>
+            
+            <div id="Stafflogin" class="tab-pane">
+                <form method="POST"  action="StaffLogin">	
+                    <div style="text-align:center;">
+                        <input id="msg" type="text" class="inputDesign" name="staffid" placeholder="Staff ID"><br>
+                            <br>
+                        <input id="msg" type="password" class="inputDesign" name="password" placeholder="Password"><br>
+                        <br><br><br>
+                    </div>
+                    <div class="span12" style="text-align:center">
+                        <div class="STYLE">
+                            <input type="submit" class="btn btn-success" value="Login">
+                        </div>
+                    </div>
+                    <br>
+		</form>
+            </div>
+            
+            
+            
             <div id="register" class="tab-pane fade">
                 <form method="POST"  action="StudentSignup">
                     <div style="text-align:center;">
                         <input id="msg" type="text" class="inputDesign" name="matric" placeholder="Matriculation Number"><br>
+                            <br>
+                        <input id="msg" type="text" class="inputDesign" name="fname" placeholder="First Name"><br>
+                            <br>
+                        <input id="msg" type="text" class="inputDesign" name="sname" placeholder="Surname"><br>
                             <br>
                         <input id="msg" type="password" class="inputDesign" name="password" placeholder="Password"><br>
                             <br>
@@ -109,6 +138,7 @@
                 <br><br>
                 </form>
             </div>
+            
         </div>
         </div>
       </div>

@@ -11,6 +11,7 @@ import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
 import static org.junit.Assert.*;
+import uk.ac.dundee.computing.team7.agilequiz.stores.ProfileBean;
 
 /**
  *
@@ -59,10 +60,12 @@ public class StudentTest {
     public void testCreateStudent() {
         System.out.println("createStudent");
         String matric = "matric";
-        String password = "password";         
+        String password = "password";   
+        String fname = "fname";
+        String sname = "sname";  
         Student instance = new Student();
         boolean expResult = true;
-        boolean result = instance.createStudent(matric, password);
+        boolean result = instance.createStudent(matric, fname, sname, password);
         assertEquals(expResult, result);
     }
 
@@ -89,6 +92,19 @@ public class StudentTest {
         Student instance = new Student();
         int expResult = 24;
         int result = instance.getStudentIDFromMatric(matric);
+        assertEquals(expResult, result);
+    }
+
+     * Test of getStudentProfile method, of class Student.
+     */
+    @Test
+    public void testGetStudentProfile() {
+        System.out.println("getStudentProfile");
+        ProfileBean profile = null;
+        String matric = "";
+        Student instance = new Student();
+        ProfileBean expResult = null;
+        ProfileBean result = instance.getStudentProfile(profile, matric);
         assertEquals(expResult, result);
     }
     

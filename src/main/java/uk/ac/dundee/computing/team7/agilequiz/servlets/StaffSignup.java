@@ -35,7 +35,9 @@ public class StaffSignup extends HttpServlet
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         
-        String staffNumber = request.getParameter("staffNumber");
+        String staffid = request.getParameter("staffid");
+        String fname = request.getParameter("fname");
+        String sname = request.getParameter("sname");
         String password = request.getParameter("password");
         String repeatPassword = request.getParameter("repeatPassword");
         
@@ -43,12 +45,16 @@ public class StaffSignup extends HttpServlet
         {
             RequestDispatcher rd = request.getRequestDispatcher("/staffsignup.jsp");
             request.setAttribute("Message", "Passwords do not match");
-            request.setAttribute("staffNumber", staffNumber);
+            request.setAttribute("staffNumber", staffid);
             rd.forward(request, response);
+            
             return;
         }
         Staff staff = new Staff();
-        staff.createStaff(staffNumber, password);
+        staff.createStaff(staffid, fname, sname, password);
+        
+        RequestDispatcher rd = request.getRequestDispatcher("/index.jsp");
+        rd.forward(request, response);
         
     }
 }

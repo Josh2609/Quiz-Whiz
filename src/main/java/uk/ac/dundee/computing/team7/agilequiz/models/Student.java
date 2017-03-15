@@ -13,6 +13,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import org.mindrot.jbcrypt.BCrypt;
 import uk.ac.dundee.computing.team7.agilequiz.lib.dbconnect;
+import uk.ac.dundee.computing.team7.agilequiz.stores.ProfileBean;
 
 /**
  *
@@ -54,7 +55,7 @@ public class Student
 	return hashedPassword;
     }
     
-    public boolean createStudent(String matric, String password)
+    public boolean createStudent(String matric, String fname, String sname, String password)
     {
         int numAffectedRows = 0;
         dbconnect dbCon = new dbconnect();
@@ -62,10 +63,12 @@ public class Student
 	PreparedStatement stmt;
         String hashedPassword = hashPassword(password);
 	try {
-	    String sql = "INSERT INTO student (User_ID, Matric_Number, User_Password) VALUES (NULL, ?, ?)";
+	    String sql = "INSERT INTO student (User_ID, Matric_Number, User_Password, First_Name, Surname) VALUES (NULL, ?, ?, ?, ?)";
 	    stmt = con.prepareStatement(sql);
 	    stmt.setString(1, matric);
 	    stmt.setString(2, hashedPassword);
+            stmt.setString(3, fname);
+            stmt.setString(4, sname);
 	    numAffectedRows = stmt.executeUpdate();
             con.close();
             return numAffectedRows > 0;
@@ -122,5 +125,28 @@ public class Student
             Logger.getLogger(Student.class.getName()).log(Level.SEVERE, null, ex);
         }
         return studentID;
+    }
+    
+    public ProfileBean getStudentProfile(ProfileBean profile, String matric){
+        dbconnect dbCon = new dbconnect();
+	Connection con = dbCon.mysqlConnect();
+	PreparedStatement stmt;
+	try {
+	    String sql = "SELECT * FROM student WHERE Matric_Number=?";
+	    stmt = con.prepareStatement(sql);
+	    stmt.setString(1, matric);
+	    ResultSet rs=stmt.executeQuery();    
+            
+            while(rs.next()){
+                profile.setFirstName(rs.getString("First_Name"));
+                profile.setSurname(rs.getString("Surname"));
+            }
+            profile.setMatric(matric);
+
+	} catch (SQLException e)
+	{
+	    	e.printStackTrace();
+	}
+        return profile;
     }
 }
