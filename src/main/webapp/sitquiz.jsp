@@ -23,7 +23,7 @@
     
     <body>
 	<%@ include file="header.jsp" %>
-    <form method="POST"  action="SitQuiz">	
+    <form method="POST"  action="${pageContext.request.contextPath}/QuizResults?quizid=<%=request.getAttribute("quizID")%>">	
     <div class="container"><!-- style="text-align:center">-->
         <div style="text-align: center">
             <h1>Quiz Name Here</h1>

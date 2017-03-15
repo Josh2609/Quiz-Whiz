@@ -83,6 +83,18 @@ public class StudentTest {
     }
 
     /**
+     * Test of getStudentIDFromMatric method, of class Student.
+     */
+    @Test
+    public void testGetStudentIDFromMatric() {
+        System.out.println("getStudentIDFromMatric");
+        String matric = "130012977";
+        Student instance = new Student();
+        int expResult = 24;
+        int result = instance.getStudentIDFromMatric(matric);
+        assertEquals(expResult, result);
+    }
+
      * Test of getStudentProfile method, of class Student.
      */
     @Test

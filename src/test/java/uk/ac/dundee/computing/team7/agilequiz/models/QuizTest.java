@@ -182,4 +182,39 @@ public class QuizTest {
             fail();
         //Assert.assertEquals(testList, quizList);
     }
+
+    /**
+     * Test of addCompletedAnswers method, of class Quiz.
+     */
+    @Test
+    public void testAddCompletedAnswers() {
+        System.out.println("addCompletedAnswers");
+        ArrayList<Integer> correctAnswerList = new ArrayList<>();
+        correctAnswerList.add(1);
+        ArrayList<Integer> incorrectAnswerList = new ArrayList<>();
+        incorrectAnswerList.add(1);
+        Quiz instance = new Quiz();
+        boolean expResult = true;
+        boolean result = instance.addCompletedAnswers(correctAnswerList, incorrectAnswerList, 1);
+        assertEquals(expResult, result);
+    }
+
+    /**
+     * Test of AddCompletedQuiz method, of class Quiz.
+     */
+    @Test
+    public void testAddCompletedQuiz() {
+        System.out.println("AddCompletedQuiz");
+        int score = 0;
+        int attempt = 0;
+        int quizID = 0;
+        int studentID = 0;
+        Quiz instance = new Quiz();
+        int expResult = 0;
+        int result = instance.addCompletedQuiz(score, attempt, quizID, studentID);
+        if (expResult < result)
+            assertTrue(true);
+        else
+            fail();
+    }
 }

@@ -15,6 +15,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import uk.ac.dundee.computing.team7.agilequiz.lib.Converters;
 import uk.ac.dundee.computing.team7.agilequiz.models.Quiz;
 import uk.ac.dundee.computing.team7.agilequiz.stores.AnswerBean;
@@ -62,35 +63,5 @@ public class SitQuiz extends HttpServlet
        
     }
     
-    @Override
-    protected void doPost(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
-        
-        ArrayList<String> answerRadio = new ArrayList<>();
-        Map<String, String[]> parameters = request.getParameterMap();
-        
-        for(String parameter : parameters.keySet()) 
-        { 
-            if(parameter.toLowerCase().startsWith("optradio")) 
-            {
-                String[] temp = parameters.get(parameter);
-                answerRadio.add(temp[0]);
-            }
-        }
-        Quiz quiz = new Quiz();
-
-        int correctAnswers = 0;
-        for (int i = 0; i < answerRadio.size(); i++)
-        {
-            if(quiz.compareAnswer(answerRadio.get(i)))
-            {
-                correctAnswers++;
-            } else {
-            
-            }   
-        }     
-        RequestDispatcher rd = request.getRequestDispatcher("/quizresults.jsp");
-        request.setAttribute("correctAnswers", correctAnswers);
-        rd.forward(request, response);   
-    }
+   
 }

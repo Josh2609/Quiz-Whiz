@@ -93,7 +93,7 @@ public class Quiz {
                 //no results for this quiz id
             }
             
-
+            con.close();
 	} catch (SQLException e)
 	{
             e.printStackTrace();
@@ -138,7 +138,7 @@ public class Quiz {
                 //no results for this question id, shouldn't happend really
             }
             
-
+            con.close();
 	} catch (SQLException e)
 	{
 	    	System.out.println("SQLException2");
@@ -170,6 +170,7 @@ public class Quiz {
             } else {
                 //no results for this question id, shouldn't happend really
             }
+            con.close();
         } catch (SQLException e)
 	{
 	    	System.out.println("SQLException3");
@@ -245,6 +246,7 @@ public class Quiz {
             }
 	    stmt.executeBatch(); 
             success = true;
+            con.close();
 	} catch (SQLException e)
 	{
             success = false;
@@ -273,6 +275,14 @@ public class Quiz {
         return 0;
     }
     
+    
+    public ArrayList<Integer> getAnswerList()
+    {
+        ArrayList<Integer> answerList = new ArrayList<>();
+        
+        return answerList;
+    }
+    
     public boolean compareAnswer(String answerID)
     {
         dbconnect dbCon = new dbconnect();
@@ -289,7 +299,7 @@ public class Quiz {
             {
                 return rs.getInt("Correct_Answer_Flag") == 1;
             }
-            
+            con.close();
         } catch (SQLException ex) {
             Logger.getLogger(Quiz.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -331,7 +341,7 @@ public class Quiz {
                 tempArr[5] = rs.getString("Quiz_Description");
                 quizList.add(tempArr);
             }
-            
+            con.close();
         } catch (SQLException ex) {
             Logger.getLogger(Quiz.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -339,4 +349,122 @@ public class Quiz {
         return quizList;
     }
     
+    
+    public int addCompletedQuiz(int score, int attempt, int quizID, int studentID)
+    {
+        int numAffectedRows = 0;
+        dbconnect dbCon = new dbconnect();
+	Connection con = dbCon.mysqlConnect();
+	PreparedStatement stmt;
+        int completedQuizID = -1;
+
+	try {
+            String sql = "INSERT INTO completed_quiz (Completed_Quiz_ID, Score, Attempt,"
+                    + " Quiz_ID, User_ID) VALUES (NULL, ?, ?, ?, ?)";
+            stmt = con.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
+            stmt.setInt(1, score);
+            stmt.setInt(2, attempt);
+            stmt.setInt(3, quizID);
+            stmt.setInt(4, studentID);
+            stmt.executeUpdate();
+            
+            completedQuizID = -1;
+            ResultSet rs = stmt.getGeneratedKeys();
+            while (rs.next()) {
+                completedQuizID = rs.getInt(1);
+            }
+            con.close();
+        } 
+        catch (SQLException e)
+	{
+            e.printStackTrace();
+        }
+        return completedQuizID;
+    }
+    
+    public boolean addCompletedAnswers(ArrayList<Integer> correctAnswerList, ArrayList<Integer> incorrectAnswerList, int completedQuizID)
+    {
+        dbconnect dbCon = new dbconnect();
+	Connection con = dbCon.mysqlConnect();
+	PreparedStatement stmt;
+	try {       
+            
+            String sql = "INSERT INTO completed_answer (Completed_Answer_ID, Correct_Answer_Flag,"
+                    + " Answer_ID, Completed_Quiz_ID) VALUES (NULL, ?, ?, ?)";
+            stmt = con.prepareStatement(sql);
+            for (int i = 0; i < correctAnswerList.size(); i++)
+            {
+                stmt.setInt(1, 1);
+                stmt.setInt(2, correctAnswerList.get(i));
+                stmt.setInt(3, completedQuizID);
+                stmt.addBatch();
+            }
+            for (int i = 0; i < incorrectAnswerList.size(); i++)
+            {
+                stmt.setInt(1, 0);
+                stmt.setInt(2, incorrectAnswerList.get(i));
+                stmt.setInt(3, completedQuizID);
+                stmt.addBatch();
+            }
+            stmt.executeBatch();
+            con.close();
+            return true;
+        } 
+        catch (SQLException e)
+	{
+            e.printStackTrace();
+            return false;
+        }
+    }
+    
+    public ArrayList<Integer> getStudentAnswers(int completedQuizID)
+    {
+        ArrayList<Integer> studentAnswers = new ArrayList<>();
+        
+        dbconnect dbCon = new dbconnect();
+	Connection con = dbCon.mysqlConnect();
+	PreparedStatement stmt;
+	String sql = "SELECT Answer_ID From completed_answer WHERE Completed_Quiz_ID=?";
+        
+        try {
+            stmt = con.prepareStatement(sql);
+            stmt.setInt(1, completedQuizID);
+	    ResultSet rs=stmt.executeQuery(); 
+            while(rs.next())
+            {
+                int answerID;
+                answerID = rs.getInt("Answer_ID");
+                studentAnswers.add(answerID);
+            }    
+            con.close();
+        } catch (SQLException ex) {
+            Logger.getLogger(Quiz.class.getName()).log(Level.SEVERE, null, ex);
+        }  
+        
+        return studentAnswers;
+    }
+    
+    public int getQuizIDFromCompletedID(int completedQuizID)
+    {
+        int quizID = 0;
+        
+        dbconnect dbCon = new dbconnect();
+	Connection con = dbCon.mysqlConnect();
+	PreparedStatement stmt;
+	String sql = "SELECT Quiz_ID From completed_quiz WHERE Completed_Quiz_ID=?";
+        
+        try {
+            stmt = con.prepareStatement(sql);
+            stmt.setInt(1, completedQuizID);
+	    ResultSet rs=stmt.executeQuery(); 
+            while(rs.next())
+            {
+                quizID = rs.getInt("Answer_ID");
+            }    
+            con.close();
+        } catch (SQLException ex) {
+            Logger.getLogger(Quiz.class.getName()).log(Level.SEVERE, null, ex);
+        }      
+        return quizID;
+    }
 }
