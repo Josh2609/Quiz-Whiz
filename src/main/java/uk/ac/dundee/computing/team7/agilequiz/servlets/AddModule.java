@@ -5,18 +5,13 @@
  */
 package uk.ac.dundee.computing.team7.agilequiz.servlets;
 
-import com.mysql.cj.api.jdbc.Statement;
 import java.io.IOException;
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.SQLException;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import uk.ac.dundee.computing.team7.agilequiz.lib.dbconnect;
 import uk.ac.dundee.computing.team7.agilequiz.models.Module;
 
 /**

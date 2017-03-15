@@ -3,7 +3,10 @@
     Created on : 14-Feb-2017, 22:18:16
     Author     : Josh
 --%>
-
+<%LoggedIn lg2 = (LoggedIn) session.getAttribute("LoggedIn");
+   if (lg2 == null) 
+   {    response.sendRedirect(response.encodeRedirectURL(request.getContextPath() + "/")); }
+%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>

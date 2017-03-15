@@ -9,6 +9,8 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import org.mindrot.jbcrypt.BCrypt;
 import uk.ac.dundee.computing.team7.agilequiz.lib.dbconnect;
 import uk.ac.dundee.computing.team7.agilequiz.stores.ProfileBean;
@@ -36,6 +38,7 @@ public class Student
             {
                 passwordMatch = BCrypt.checkpw(password, rs.getString("User_Password"));
             }
+            con.close();
 	    return passwordMatch;
 
 	} catch (SQLException e)
@@ -67,12 +70,14 @@ public class Student
             stmt.setString(3, fname);
             stmt.setString(4, sname);
 	    numAffectedRows = stmt.executeUpdate();
+            con.close();
+            return numAffectedRows > 0;
         } 
         catch (SQLException e)
 	{
             e.printStackTrace();
         }
-        return numAffectedRows > 0;
+        return false;
     }
     
     public boolean removeStudent(String matric)
@@ -86,21 +91,48 @@ public class Student
             stmt = con.prepareStatement(sql);
             stmt.setString(1, matric);
             numAffectedRows = stmt.executeUpdate();
+            con.close();
+            return numAffectedRows > 0;
         } 
         catch (SQLException e)
 	{
             e.printStackTrace();
         }
-        return numAffectedRows > 0;
+        return false;
     }
     
-    
-    
-    public ProfileBean getStudentProfile(ProfileBean profile, String matric){
+    public int getStudentIDFromMatric(String matric)
+    {
+        int studentID = 0;
         dbconnect dbCon = new dbconnect();
 	Connection con = dbCon.mysqlConnect();
 	PreparedStatement stmt;
-        if(profile != null){ //Shoddy error handling, rework later
+	try {
+	    String sql = "SELECT User_ID FROM student WHERE Matric_Number=?";
+	    stmt = con.prepareStatement(sql);
+	    stmt.setString(1, matric);
+	    ResultSet rs=stmt.executeQuery();
+            while (rs.next()) {
+                studentID = rs.getInt("User_ID");
+            }
+	} catch (SQLException e)
+	{
+            e.printStackTrace();
+        }
+        try {
+            con.close();
+        } catch (SQLException ex) {
+            Logger.getLogger(Student.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return studentID;
+    }
+    
+    public ProfileBean getStudentProfile(String matric){
+        dbconnect dbCon = new dbconnect();
+	Connection con = dbCon.mysqlConnect();
+	PreparedStatement stmt;
+        ProfileBean profile = new ProfileBean();
+
 	try {
 	    String sql = "SELECT * FROM student WHERE Matric_Number=?";
 	    stmt = con.prepareStatement(sql);
@@ -117,7 +149,6 @@ public class Student
 	{
 	    	e.printStackTrace();
 	}
-        }
         return profile;
     }
     

@@ -43,7 +43,7 @@ public class CreateQuiz extends HttpServlet {
 
         String[] questionArray = new String[numQuestions+1];
         ArrayList<ArrayList<String>> QandAlist2d = new ArrayList<>();
-
+        ArrayList<String> correctAnswers = new ArrayList<>();
         
         for (int i = 1; i <= numQuestions; i++)
         {

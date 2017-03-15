@@ -87,12 +87,11 @@ public class StaffTest {
     @Test
     public void testGetStaffProfile() {
         System.out.println("getStaffProfile");
-        ProfileBean profile = null;
-        String staffNumber = "";
+        String staffNumber = "130012977";
         Staff instance = new Staff();
-        ProfileBean expResult = null;
-        ProfileBean result = instance.getStaffProfile(profile, staffNumber);
-        assertEquals(expResult, result);
+        ProfileBean pb = new ProfileBean();
+        pb = instance.getStaffProfile(staffNumber);
+        assertTrue(pb.getFirstName().equalsIgnoreCase("Josh") && pb.getSurname().equalsIgnoreCase("Corps"));
     }
     
 }

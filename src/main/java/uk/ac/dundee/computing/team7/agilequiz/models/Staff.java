@@ -30,6 +30,7 @@ public class Staff
 	    String sql = "SELECT Staff_Number, User_Password FROM staff WHERE Staff_Number=?";
 	    stmt = con.prepareStatement(sql);
 	    stmt.setString(1, staffNumber);
+
 	    ResultSet rs=stmt.executeQuery();  
            
             while(rs.next())
@@ -67,6 +68,7 @@ public class Staff
             stmt.setString(3, fname);
             stmt.setString(4, sname);
 	    numAffectedRows = stmt.executeUpdate();
+            con.close();
         } 
         catch (SQLException e)
 	{
@@ -86,6 +88,7 @@ public class Staff
             stmt = con.prepareStatement(sql);
             stmt.setString(1, staffNumber);
             numAffectedRows = stmt.executeUpdate();
+            con.close();
         } 
         catch (SQLException e)
 	{
@@ -94,11 +97,13 @@ public class Staff
         return numAffectedRows > 0;
     }
     
-    public ProfileBean getStaffProfile(ProfileBean profile, String staffNumber){
+    public ProfileBean getStaffProfile(String staffNumber){
         dbconnect dbCon = new dbconnect();
 	Connection con = dbCon.mysqlConnect();
 	PreparedStatement stmt;
-        if(profile != null){ //Shoddy error handling, rework later
+
+        ProfileBean profile = new ProfileBean();
+
 	try {
 	    String sql = "SELECT * FROM staff WHERE Staff_Number=?";
 	    stmt = con.prepareStatement(sql);
@@ -108,7 +113,6 @@ public class Staff
             while(rs.next()){
                 profile.setFirstName(rs.getString("First_Name"));
                 profile.setSurname(rs.getString("Surname"));
-                
             }
             profile.setMatric(staffNumber);
 
@@ -116,7 +120,6 @@ public class Staff
 	{
 	    	e.printStackTrace();
 	}
-        }
         return profile;
     }
     

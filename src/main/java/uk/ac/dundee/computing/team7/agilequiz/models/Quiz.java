@@ -93,7 +93,7 @@ public class Quiz {
                 //no results for this quiz id
             }
             
-
+            con.close();
 	} catch (SQLException e)
 	{
             e.printStackTrace();
@@ -138,7 +138,7 @@ public class Quiz {
                 //no results for this question id, shouldn't happend really
             }
             
-
+            con.close();
 	} catch (SQLException e)
 	{
 	    	System.out.println("SQLException2");
@@ -147,15 +147,15 @@ public class Quiz {
         return answerList;
     }
     
-    public QuizBean getQuiz(int quizID)
+    public QuizBean getQuizDetails(int quizID)
     {
         QuizBean qb = new QuizBean();
         dbconnect dbCon = new dbconnect();
 	Connection con = dbCon.mysqlConnect();
 	PreparedStatement stmt;
 	try { //TODO
-	    String sql = "SELECT Quiz_ID, Quiz_Name, Available_Flag, Quiz_Version"
-                    + " FROM quiz WHERE Quiz_ID=?";
+	    String sql = "SELECT *"
+                    + " FROM quizmodulecreatorview WHERE Quiz_ID=?";
 	    stmt = con.prepareStatement(sql);
 	    stmt.setString(1, Integer.toString(quizID));
 	    ResultSet rs=stmt.executeQuery();  
@@ -165,11 +165,18 @@ public class Quiz {
                 while(rs.next())
                 {
                    qb.setQuizID(rs.getInt("Quiz_ID"));
+                   qb.setQuizName(rs.getString("Quiz_Name"));
+                   qb.setQuizDescription(rs.getString("Quiz_Description"));
                    qb.setQuizVersion(rs.getInt("Quiz_Version"));
+                   qb.setQuizCreator(rs.getString("First_Name") + " " + rs.getString("Surname"));
+                   qb.setModuleCode(rs.getString("Module_Code"));
+                   qb.setModuleName(rs.getString("Module_Name"));
+                   qb.setDateAdded(rs.getDate("Date_Added"));
                 }
             } else {
                 //no results for this question id, shouldn't happend really
             }
+            con.close();
         } catch (SQLException e)
 	{
 	    	System.out.println("SQLException3");
@@ -190,8 +197,8 @@ public class Quiz {
 	PreparedStatement stmt;
 	try {
             String sql = "INSERT INTO quiz (Quiz_ID, Quiz_Name, Available_Flag, Quiz_Version,"
-                    + " Module_ID, Quiz_Creator_ID, Quiz_Description)"
-                    + " VALUES (NULL, ?, ?, 1, ?, ?, ?)";
+                    + " Module_ID, Quiz_Creator_ID, Quiz_Description, Date_Added)"
+                    + " VALUES (NULL, ?, ?, 1, ?, ?, ?, CURDATE())";
             stmt = con.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
             stmt.setString(1, quizName);
             stmt.setInt(2, available);
@@ -225,26 +232,29 @@ public class Quiz {
                 c++;
             }
             
-            sql = "INSERT INTO answer (Answer_ID, Answer_Text, Correct_Answer_Flag, Question_ID) VALUES (NULL, ?, 0, ?)";
+            sql = "INSERT INTO answer (Answer_ID, Answer_Text, Correct_Answer_Flag, Question_ID) VALUES (NULL, ?, ?, ?)";
             stmt = con.prepareStatement(sql);
             for (int y = 1; y <= numQuestions; y++)
             {
                 ArrayList<String> testList;
                 testList = QandAlist2d.get(y-1);
                 System.out.println("testList ayyitem " + 0 + " = " + testList.get(0));
-                for (int i = 0; i < testList.size(); i++)
-                {
-                    System.out.println("testList item " + i + " = " + testList.get(i));
-                }
                 for (int z = 1; z <= testList.size(); z++)
                 {                  
                     stmt.setString(1, testList.get(z-1));
-                    stmt.setString(2, Integer.toString(questionID[y-1]));
+                    if (z == 1)
+                    {
+                        stmt.setInt(2, 1);
+                    } else {
+                        stmt.setInt(2, 0);
+                    }
+                    stmt.setString(3, Integer.toString(questionID[y-1]));
                     stmt.addBatch();
                 }
             }
 	    stmt.executeBatch(); 
             success = true;
+            con.close();
 	} catch (SQLException e)
 	{
             success = false;
@@ -273,6 +283,14 @@ public class Quiz {
         return 0;
     }
     
+    
+    public ArrayList<Integer> getAnswerList()
+    {
+        ArrayList<Integer> answerList = new ArrayList<>();
+        
+        return answerList;
+    }
+    
     public boolean compareAnswer(String answerID)
     {
         dbconnect dbCon = new dbconnect();
@@ -289,7 +307,7 @@ public class Quiz {
             {
                 return rs.getInt("Correct_Answer_Flag") == 1;
             }
-            
+            con.close();
         } catch (SQLException ex) {
             Logger.getLogger(Quiz.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -331,7 +349,7 @@ public class Quiz {
                 tempArr[5] = rs.getString("Quiz_Description");
                 quizList.add(tempArr);
             }
-            
+            con.close();
         } catch (SQLException ex) {
             Logger.getLogger(Quiz.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -339,4 +357,122 @@ public class Quiz {
         return quizList;
     }
     
+    
+    public int addCompletedQuiz(int score, int attempt, int quizID, int studentID)
+    {
+        int numAffectedRows = 0;
+        dbconnect dbCon = new dbconnect();
+	Connection con = dbCon.mysqlConnect();
+	PreparedStatement stmt;
+        int completedQuizID = -1;
+
+	try {
+            String sql = "INSERT INTO completed_quiz (Completed_Quiz_ID, Score, Attempt,"
+                    + " Quiz_ID, User_ID) VALUES (NULL, ?, ?, ?, ?)";
+            stmt = con.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
+            stmt.setInt(1, score);
+            stmt.setInt(2, attempt);
+            stmt.setInt(3, quizID);
+            stmt.setInt(4, studentID);
+            stmt.executeUpdate();
+            
+            completedQuizID = -1;
+            ResultSet rs = stmt.getGeneratedKeys();
+            while (rs.next()) {
+                completedQuizID = rs.getInt(1);
+            }
+            con.close();
+        } 
+        catch (SQLException e)
+	{
+            e.printStackTrace();
+        }
+        return completedQuizID;
+    }
+    
+    public boolean addCompletedAnswers(ArrayList<Integer> correctAnswerList, ArrayList<Integer> incorrectAnswerList, int completedQuizID)
+    {
+        dbconnect dbCon = new dbconnect();
+	Connection con = dbCon.mysqlConnect();
+	PreparedStatement stmt;
+	try {       
+            
+            String sql = "INSERT INTO completed_answer (Completed_Answer_ID, Correct_Answer_Flag,"
+                    + " Answer_ID, Completed_Quiz_ID) VALUES (NULL, ?, ?, ?)";
+            stmt = con.prepareStatement(sql);
+            for (int i = 0; i < correctAnswerList.size(); i++)
+            {
+                stmt.setInt(1, 1);
+                stmt.setInt(2, correctAnswerList.get(i));
+                stmt.setInt(3, completedQuizID);
+                stmt.addBatch();
+            }
+            for (int i = 0; i < incorrectAnswerList.size(); i++)
+            {
+                stmt.setInt(1, 0);
+                stmt.setInt(2, incorrectAnswerList.get(i));
+                stmt.setInt(3, completedQuizID);
+                stmt.addBatch();
+            }
+            stmt.executeBatch();
+            con.close();
+            return true;
+        } 
+        catch (SQLException e)
+	{
+            e.printStackTrace();
+            return false;
+        }
+    }
+    
+    public ArrayList<Integer> getStudentAnswers(int completedQuizID)
+    {
+        ArrayList<Integer> studentAnswers = new ArrayList<>();
+        
+        dbconnect dbCon = new dbconnect();
+	Connection con = dbCon.mysqlConnect();
+	PreparedStatement stmt;
+	String sql = "SELECT Answer_ID From completed_answer WHERE Completed_Quiz_ID=?";
+        
+        try {
+            stmt = con.prepareStatement(sql);
+            stmt.setInt(1, completedQuizID);
+	    ResultSet rs=stmt.executeQuery(); 
+            while(rs.next())
+            {
+                int answerID;
+                answerID = rs.getInt("Answer_ID");
+                studentAnswers.add(answerID);
+            }    
+            con.close();
+        } catch (SQLException ex) {
+            Logger.getLogger(Quiz.class.getName()).log(Level.SEVERE, null, ex);
+        }  
+        
+        return studentAnswers;
+    }
+    
+    public int getQuizIDFromCompletedID(int completedQuizID)
+    {
+        int quizID = 0;
+        
+        dbconnect dbCon = new dbconnect();
+	Connection con = dbCon.mysqlConnect();
+	PreparedStatement stmt;
+	String sql = "SELECT Quiz_ID From completed_quiz WHERE Completed_Quiz_ID=?";
+        
+        try {
+            stmt = con.prepareStatement(sql);
+            stmt.setInt(1, completedQuizID);
+	    ResultSet rs=stmt.executeQuery(); 
+            while(rs.next())
+            {
+                quizID = rs.getInt("Answer_ID");
+            }    
+            con.close();
+        } catch (SQLException ex) {
+            Logger.getLogger(Quiz.class.getName()).log(Level.SEVERE, null, ex);
+        }      
+        return quizID;
+    }
 }

@@ -72,7 +72,7 @@
           <button type="button" class="close" data-dismiss="modal">&times;</button>
           <ul class="nav nav-tabs">
             <li><a data-toggle="tab" href="#login"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
-            <li><a data-toggle="tab" href="#Stafflogin"><span class="glyphicon glyphicon-log-in"></span>Staff Login</a></li>
+            <li><a data-toggle="tab" href="#Stafflogin"><span class="glyphicon glyphicon-log-in"></span> Staff Login</a></li>
             <li><a data-toggle="tab" href="#register"><span class="glyphicon glyphicon-user"></span> Sign Up</a></li>
           </ul>
           <!--<h4 class="modal-title">Login</h4>-->
