@@ -22,6 +22,7 @@ public class AnswerList
 {
     private ArrayList<Integer> correctAnswerList = new ArrayList<>();
     private ArrayList<Integer> incorrectAnswerList = new ArrayList<>();
+    private int numCorrect = 0;
     private dbconnect dbCon = new dbconnect();
     private Connection con = dbCon.mysqlConnect();
     private PreparedStatement stmt;
@@ -33,11 +34,10 @@ public class AnswerList
         {
             if(compareAnswer(answerRadio.get(i)))
             {
+                numCorrect++;
                 correctAnswerList.add(Integer.parseInt(answerRadio.get(i)));
-                System.out.println("cAL.length = " + correctAnswerList.size());
             } else {
                 incorrectAnswerList.add(Integer.parseInt(answerRadio.get(i)));
-                System.out.println("iAL.length = " + incorrectAnswerList.size());
             }   
         }  
         try {
@@ -55,6 +55,11 @@ public class AnswerList
     public ArrayList<Integer> getIncorrectAnswerList()
     {
         return incorrectAnswerList;
+    }
+    
+    public int getNumCorrect()
+    {
+        return numCorrect;
     }
     
     private boolean compareAnswer(String answerID)

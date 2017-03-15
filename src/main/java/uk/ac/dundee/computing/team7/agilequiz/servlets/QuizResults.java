@@ -90,7 +90,6 @@ public class QuizResults extends HttpServlet
         ArrayList<Integer> incorrectAnswerList = new ArrayList<>();
 
         // needs optimised
-        int correctAnswers = 0;
         
         AnswerList answerList = new AnswerList(answerRadio);
         correctAnswerList = answerList.getCorrectAnswerList();
@@ -98,7 +97,8 @@ public class QuizResults extends HttpServlet
 
         HttpSession session = request.getSession();
         int studentID = (Integer) session.getAttribute("StudentID");
-        int completedQuizID = quiz.addCompletedQuiz(correctAnswers, 1, quizID, studentID);
+        int numCorrect = answerList.getNumCorrect();
+        int completedQuizID = quiz.addCompletedQuiz(numCorrect, 1, quizID, studentID);
         quiz.addCompletedAnswers(correctAnswerList, incorrectAnswerList, completedQuizID);
         
         ArrayList<Integer> studentAnswers = new ArrayList<>();

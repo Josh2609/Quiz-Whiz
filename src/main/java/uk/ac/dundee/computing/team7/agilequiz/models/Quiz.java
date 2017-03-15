@@ -360,7 +360,6 @@ public class Quiz {
     
     public int addCompletedQuiz(int score, int attempt, int quizID, int studentID)
     {
-        int numAffectedRows = 0;
         dbconnect dbCon = new dbconnect();
 	Connection con = dbCon.mysqlConnect();
 	PreparedStatement stmt;
