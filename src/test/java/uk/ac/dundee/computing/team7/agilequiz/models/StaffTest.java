@@ -44,7 +44,7 @@ public class StaffTest {
     @Test
     public void testCheckDetails() {
         System.out.println("checkDetails");
-	String staffNumber = "24";
+	String staffNumber = "130012977";
 	String password = "password";
 	Staff instance = new Staff();
 	boolean expResult = true;
