@@ -64,5 +64,56 @@ public class Profile extends HttpServlet {
        }
        RequestDispatcher rd = request.getRequestDispatcher("profile.jsp");
        rd.forward(request, response);
-    }   
+    }
+    
+    @Override
+    protected void doPost(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+        HttpSession session = request.getSession();
+        
+        String oldpass = request.getParameter("currPass");
+        String newpass = request.getParameter("newPass");
+        String confpass = request.getParameter("confPass");
+        
+        LoggedIn lg = (LoggedIn) session.getAttribute("LoggedIn");        
+        if (!(newpass.equals(confpass)))
+        {
+            RequestDispatcher rd = request.getRequestDispatcher("/profile.jsp");
+            request.setAttribute("Message", "Passwords do not match");
+            rd.forward(request, response);
+            return;
+        }
+        if(lg.getStaff()){
+            Staff user = new Staff();
+            String staffid = lg.getStaffID();
+            if (user.checkDetails(staffid, oldpass))
+            {
+                user.changePassword(staffid, newpass);
+                request.setAttribute("Message", "Password has been changed");
+            }
+            else{
+                RequestDispatcher rd = request.getRequestDispatcher("/profile.jsp");
+                request.setAttribute("Message", "Your Current Password was Incorrect");
+                rd.forward(request, response);
+                return;
+            }
+        }
+        else{
+            Student user = new Student();
+            String matric = lg.getMatric();
+            if (user.checkDetails(matric, oldpass))
+            {
+                user.changePassword(matric, newpass);
+                request.setAttribute("Message", "Password has been changed");
+            }
+            else{
+                RequestDispatcher rd = request.getRequestDispatcher("/profile.jsp");
+                request.setAttribute("Message", "Your Current Password was Incorrect");
+                rd.forward(request, response);
+                return;
+            }
+        }
+        RequestDispatcher rd = request.getRequestDispatcher("/profile.jsp");
+        rd.forward(request, response);
+    }
 }

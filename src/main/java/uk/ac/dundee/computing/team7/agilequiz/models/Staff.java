@@ -101,7 +101,9 @@ public class Staff
         dbconnect dbCon = new dbconnect();
 	Connection con = dbCon.mysqlConnect();
 	PreparedStatement stmt;
+
         ProfileBean profile = new ProfileBean();
+
 	try {
 	    String sql = "SELECT * FROM staff WHERE Staff_Number=?";
 	    stmt = con.prepareStatement(sql);
@@ -119,5 +121,27 @@ public class Staff
 	    	e.printStackTrace();
 	}
         return profile;
+    }
+    
+    
+    public boolean changePassword(String staffNumber, String newPass)
+    {
+        int numAffectedRows = 0;
+        dbconnect dbCon = new dbconnect();
+	Connection con = dbCon.mysqlConnect();
+	PreparedStatement stmt;                
+        String hashedPassword = hashPassword(newPass);
+	try {
+	    String sql = "UPDATE staff SET User_Password = ? WHERE Staff_Number = ?";
+	    stmt = con.prepareStatement(sql);
+	    stmt.setString(1, hashedPassword);
+	    stmt.setString(2, staffNumber);
+	    numAffectedRows = stmt.executeUpdate();
+        } 
+        catch (SQLException e)
+	{
+            e.printStackTrace();
+        }
+        return numAffectedRows > 0;
     }
 }
