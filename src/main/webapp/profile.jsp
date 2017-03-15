@@ -17,6 +17,7 @@
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
         <link rel="stylesheet" content= "text/css" href="${pageContext.request.contextPath}/style.css">
         <%ProfileBean pb = (ProfileBean) session.getAttribute("ProfileBean");%>
+        <script src="js/changePass.js"></script>  
     </head>
     
     <body>
@@ -34,7 +35,8 @@
                                 <h4>Staff ID: <%=pb.getMatric()%></h4>
                             <%}%>
                                 <br>
-                            <input type="submit" class="btn btn-success" value="Change Password" onclick=;>
+                            <input type="submit" class="btn btn-success" value="Change Password" onclick="changePass()">
+                            <div class="ChangePass"></div>
                         <%}else{%>               
                     SOMETHING HAs GONE WrONg!!!?!?!
                 <%}%>

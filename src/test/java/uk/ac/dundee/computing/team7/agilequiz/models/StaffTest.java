@@ -44,7 +44,7 @@ public class StaffTest {
     @Test
     public void testCheckDetails() {
         System.out.println("checkDetails");
-	String staffNumber = "130012977";
+	String staffNumber = "24";
 	String password = "password";
 	Staff instance = new Staff();
 	boolean expResult = true;
@@ -93,8 +93,6 @@ public class StaffTest {
         ProfileBean expResult = null;
         ProfileBean result = instance.getStaffProfile(profile, staffNumber);
         assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
     }
     
 }

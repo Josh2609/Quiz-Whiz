@@ -94,10 +94,13 @@ public class Student
         return numAffectedRows > 0;
     }
     
+    
+    
     public ProfileBean getStudentProfile(ProfileBean profile, String matric){
         dbconnect dbCon = new dbconnect();
 	Connection con = dbCon.mysqlConnect();
 	PreparedStatement stmt;
+        if(profile != null){ //Shoddy error handling, rework later
 	try {
 	    String sql = "SELECT * FROM student WHERE Matric_Number=?";
 	    stmt = con.prepareStatement(sql);
@@ -114,6 +117,31 @@ public class Student
 	{
 	    	e.printStackTrace();
 	}
+        }
         return profile;
+    }
+    
+    
+    
+    
+    public boolean changePassword(String matric, String newPass)
+    {
+        int numAffectedRows = 0;
+        dbconnect dbCon = new dbconnect();
+	Connection con = dbCon.mysqlConnect();
+	PreparedStatement stmt;                
+        String hashedPassword = hashPassword(newPass);
+	try {
+	    String sql = "UPDATE student SET User_Password = ? WHERE Matric_Number = ?";
+	    stmt = con.prepareStatement(sql);
+	    stmt.setString(1, hashedPassword);
+	    stmt.setString(2, matric);
+	    numAffectedRows = stmt.executeUpdate();
+        } 
+        catch (SQLException e)
+	{
+            e.printStackTrace();
+        }
+        return numAffectedRows > 0;
     }
 }
