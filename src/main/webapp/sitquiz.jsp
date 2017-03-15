@@ -3,7 +3,10 @@
     Created on : 23-Feb-2017, 16:18:16
     Author     : joshcorps
 --%>
-
+<%LoggedIn lg2 = (LoggedIn) session.getAttribute("LoggedIn");
+   if (lg2 == null) 
+   {    response.sendRedirect(response.encodeRedirectURL(request.getContextPath() + "/")); }
+%>
 <%@page import="java.util.Iterator"%>
 <%@page import="uk.ac.dundee.computing.team7.agilequiz.stores.AnswerBean"%>
 <%@page import="uk.ac.dundee.computing.team7.agilequiz.stores.QuestionBean"%>

@@ -13,7 +13,9 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import uk.ac.dundee.computing.team7.agilequiz.models.Quiz;
+import uk.ac.dundee.computing.team7.agilequiz.stores.LoggedIn;
 
 /**
  *
@@ -26,20 +28,27 @@ public class ViewQuizzes extends HttpServlet
 {  
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) 
-            throws ServletException, IOException {   
+            throws ServletException, IOException {  
+        HttpSession session = request.getSession();
+        LoggedIn lg = (LoggedIn) session.getAttribute("LoggedIn");
+        if (lg == null) 
+        {    
+            response.sendRedirect(response.encodeRedirectURL(request.getContextPath() + "/"));
+        } else {
         
-        int cPage = 1;
-        if (request.getParameter("page") != null)
-        {
-            cPage = Integer.parseInt(request.getParameter("page"));
-        }
-        
-        Quiz quiz = new Quiz();
-        ArrayList<String[]> quizList = quiz.getAvailableQuizList(cPage);
+            int cPage = 1;
+            if (request.getParameter("page") != null)
+            {
+                cPage = Integer.parseInt(request.getParameter("page"));
+            }
 
-        RequestDispatcher rd = request.getRequestDispatcher("/viewquizzes.jsp");
-        request.setAttribute("quizList", quizList);
-        request.setAttribute("currentPage", cPage);
-        rd.forward(request, response);  
+            Quiz quiz = new Quiz();
+            ArrayList<String[]> quizList = quiz.getAvailableQuizList(cPage);
+
+            RequestDispatcher rd = request.getRequestDispatcher("/viewquizzes.jsp");
+            request.setAttribute("quizList", quizList);
+            request.setAttribute("currentPage", cPage);
+            rd.forward(request, response);  
+        }
     }
 }
