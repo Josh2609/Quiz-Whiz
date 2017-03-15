@@ -94,18 +94,18 @@ public class StudentTest {
         int result = instance.getStudentIDFromMatric(matric);
         assertEquals(expResult, result);
     }
-
+    
+    /**
      * Test of getStudentProfile method, of class Student.
      */
     @Test
     public void testGetStudentProfile() {
         System.out.println("getStudentProfile");
-        ProfileBean profile = null;
-        String matric = "";
+        String matric = "130012977";
         Student instance = new Student();
-        ProfileBean expResult = null;
-        ProfileBean result = instance.getStudentProfile(profile, matric);
-        assertEquals(expResult, result);
+        ProfileBean pb = new ProfileBean();
+        pb = instance.getStudentProfile(matric);
+        assertTrue(pb.getFirstName().equalsIgnoreCase("Josh") && pb.getSurname().equalsIgnoreCase("Corps"));
     }
     
 }

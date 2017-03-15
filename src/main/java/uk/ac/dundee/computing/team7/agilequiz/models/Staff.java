@@ -97,10 +97,11 @@ public class Staff
         return numAffectedRows > 0;
     }
     
-    public ProfileBean getStaffProfile(ProfileBean profile, String staffNumber){
+    public ProfileBean getStaffProfile(String staffNumber){
         dbconnect dbCon = new dbconnect();
 	Connection con = dbCon.mysqlConnect();
 	PreparedStatement stmt;
+        ProfileBean profile = new ProfileBean();
 	try {
 	    String sql = "SELECT * FROM staff WHERE Staff_Number=?";
 	    stmt = con.prepareStatement(sql);
@@ -110,7 +111,6 @@ public class Staff
             while(rs.next()){
                 profile.setFirstName(rs.getString("First_Name"));
                 profile.setSurname(rs.getString("Surname"));
-                
             }
             profile.setMatric(staffNumber);
 

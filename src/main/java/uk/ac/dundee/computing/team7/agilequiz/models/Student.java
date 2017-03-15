@@ -127,10 +127,11 @@ public class Student
         return studentID;
     }
     
-    public ProfileBean getStudentProfile(ProfileBean profile, String matric){
+    public ProfileBean getStudentProfile(String matric){
         dbconnect dbCon = new dbconnect();
 	Connection con = dbCon.mysqlConnect();
 	PreparedStatement stmt;
+        ProfileBean profile = new ProfileBean();
 	try {
 	    String sql = "SELECT * FROM student WHERE Matric_Number=?";
 	    stmt = con.prepareStatement(sql);

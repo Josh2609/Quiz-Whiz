@@ -47,15 +47,13 @@ public class Profile extends HttpServlet {
        LoggedIn lg = (LoggedIn) session.getAttribute("LoggedIn");
        if(lg.getStaff() == false){ //If the user is a student
             Student stud = new Student();
-       
             String matric = lg.getMatric();
-            profile = stud.getStudentProfile(profile, matric);
+            profile = stud.getStudentProfile(matric);
        }
        else{ //If the user is staff
            Staff staff = new Staff();
-       
            String staffid = lg.getStaffID();
-           profile = staff.getStaffProfile(profile, staffid);
+           profile = staff.getStaffProfile(staffid);
        }
        
        if(profile != null){
