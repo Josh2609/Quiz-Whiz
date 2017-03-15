@@ -435,4 +435,29 @@ public class Quiz {
         
         return studentAnswers;
     }
+    
+    public int getQuizIDFromCompletedID(int completedQuizID)
+    {
+        int quizID = 0;
+        
+        dbconnect dbCon = new dbconnect();
+	Connection con = dbCon.mysqlConnect();
+	PreparedStatement stmt;
+	String sql = "SELECT Quiz_ID From completed_quiz WHERE Completed_Quiz_ID=?";
+        
+        try {
+            stmt = con.prepareStatement(sql);
+            stmt.setInt(1, completedQuizID);
+	    ResultSet rs=stmt.executeQuery(); 
+            while(rs.next())
+            {
+                quizID = rs.getInt("Answer_ID");
+            }    
+            con.close();
+        } catch (SQLException ex) {
+            Logger.getLogger(Quiz.class.getName()).log(Level.SEVERE, null, ex);
+        }  
+        
+        return quizID;
+    }
 }

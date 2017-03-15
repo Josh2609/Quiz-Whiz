@@ -7,7 +7,7 @@ package uk.ac.dundee.computing.team7.agilequiz.servlets;
 
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Iterator;
+import java.util.Collections;
 import java.util.Map;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -48,6 +48,7 @@ public class QuizResults extends HttpServlet
         ArrayList<QuestionBean> questions = quiz.getQuestions(Integer.parseInt(quizID));
         ArrayList<AnswerBean> answers = quiz.getAnswers2();
         ArrayList<Integer> studentAnswers = quiz.getStudentAnswers(completedQuizID); //TODO
+        Collections.sort(studentAnswers);
         
         RequestDispatcher rd = request.getRequestDispatcher("/quizresults.jsp");
         request.setAttribute("completedQuizID", args[2]);
@@ -104,14 +105,17 @@ public class QuizResults extends HttpServlet
         int completedQuizID = quiz.addCompletedQuiz(correctAnswers, 1, quizID, studentID);
         quiz.addCompletedAnswers(correctAnswerList, incorrectAnswerList, completedQuizID);
         
+        ArrayList<Integer> studentAnswers = new ArrayList<>();
+        studentAnswers.addAll(correctAnswerList);
+        studentAnswers.addAll(incorrectAnswerList);
+        Collections.sort(studentAnswers);
+        
+        
         RequestDispatcher rd = request.getRequestDispatcher("/quizresults.jsp");
-        request.setAttribute("quizID", quizID);
         request.setAttribute("questions", questions);
         request.setAttribute("answers", answers);
-        request.setAttribute("correctAnswerList", correctAnswerList);
-        request.setAttribute("incorrectAnswerList", incorrectAnswerList);
-        //request.setAttribute("completedQuizID", completedQuizID);
-        request.setAttribute("correctAnswers", correctAnswers);
+        request.setAttribute("studentAnswers", studentAnswers);
+        request.setAttribute("completedQuizID", completedQuizID);
         rd.forward(request, response);   
     }
     

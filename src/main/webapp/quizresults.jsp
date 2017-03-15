@@ -77,7 +77,7 @@
                     pos = studentAnswers.indexOf(ab.getAnswerID());
                     if(studentAnswers.get(pos) == ab.getAnswerID())
                     {
-                        if(ab.getCorrectAnswer())//studentAnswers.get(k) == ab.getAnswerID())
+                        if(ab.getCorrectAnswer())
                         {%>
                         <label style="color:green;"><input style="text-align:left" type="radio" name="optradio<%=i%>" checked="checked" disabled><%=ab.getAnswerText()%></label>
                         <%} else {%>
