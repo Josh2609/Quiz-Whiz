@@ -82,12 +82,12 @@ public class QuizTest {
      * Test of getQuiz method, of class Quiz.
      */
     @Test
-    public void testGetQuiz() {
-        System.out.println("getQuiz");
-        int quizID = 1;
+    public void testGetQuizDetails() {
+        System.out.println("getQuizDetails");
+        int quizID = 100;
         Quiz instance = new Quiz();
-        QuizBean result = instance.getQuiz(quizID);
-        assertEquals(1, result.getQuizID());
+        QuizBean result = instance.getQuizDetails(quizID);
+        assertEquals(quizID, result.getQuizID());
     }
 
     /**
