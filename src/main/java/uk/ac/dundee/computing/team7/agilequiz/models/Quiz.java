@@ -226,21 +226,23 @@ public class Quiz {
                 c++;
             }
             
-            sql = "INSERT INTO answer (Answer_ID, Answer_Text, Correct_Answer_Flag, Question_ID) VALUES (NULL, ?, 0, ?)";
+            sql = "INSERT INTO answer (Answer_ID, Answer_Text, Correct_Answer_Flag, Question_ID) VALUES (NULL, ?, ?, ?)";
             stmt = con.prepareStatement(sql);
             for (int y = 1; y <= numQuestions; y++)
             {
                 ArrayList<String> testList;
                 testList = QandAlist2d.get(y-1);
                 System.out.println("testList ayyitem " + 0 + " = " + testList.get(0));
-                for (int i = 0; i < testList.size(); i++)
-                {
-                    System.out.println("testList item " + i + " = " + testList.get(i));
-                }
                 for (int z = 1; z <= testList.size(); z++)
                 {                  
                     stmt.setString(1, testList.get(z-1));
-                    stmt.setString(2, Integer.toString(questionID[y-1]));
+                    if (z == 1)
+                    {
+                        stmt.setInt(2, 1);
+                    } else {
+                        stmt.setInt(2, 0);
+                    }
+                    stmt.setString(3, Integer.toString(questionID[y-1]));
                     stmt.addBatch();
                 }
             }
