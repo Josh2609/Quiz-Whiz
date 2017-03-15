@@ -70,20 +70,28 @@
         %>
         <div class="col-sm-3">
             <div class="radio disabled">
-                <%for (int k = 0; k < studentAnswers.size(); k++)
-                {if(studentAnswers.get(k) == ab.getAnswerID()){%>
-                    
-                    <%if(ab.getCorrectAnswer() && studentAnswers.get(k) == ab.getAnswerID())//studentAnswers.get(k) == ab.getAnswerID())
-                    {%>
-                        <label style="color:green;"><input style="text-align:left" type="radio" name="optradio<%=i%>" checked="checked"><%=ab.getAnswerText()%></label>
-                    <%} else if (ab.getCorrectAnswer() && studentAnswers.get(k) != ab.getAnswerID()){%>
-                        <label style="color:green;"><input style="text-align:left" type="radio" name="optradio<%=i%>"><%=ab.getAnswerText()%><%=ab.getAnswerText()%></label>
-                    <%} else if (!ab.getCorrectAnswer() && studentAnswers.get(k) == ab.getAnswerID()){%>
-                        <label style="color:red;"><input style="text-align:left" type="radio" name="optradio<%=i%>" checked="checked"><%=ab.getAnswerText()%></label>
+                <%
+                int pos = 0;
+                if (studentAnswers.contains(ab.getAnswerID()))
+                {
+                    pos = studentAnswers.indexOf(ab.getAnswerID());
+                    if(studentAnswers.get(pos) == ab.getAnswerID())
+                    {
+                        if(ab.getCorrectAnswer())//studentAnswers.get(k) == ab.getAnswerID())
+                        {%>
+                        <label style="color:green;"><input style="text-align:left" type="radio" name="optradio<%=i%>" checked="checked" disabled><%=ab.getAnswerText()%></label>
+                        <%} else {%>
+                            <label style="color:red;"><input style="text-align:left" type="radio" name="optradio<%=i%>" checked="checked" disabled><%=ab.getAnswerText()%></label>
+                        <%}
+                    }
+                } else {
+                    if (ab.getCorrectAnswer()){%>
+                        <label style="color:green;"><input style="text-align:left" type="radio" name="optradio<%=i%>" disabled><%=ab.getAnswerText()%></label>
                     <%} else {%>
-                        <label style="color:red;"><input style="text-align:left" type="radio" name="optradio<%=i%>"><%=ab.getAnswerText()%></label>
-                    <%}}
+                        <label style="color:red;"><input style="text-align:left" type="radio" name="optradio<%=i%>" disabled><%=ab.getAnswerText()%></label>
+                    <%}
                 }%>
+                
                
             </div>
         </div>
