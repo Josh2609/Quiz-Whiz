@@ -29,6 +29,7 @@
                         <li><a href="${pageContext.request.contextPath}/ViewQuiz">Quizzes</a></li>
 
                         <li><a href="${pageContext.request.contextPath}/CreateQuiz">Create Quiz</a></li>
+                        <li><a href="${pageContext.request.contextPath}/ViewResults?page=1">View Results</a></li>
                         <li><a href="${pageContext.request.contextPath}/EditQuiz/1">Edit Quizzes</a></li>
                             <%}
                         }%>
