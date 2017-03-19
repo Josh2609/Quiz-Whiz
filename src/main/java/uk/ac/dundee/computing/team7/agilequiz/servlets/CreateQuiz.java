@@ -14,6 +14,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import uk.ac.dundee.computing.team7.agilequiz.models.Quiz;
 
 
@@ -37,7 +38,8 @@ public class CreateQuiz extends HttpServlet {
         String moduleID = request.getParameter("moduleSelect");
         System.out.println(moduleID);
         int available = 1;
-        int creatorID = 1;
+        HttpSession session=request.getSession();
+        int creatorID = (int) session.getAttribute("UserID");
         
         int numQuestions = Integer.parseInt(request.getParameter("numQuestions"));
 
