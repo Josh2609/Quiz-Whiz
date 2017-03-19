@@ -37,19 +37,32 @@
         } else {
         %>
         <form class="questions" method="POST"  action="EditQuiz">
-            <input type="text" name="oldQuizID" value="<%=request.getAttribute("quizID")%>">
+            <!--<input type="text" name="oldQuizID" value="<%=request.getAttribute("quizID")%>">-->
+            <div class="container" style="text-align:center">
         <%
             Iterator<QuestionBean> iterator;
             iterator = questions.iterator();
             int questionNum = 1;
+            int iterateQue = 0;
+            int iterateAns = 0;
             while (iterator.hasNext()) 
             {
+                iterateQue++;
                 QuestionBean qb = (QuestionBean) iterator.next();
                 System.out.println(qb.getQuestionText());
 
 
         %>
-        <br>Question&nbsp;&nbsp;&nbsp;&nbsp;<input type="text" name="question_<%=questionNum%>" value="<%=qb.getQuestionText()%>"><br>Answer(s)
+        <div class="panel panel-default" name="<%=iterateQue%>">
+            <div class="panel-heading">
+                <h4>Questions<h4>
+                <div class="input-group"><span class="input-group-addon">Question <%=questionNum%></span>
+                <input class="form-control" type="text" name="question_<%=iterateQue%>" value="<%=qb.getQuestionText()%>">
+                </div></div>
+                <br>
+                <h4>Answers</h4>
+            <div class="panel-body">
+        <input type="text" name="question-<%=iterateQue%>" value="<%=qb.getQuestionID()%>" hidden>
         <%
                 Iterator<AnswerBean> iterator2;
                 iterator2 = answers.iterator();
@@ -60,21 +73,42 @@
                     AnswerBean ab = (AnswerBean) iterator2.next();
 
                     if (ab.getQuestionID() == qb.getQuestionID() )
-                    {
+                    {   
+                        iterateAns++;
                         %>
-                        <input type="text" name="<%=questionNum%>_answer_<%=answerNum%>" value="<%=ab.getAnswerText()%>">
+                        <div class="input-group">
+                            <%
+                                if(answerNum == 1){
+                            %>
+                            <span class="input-group-addon">Correct Answer</span>
+                            <%
+                                }else{
+                            %>
+                            <span class="input-group-addon">Incorrect Answer <%=(answerNum - 1)%></span>
+                            <%
+                                }
+                            %>
+                            <input type="text" class="form-control" name="<%=iterateAns%>_answer" value="<%=ab.getAnswerText()%>">
+                        </div>
+                        <br>
+                        <input type="text" name="<%=iterateAns%>-answer" value="<%=ab.getAnswerID()%>" hidden>
                         <%
                         answerNum++;
                     }
                 }  
                 %>
                 <input type="text" id="<%=questionNum%>_numAnswers" name="<%=questionNum%>_numAnswers" value="<%=answerNum-1%>" hidden>
+            </div>
+                </div>
+            <br>
                 <%
                 questionNum++;
             }
             %>
             <input type="text" name="numQuestions" value="<%=questionNum%>" hidden>
-            <br><br><input type="submit" value="Edit">
+            <br><br><input class="btn btn-success" type="submit" value="Edit">
+            </div>
+            <br><br><br>
         </form>
             <%
         }
