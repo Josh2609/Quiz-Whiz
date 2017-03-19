@@ -41,21 +41,26 @@ public class StaffSignup extends HttpServlet
         String password = request.getParameter("password");
         String repeatPassword = request.getParameter("repeatPassword");
         
-        if (!(password.equals(repeatPassword)))
-        {
-            RequestDispatcher rd = request.getRequestDispatcher("/index.jsp");
-            //request.setAttribute("Message", "Passwords do not match");
-            request.setAttribute("Message", "You dun fucked up son.");
-            request.setAttribute("staffNumber", staffid);
-            rd.forward(request, response);
-            
-            return;
-        }
-        Staff staff = new Staff();
-        staff.createStaff(staffid, fname, sname, password);
+        if(!(staffid.equals("") || fname.equals("") || sname.equals("") || password.equals("") || repeatPassword.equals(""))){
+            if (!(password.equals(repeatPassword)))
+            {
+                RequestDispatcher rd = request.getRequestDispatcher("/index.jsp");
+                request.setAttribute("Message", "You dun fucked up son.");
+                request.setAttribute("staffNumber", staffid);
+                rd.forward(request, response);
+                return;
+            }
+            Staff staff = new Staff();
+            staff.createStaff(staffid, fname, sname, password);
         
-        RequestDispatcher rd = request.getRequestDispatcher("/index.jsp");
-        rd.forward(request, response);
+            RequestDispatcher rd = request.getRequestDispatcher("/index.jsp");
+            rd.forward(request, response);
+        }
+        else{
+            RequestDispatcher rd = request.getRequestDispatcher("/index.jsp");
+            request.setAttribute("Message", "One or more fields were missing");
+            rd.forward(request, response);         
+        }
         
     }
 }
