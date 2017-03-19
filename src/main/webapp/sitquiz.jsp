@@ -40,16 +40,14 @@
             <h3>Date Added: <%=quizBean.getDateAdded()%></h3>
             <h3><%=quizBean.getModuleCode()%> - <%=quizBean.getModuleName()%></h3>
             <h3>Created By: <%=quizBean.getQuizCreator()%></h3><br>
+            <%if ((boolean) request.getAttribute("bookmarked") && !(boolean) session.getAttribute("Staff"))
+            {%>
+                <button class="btn btn-primary" id="bookmark" type="button" onclick="removeBookmark(<%=request.getAttribute("quizID")%>, <%=session.getAttribute("StudentID")%>)">Remove Bookmark</button>
+            <% } else if (!(boolean) request.getAttribute("bookmarked") && !(boolean) session.getAttribute("Staff")){ %>
+                <button class="btn btn-primary" id="bookmark" type="button" onclick="addToBookmarks(<%=request.getAttribute("quizID")%>, <%=session.getAttribute("StudentID")%>)">Bookmark Quiz</button>
+            <%}%>
         </div>    
-        
-        <!-- *** WORKING HERE *** -->
-        <%if ((boolean) request.getAttribute("bookmarked") && !(boolean) session.getAttribute("Staff"))
-        {%>
-            <button id="bookmark" type="button" onclick="removeBookmark(<%=request.getAttribute("quizID")%>, <%=session.getAttribute("StudentID")%>)">Remove Bookmark</button>
-        <% } else if (!(boolean) request.getAttribute("bookmarked") && !(boolean) session.getAttribute("Staff")){ %>
-            <button id="bookmark" type="button" onclick="addToBookmarks(<%=request.getAttribute("quizID")%>, <%=session.getAttribute("StudentID")%>)">Bookmark</button>
-        <%}%>
-        
+        <br>
         <div id="bookmarkResult"><b></b></div>
         
             <%if (questions.isEmpty()) {

@@ -29,7 +29,7 @@ function removeBookmark(quizID, studentID) {
       document.getElementById("bookmarkResult").innerHTML=this.responseText;
     }
   }
-  document.getElementById("bookmark").textContent = "Bookmark"; 
+  document.getElementById("bookmark").textContent = "Bookmark Quiz"; 
   document.getElementById("bookmark").onclick = function() { addToBookmarks(quizID, studentID); }
   xmlhttp.open("GET","../RemoveBookmark?quizID="+quizID+"&studentID="+studentID,true);                      
   xmlhttp.send();
