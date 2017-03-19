@@ -52,8 +52,11 @@ public class QuizResults extends HttpServlet
         Collections.sort(studentAnswers);
         QuizBean qb = new QuizBean();
         qb = quiz.getQuizDetails(quizID);
+        int numQuestions = questions.size();
         
         RequestDispatcher rd = request.getRequestDispatcher("/quizresults.jsp");
+        request.setAttribute("numCorrect", 1);
+        request.setAttribute("numQuestions", numQuestions);
         request.setAttribute("completedQuizID", args[2]);
         request.setAttribute("quizBean", qb);
         request.setAttribute("questions", questions);
@@ -109,8 +112,11 @@ public class QuizResults extends HttpServlet
         
         QuizBean qb = new QuizBean();
         qb = quiz.getQuizDetails(quizID);
+        int numQuestions = questions.size();
         
         RequestDispatcher rd = request.getRequestDispatcher("/quizresults.jsp");
+        request.setAttribute("numCorrect", numCorrect);
+        request.setAttribute("numQuestions", numQuestions);
         request.setAttribute("quizBean", qb);
         request.setAttribute("questions", questions);
         request.setAttribute("answers", answers);

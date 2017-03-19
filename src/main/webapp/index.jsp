@@ -26,13 +26,15 @@
                <div class="container"><div class="alert alert-warning"><strong>Oh shit waddup! It's</strong> <%= msg %></div></div>
             <% } %>
          <div>
-            <div  style="text-align:center">
-            <div style="text-align:center">
-                <h1> Welcome to <div style="font-family: 'Faster One', cursive;">QuizWhiz</div></h1>
-         <br><br>
-         </div>
+            <div class="homeDes">
+            <div style="text-align:center; color:#ffffff">
+                <h1> Welcome to <div style="font-family: 'Faster One', cursive; font-size: 200%;">QuizWhiz</div></h1>
+            <br>
+            <img src="https://upload.wikimedia.org/wikipedia/en/thumb/8/83/University_of_Dundee_logo.svg/1200px-University_of_Dundee_logo.svg.png" alt="Dundee University Logo" style="width: 200px; height: 250px; display:inline;">
+            </div>
+            </div>
             
-            <div class="container">
+            <!--<div class="container">
                <div style="text-align: center;">
                <div style="display: inline-block; text-align: left">
                    
@@ -49,7 +51,7 @@
 		<input type="submit" class="btn btn-success" value="Log In" onclick=window.location="${pageContext.request.contextPath}/Login";>
 		<input type="submit" class="btn btn-success" value="Sign Up"onclick=window.location="${pageContext.request.contextPath}/SignUp";>
 		</div>
-	</div>
+	</div>-->
      </body>
  </html>
 
