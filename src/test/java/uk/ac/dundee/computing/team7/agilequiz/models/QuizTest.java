@@ -217,4 +217,51 @@ public class QuizTest {
         else
             fail();
     }
+
+
+    /**
+     * Test of getStudentAnswers method, of class Quiz.
+     */
+    @Test
+    public void testGetStudentAnswers() {
+        System.out.println("getStudentAnswers");
+        int completedQuizID = 53;
+        Quiz instance = new Quiz();
+        ArrayList<Integer> testList = new ArrayList<>();
+        testList = instance.getStudentAnswers(completedQuizID);
+        if (testList.size() > 0)
+            assertTrue(true);
+        else 
+            fail();
+    }
+
+    /**
+     * Test of getQuizIDFromCompletedID method, of class Quiz.
+     */
+    @Test
+    public void testGetQuizIDFromCompletedID() {
+        System.out.println("getQuizIDFromCompletedID");
+        int completedQuizID = 53;
+        Quiz instance = new Quiz();
+        int expResult = 100;
+        int result = instance.getQuizIDFromCompletedID(completedQuizID);
+        assertEquals(expResult, result);
+    }
+
+    /**
+     * Test of getQuizListCreatedByStaff method, of class Quiz.
+     */
+    @Test
+    public void testGetQuizListCreatedByStaff() {
+        System.out.println("getQuizListCreatedByStaff");
+        int currentPage = 1;
+        int staffID = 1;
+        Quiz instance = new Quiz();
+        ArrayList<String[]> testList = new ArrayList<>();
+        testList = instance.getQuizListCreatedByStaff(currentPage, staffID);
+        if (testList.size() > 0)
+            assertTrue(true);
+        else 
+            fail();
+    }
 }

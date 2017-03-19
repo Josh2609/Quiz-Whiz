@@ -93,5 +93,32 @@ public class StaffTest {
         pb = instance.getStaffProfile(staffNumber);
         assertTrue(pb.getFirstName().equalsIgnoreCase("Josh") && pb.getSurname().equalsIgnoreCase("Corps"));
     }
+
+    /**
+     * Test of changePassword method, of class Staff.
+     */
+    @Test
+    public void testChangePassword() {
+        System.out.println("changePassword");
+        String staffNumber = "7357";
+        String newPass = "pass";
+        Staff instance = new Staff();
+        boolean expResult = true;
+        boolean result = instance.changePassword(staffNumber, newPass);
+        assertEquals(expResult, result);
+    }
+
+    /**
+     * Test of getStaffIDFromNumber method, of class Staff.
+     */
+    @Test
+    public void testGetStaffIDFromNumber() {
+        System.out.println("getStaffIDFromNumber");
+        String sNumber = "7357";
+        Staff instance = new Staff();
+        int expResult = 99999;
+        int result = instance.getStaffIDFromNumber(sNumber);
+        assertEquals(expResult, result);
+    }
     
 }
