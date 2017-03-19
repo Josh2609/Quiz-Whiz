@@ -97,8 +97,8 @@ public class QuizTest {
     public void testCreateQuiz() {
         System.out.println("createQuiz");
         int numQuestions = 1;
-        String quizName = "test";
-        String quizDescription = "test";
+        String quizName = "*d*e*l*e*t*e*";
+        String quizDescription = "testQuiz";
         int available = 0;
         String moduleID = "-1";
         int creatorID = -1;
@@ -217,4 +217,46 @@ public class QuizTest {
         else
             fail();
     }
+    
+    /**
+     * Test of editQuestions method, of class Quiz.
+     */
+    @Test
+    public void testEditQuestions() {
+        System.out.println("EditQuestion");
+        String newQuestion = "EditedQuestion";
+        String newQuestionID = "1";
+        ArrayList<String[]> testArray = new ArrayList<String[]>();
+        testArray.add(new String[]{newQuestionID, newQuestion});
+        Quiz instance = new Quiz();
+        boolean expResult = true;
+        boolean result = instance.editQuestions(testArray);
+        if (expResult == result)
+            assertTrue(true);
+        else
+            fail();
+    }
+    
+    
+    
+    /**
+     * Test of editAnswers method, of class Quiz.
+     */
+    @Test
+    public void testEditAnswers() {
+        System.out.println("EditAnswers");
+        String newAnswer = "EditedAnswer";
+        String newAnswerID = "1";
+        ArrayList<String[]> testArray = new ArrayList<String[]>();
+        testArray.add(new String[]{newAnswerID,newAnswer});
+        Quiz instance = new Quiz();
+        boolean expResult = true;
+        boolean result = instance.editQuestions(testArray);
+        if (expResult == result)
+            assertTrue(true);
+        else
+            fail();
+    }
+    
+    
 }

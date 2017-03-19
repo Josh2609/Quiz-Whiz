@@ -475,4 +475,96 @@ public class Quiz {
         }      
         return quizID;
     }
+
+
+    public boolean editAnswers(ArrayList<String[]> AnsList){
+        boolean success = false;
+        int numAffectedRows = 0;
+        dbconnect dbCon = new dbconnect();
+	Connection con = dbCon.mysqlConnect();
+	PreparedStatement stmt;
+	try {
+	    String sql = "UPDATE answer SET Answer_Text = ? WHERE Answer_ID = ?";
+	    stmt = con.prepareStatement(sql);
+            for (int z = 0; z < AnsList.size(); z++)
+            {
+                stmt.setString(2, AnsList.get(z)[0]);
+                stmt.setString(1, AnsList.get(z)[1]);
+                stmt.addBatch();
+            }
+            stmt.executeBatch();
+            success = true;
+        } 
+        catch (SQLException e)
+	{
+            e.printStackTrace();
+        }
+        return success;
+    }
+    
+    
+    public boolean editQuestions(ArrayList<String[]> QueList){
+        boolean success = false;
+        dbconnect dbCon = new dbconnect();
+	Connection con = dbCon.mysqlConnect();
+	PreparedStatement stmt;
+	try {
+	    String sql = "UPDATE question SET Question_Text = ? WHERE Question_ID = ?";
+	    stmt = con.prepareStatement(sql);
+            for (int z = 0; z < QueList.size(); z++)
+            {
+                stmt.setString(1, QueList.get(z)[0]);
+                stmt.setString(2, QueList.get(z)[1]);
+                stmt.addBatch();
+            }
+            stmt.executeBatch();
+            success = true;
+        } 
+        catch (SQLException e)
+	{
+            e.printStackTrace();
+        }
+        return success;
+    }
+    
+    //ThIS IS HOW IT SHOULD BE
+    public boolean deleteQuiz(String quizID){
+        boolean success = false;
+        dbconnect dbCon = new dbconnect();
+	Connection con = dbCon.mysqlConnect();
+	PreparedStatement stmt;
+	try {
+	    String sql = "DELETE FROM quiz WHERE Quiz_ID = ?";
+	    stmt = con.prepareStatement(sql);
+            stmt.setString(1, quizID);
+            stmt.executeUpdate();
+            success = true;
+        } 
+        catch (SQLException e)
+	{
+            e.printStackTrace();
+        }
+        return success;
+    }
+    
+    //ThIS IS HOW IT SHOULD BE
+    public boolean deleteQuiz2(String quizName){
+        boolean success = false;
+        dbconnect dbCon = new dbconnect();
+	Connection con = dbCon.mysqlConnect();
+	PreparedStatement stmt;
+	try {
+	    String sql = "DELETE FROM quiz WHERE Quiz_Name = ?";
+	    stmt = con.prepareStatement(sql);
+            stmt.setString(1, quizName);
+            stmt.executeUpdate();
+            success = true;
+        } 
+        catch (SQLException e)
+	{
+            e.printStackTrace();
+        }
+        return success;
+    }
+    
 }
