@@ -73,7 +73,8 @@
           <ul class="nav nav-tabs">
             <li><a data-toggle="tab" href="#login"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
             <li><a data-toggle="tab" href="#Stafflogin"><span class="glyphicon glyphicon-log-in"></span> Staff Login</a></li>
-            <li><a data-toggle="tab" href="#register"><span class="glyphicon glyphicon-user"></span> Sign Up</a></li>
+            <li><a data-toggle="tab" href="#register"><span class="glyphicon glyphicon-user"></span>Sign Up</a></li>
+            <li><a data-toggle="tab" href="#Staffregister"><span class="glyphicon glyphicon-user"></span>Staff Sign Up</a></li>
           </ul>
           <!--<h4 class="modal-title">Login</h4>-->
         </div>
@@ -119,6 +120,32 @@
                 <form method="POST"  action="StudentSignup">
                     <div style="text-align:center;">
                         <input id="msg" type="text" class="inputDesign" name="matric" placeholder="Matriculation Number"><br>
+                            <br>
+                        <input id="msg" type="text" class="inputDesign" name="fname" placeholder="First Name"><br>
+                            <br>
+                        <input id="msg" type="text" class="inputDesign" name="sname" placeholder="Surname"><br>
+                            <br>
+                        <input id="msg" type="password" class="inputDesign" name="password" placeholder="Password"><br>
+                            <br>
+                        <input id="msg" type="password" class="inputDesign" name="repeatPassword" placeholder="Confirm Password"><br>
+                        <br>
+                    </div>    
+                    <br><br>
+                <div class="span12" style="text-align:center">
+                    <div class="STYLE">
+                        <input type="submit" class="btn btn-success" value="Sign Up">
+                    </div>
+                </div> 
+                <br><br>
+                </form>
+            </div>
+            
+            
+            
+            <div id="Staffregister" class="tab-pane fade">
+                <form method="POST"  action="StaffSignup">
+                    <div style="text-align:center;">
+                        <input id="msg" type="text" class="inputDesign" name="staffid" placeholder="Staff ID"><br>
                             <br>
                         <input id="msg" type="text" class="inputDesign" name="fname" placeholder="First Name"><br>
                             <br>

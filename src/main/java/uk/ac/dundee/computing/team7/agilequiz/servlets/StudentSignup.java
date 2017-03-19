@@ -44,7 +44,7 @@ public class StudentSignup extends HttpServlet
         
         if (!(password.equals(repeatPassword)))
         {
-            RequestDispatcher rd = request.getRequestDispatcher("/studentsignup.jsp");
+            RequestDispatcher rd = request.getRequestDispatcher("/index.jsp");
             request.setAttribute("Message", "Passwords do not match");
             request.setAttribute("matric", matric);
             rd.forward(request, response);

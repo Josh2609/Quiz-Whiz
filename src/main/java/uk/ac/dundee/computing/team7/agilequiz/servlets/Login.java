@@ -79,8 +79,8 @@ public class Login extends HttpServlet {
             RequestDispatcher rd=request.getRequestDispatcher("/index.jsp");
 	    rd.forward(request,response);           
 	} else {
-	    RequestDispatcher rd = request.getRequestDispatcher("/login.jsp");
-	    request.setAttribute("Message", "The Matriculation Number or Password entered is incorrect.");
+	    RequestDispatcher rd = request.getRequestDispatcher("/index.jsp");
+	    request.setAttribute("Message", "Your Matriculation Number or Password entered is incorrect.");
 	    rd.forward(request, response);
 	}
     }

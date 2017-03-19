@@ -79,8 +79,8 @@ public class StaffLogin extends HttpServlet {
             RequestDispatcher rd=request.getRequestDispatcher("/index.jsp");
 	    rd.forward(request,response);           
 	} else {
-	    RequestDispatcher rd = request.getRequestDispatcher("/stafflogin.jsp");
-	    request.setAttribute("Message", "The Staff ID or Password entered is incorrect.");
+	    RequestDispatcher rd = request.getRequestDispatcher("/index.jsp");
+	    request.setAttribute("Message", "Your Staff ID or Password entered is incorrect.");
 	    rd.forward(request, response);
 	}
     }
