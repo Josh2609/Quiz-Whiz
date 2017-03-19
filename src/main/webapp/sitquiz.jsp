@@ -43,12 +43,13 @@
         </div>    
         
         <!-- *** WORKING HERE *** -->
-        <%if ((boolean) request.getAttribute("bookmarked"))
+        <%if ((boolean) request.getAttribute("bookmarked") && !(boolean) session.getAttribute("Staff"))
         {%>
             <button id="bookmark" type="button" onclick="removeBookmark(<%=request.getAttribute("quizID")%>, <%=session.getAttribute("StudentID")%>)">Remove Bookmark</button>
-        <% } else { %>
+        <% } else if (!(boolean) request.getAttribute("bookmarked") && !(boolean) session.getAttribute("Staff")){ %>
             <button id="bookmark" type="button" onclick="addToBookmarks(<%=request.getAttribute("quizID")%>, <%=session.getAttribute("StudentID")%>)">Bookmark</button>
         <%}%>
+        
         <div id="bookmarkResult"><b></b></div>
         
             <%if (questions.isEmpty()) {
@@ -99,7 +100,10 @@
         %>
     </div>
     <div style="text-align:center">
-        <input type="submit" class="btn btn-success" value="Submit">
+        <%if (!(boolean) session.getAttribute("Staff"))
+        {%>
+            <input type="submit" class="btn btn-success" value="Submit">
+        <%}%>
     </div>
     <br>
     </form>
