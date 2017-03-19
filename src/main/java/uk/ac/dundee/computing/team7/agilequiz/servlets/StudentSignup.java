@@ -42,18 +42,25 @@ public class StudentSignup extends HttpServlet
         String password = request.getParameter("password");
         String repeatPassword = request.getParameter("repeatPassword");
         
-        if (!(password.equals(repeatPassword)))
-        {
-            RequestDispatcher rd = request.getRequestDispatcher("/studentsignup.jsp");
-            request.setAttribute("Message", "Passwords do not match");
-            request.setAttribute("matric", matric);
-            rd.forward(request, response);
-            return;
-        }
-        Student user = new Student();
-        user.createStudent(matric, fname, sname, password);
+        if(!(matric.equals("") || fname.equals("") || sname.equals("") || password.equals("") || repeatPassword.equals(""))){        
+            if (!(password.equals(repeatPassword)))
+            {
+                RequestDispatcher rd = request.getRequestDispatcher("/index.jsp");
+                request.setAttribute("Message", "Passwords do not match");
+                request.setAttribute("matric", matric);
+                rd.forward(request, response);
+                return;
+            }
+            Student user = new Student();
+            user.createStudent(matric, fname, sname, password);
         
-        RequestDispatcher rd = request.getRequestDispatcher("/index.jsp");
-        rd.forward(request, response);
+            RequestDispatcher rd = request.getRequestDispatcher("/index.jsp");
+            rd.forward(request, response);
+        }
+        else{
+            RequestDispatcher rd = request.getRequestDispatcher("/index.jsp");
+            request.setAttribute("Message", "One or more fields were missing");
+            rd.forward(request, response);
+        }
     }
 }

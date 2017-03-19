@@ -21,7 +21,10 @@
     <body>
         
     <%@ include file="header.jsp" %>
-        
+    <% String msg = (String)request.getAttribute("Message");
+               if(msg != null) { %>
+               <div class="container"><div class="alert alert-warning"><strong>Oh shit waddup! It's</strong> <%= msg %></div></div>
+            <% } %>
          <div>
             <div  style="text-align:center">
             <div style="text-align:center">

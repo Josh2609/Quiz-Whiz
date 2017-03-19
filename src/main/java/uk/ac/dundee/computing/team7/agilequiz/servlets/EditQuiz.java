@@ -41,6 +41,7 @@ public class EditQuiz extends HttpServlet
     ArrayList<Integer> answerIDList = new ArrayList<>();
     ArrayList<String> QandAlistAnsOri = new ArrayList<String>();
     ArrayList<String> QandAlistQueOri = new ArrayList<String>();
+    String quizID = null;
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) 
             throws ServletException, IOException {
@@ -48,7 +49,7 @@ public class EditQuiz extends HttpServlet
         QandAlistAnsOri.clear();
         QandAlistQueOri.clear();
         String args[] = Converters.SplitRequestPath(request);
-        String quizID = args[2];
+        quizID = args[2];
         request.setAttribute("quizID", args[2]);
         System.out.println(args[2]);
         
@@ -79,10 +80,19 @@ public class EditQuiz extends HttpServlet
         
         int numQuestions = Integer.parseInt(request.getParameter("numQuestions"));
         Quiz quiz = new Quiz();
+        int Availability = 0;
         ArrayList<String[]> QandAlistAns = new ArrayList<String[]>();
         ArrayList<String[]> QandAlistQue = new ArrayList<String[]>();
         QandAlistAns.clear();
         QandAlistQue.clear();
+        String checked = request.getParameter("radioAv");
+        
+        System.out.println("CHECKED1: " + checked);
+        if(checked.equals("Av")){
+            Availability = 1;
+        }
+        System.out.println("QUIZ ID: " + quizID);
+        quiz.updateAvailability(quizID, Availability);
    
         System.out.println("SIZE: " + QandAlistQueOri.size());
         for (int i = 1; i <= QandAlistQueOri.size(); i++)
@@ -105,5 +115,8 @@ public class EditQuiz extends HttpServlet
         }
         quiz.editQuestions(QandAlistQue);
         quiz.editAnswers(QandAlistAns);
+        
+        RequestDispatcher rd = request.getRequestDispatcher("/index.jsp");
+        rd.forward(request, response);
     }
 }

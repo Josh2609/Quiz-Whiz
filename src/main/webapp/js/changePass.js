@@ -8,6 +8,7 @@
 function changePass(){
     var html;
     html = [
+        '<input type="submit" class="btn btn-success" value="Hide Change Password" onclick="hideChangePass()"><br>',
         '<form method="POST"  action="Profile">',
         '<br><div class="input-group"><span class="input-group-addon">Current Password</span>',
         '<input type="password" name="currPass" class="form-control" placeholder="Enter Current Password"></div><br>',
@@ -19,5 +20,16 @@ function changePass(){
         '<input type="submit" class="btn btn-success" value="Submit"></div></div>',
         '</form>'
     ].join("\n");
-    $(".ChangePass").append(html);
+    $(".ChangePass").html(html);
+    //document.getElementById('.ChangePass').innerHTML = html;
+}
+
+
+function hideChangePass(){
+    var html;
+    html = [
+        '<input type="submit" class="btn btn-success" value="Change Password" onclick="changePass()">'
+    ].join("\n");
+    $(".ChangePass").html(html);
+    //document.getElementById('.ChangePass').innerHTML = html;
 }

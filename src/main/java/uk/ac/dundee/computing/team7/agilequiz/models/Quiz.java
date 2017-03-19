@@ -309,12 +309,11 @@ public class Quiz {
     public ArrayList<String[]> getAvailableQuizList(int currentPage)
     {
         ArrayList<String[]> quizList = new ArrayList<>();
-        
         dbconnect dbCon = new dbconnect();
 	Connection con = dbCon.mysqlConnect();
 	PreparedStatement stmt;
-        String sql = "SELECT Quiz_ID, Quiz_Name, Quiz_Version, Module_ID,"
-                + " Quiz_Creator_ID, Quiz_Description From quiz WHERE Available_Flag=1"
+        String sql = "SELECT Quiz_ID, Quiz_Name, Module_Name,"
+                + " First_Name, Surname, Quiz_Description From quizmodulecreatorview WHERE Available_Flag=1"
                 + " LIMIT ? OFFSET ?";
         
         int limit = currentPage*10;
@@ -332,13 +331,12 @@ public class Quiz {
 
             while(rs.next())
             {
-                String[] tempArr = new String[6];
-                tempArr[0] = Integer.toString(rs.getInt("Quiz_ID"));
+                String[] tempArr = new String[5];
+                tempArr[0] = rs.getString("Quiz_ID");
                 tempArr[1] = rs.getString("Quiz_Name");
-                tempArr[2] = Integer.toString(rs.getInt("Quiz_Version"));
-                tempArr[3] = rs.getString("Module_ID");
-                tempArr[4] = Integer.toString(rs.getInt("Quiz_Creator_ID"));
-                tempArr[5] = rs.getString("Quiz_Description");
+                tempArr[2] = rs.getString("Module_Name");
+                tempArr[3] = (rs.getString("First_Name") +  " " + rs.getString("Surname"));
+                tempArr[4] = rs.getString("Quiz_Description");
                 quizList.add(tempArr);
             }
             con.close();
@@ -604,6 +602,25 @@ public class Quiz {
         }
         return success;
     }
-    
 
+    //Method to change the quizzes availability 
+    public boolean updateAvailability(String quizID, int quizAv){
+        boolean success = false;
+        dbconnect dbCon = new dbconnect();
+        Connection con = dbCon.mysqlConnect();
+        PreparedStatement stmt;
+        try{
+            String sql = "UPDATE quiz SET Available_Flag = ? WHERE Quiz_ID = ?";
+            stmt = con.prepareStatement(sql);
+            stmt.setInt(1, quizAv);
+            stmt.setString(2, quizID);
+            stmt.executeUpdate();
+            success = true;
+        }
+        catch (SQLException e)
+        {
+            e.printStackTrace();
+        }
+        return success;
+    }
 }

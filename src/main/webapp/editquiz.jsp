@@ -19,6 +19,7 @@
         <script src="${pageContext.request.contextPath}/js/createQuiz.js"></script>
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+        <script type="text/javascript" src="${pageContext.request.contextPath}/js/jquery.js" charset="utf-8"></script>
         <!-- Latest compiled and minified CSS -->
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
         <link rel="stylesheet" content= "text/css" href="${pageContext.request.contextPath}/style.css">
@@ -39,6 +40,15 @@
         <form class="questions" method="POST"  action="EditQuiz">
             <!--<input type="text" name="oldQuizID" value="<%=request.getAttribute("quizID")%>">-->
             <div class="container" style="text-align:center">
+                <div class="panel panel-default" name="QuizDetails">
+                    <div class="panel-body" style="text-align:center">
+                <p class="field switch">
+                    <input type="radio" id="radio1" name="radioAv" value="Av" checked hidden/>
+                    <input type="radio" id="radio2" name="radioAv" value="Un" hidden/>
+                    <label for="radio1" class="cb-enable selected"><span>Available</span></label>
+                    <label for="radio2" class="cb-disable"><span>UnAvailable</span></label>
+                </p>
+                </div></div>
         <%
             Iterator<QuestionBean> iterator;
             iterator = questions.iterator();
@@ -116,4 +126,22 @@
         <!--</div>-->
     </body>
 </html>
+
+
+<script type="text/javascript">
+$(document).ready( function(){ 
+	$(".cb-enable").click(function(){
+		var parent = $(this).parents('.switch');
+		$('.cb-disable',parent).removeClass('selected');
+		$(this).addClass('selected');
+		$('.checkbox',parent).attr('checked', true);
+	});
+	$(".cb-disable").click(function(){
+		var parent = $(this).parents('.switch');
+		$('.cb-enable',parent).removeClass('selected');
+		$(this).addClass('selected');
+		$('.checkbox',parent).attr('checked', false);
+	});
+});
+</script>
 
