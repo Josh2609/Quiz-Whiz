@@ -107,5 +107,19 @@ public class StudentTest {
         pb = instance.getStudentProfile(matric);
         assertTrue(pb.getFirstName().equalsIgnoreCase("Josh") && pb.getSurname().equalsIgnoreCase("Corps"));
     }
+
+    /**
+     * Test of changePassword method, of class Student.
+     */
+    @Test
+    public void testChangePassword() {
+        System.out.println("changePassword");
+        String matric = "7357";
+        String newPass = "pass";
+        Student instance = new Student();
+        boolean expResult = true;
+        boolean result = instance.changePassword(matric, newPass);
+        assertEquals(expResult, result);
+    }
     
 }

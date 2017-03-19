@@ -33,7 +33,6 @@ import uk.ac.dundee.computing.team7.agilequiz.stores.QuizBean;
 })
 public class QuizResults extends HttpServlet 
 {  
-    private String quizID = "1";
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) 
             throws ServletException, IOException {     
@@ -43,18 +42,20 @@ public class QuizResults extends HttpServlet
 
         int completedQuizID = Integer.parseInt(args[2]);
         
-        quizID = "1";
+        int quizID = Integer.parseInt(args[3]);
         
         Quiz quiz = new Quiz();
         
-        ArrayList<QuestionBean> questions = quiz.getQuestions(Integer.parseInt(quizID));
+        ArrayList<QuestionBean> questions = quiz.getQuestions(quizID);
         ArrayList<AnswerBean> answers = quiz.getAnswers2();
-        ArrayList<Integer> studentAnswers = quiz.getStudentAnswers(completedQuizID); //TODO
+        ArrayList<Integer> studentAnswers = quiz.getStudentAnswers(completedQuizID);
         Collections.sort(studentAnswers);
-        
+        QuizBean qb = new QuizBean();
+        qb = quiz.getQuizDetails(quizID);
         
         RequestDispatcher rd = request.getRequestDispatcher("/quizresults.jsp");
         request.setAttribute("completedQuizID", args[2]);
+        request.setAttribute("quizBean", qb);
         request.setAttribute("questions", questions);
         request.setAttribute("answers", answers);
         request.setAttribute("studentAnswers", studentAnswers);
@@ -90,7 +91,6 @@ public class QuizResults extends HttpServlet
         ArrayList<Integer> incorrectAnswerList = new ArrayList<>();
 
         // needs optimised
-        int correctAnswers = 0;
         
         AnswerList answerList = new AnswerList(answerRadio);
         correctAnswerList = answerList.getCorrectAnswerList();
@@ -98,7 +98,8 @@ public class QuizResults extends HttpServlet
 
         HttpSession session = request.getSession();
         int studentID = (Integer) session.getAttribute("StudentID");
-        int completedQuizID = quiz.addCompletedQuiz(correctAnswers, 1, quizID, studentID);
+        int numCorrect = answerList.getNumCorrect();
+        int completedQuizID = quiz.addCompletedQuiz(numCorrect, 1, quizID, studentID);
         quiz.addCompletedAnswers(correctAnswerList, incorrectAnswerList, completedQuizID);
         
         ArrayList<Integer> studentAnswers = new ArrayList<>();

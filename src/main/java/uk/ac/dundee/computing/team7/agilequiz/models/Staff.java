@@ -9,6 +9,8 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import org.mindrot.jbcrypt.BCrypt;
 import uk.ac.dundee.computing.team7.agilequiz.lib.dbconnect;
 import uk.ac.dundee.computing.team7.agilequiz.stores.ProfileBean;
@@ -143,5 +145,31 @@ public class Staff
             e.printStackTrace();
         }
         return numAffectedRows > 0;
+    }
+    
+    public int getStaffIDFromNumber(String sNumber)
+    {
+        int staffID = 0;
+        dbconnect dbCon = new dbconnect();
+	Connection con = dbCon.mysqlConnect();
+	PreparedStatement stmt;
+	try {
+	    String sql = "SELECT User_ID FROM staff WHERE Staff_Number=?";
+	    stmt = con.prepareStatement(sql);
+	    stmt.setString(1, sNumber);
+	    ResultSet rs=stmt.executeQuery();
+            while (rs.next()) {
+                staffID = rs.getInt("User_ID");
+            }
+	} catch (SQLException e)
+	{
+            e.printStackTrace();
+        }
+        try {
+            con.close();
+        } catch (SQLException ex) {
+            Logger.getLogger(Student.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return staffID;
     }
 }

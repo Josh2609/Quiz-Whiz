@@ -73,6 +73,7 @@ public class Login extends HttpServlet {
             
 	    session.setAttribute("Matric", matric);
 	    session.setAttribute("LoggedIn", lg);
+            session.setAttribute("Staff", false);
             Student student = new Student();
             session.setAttribute("StudentID", student.getStudentIDFromMatric(matric));
 	    System.out.println("Session in servlet "+session);

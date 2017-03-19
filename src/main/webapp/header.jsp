@@ -29,8 +29,14 @@
                         <li><a href="${pageContext.request.contextPath}/ViewQuiz">Quizzes</a></li>
 
                         <li><a href="${pageContext.request.contextPath}/CreateQuiz">Create Quiz</a></li>
-                        <li><a href="${pageContext.request.contextPath}/EditQuiz/1">Edit Quizzes</a></li>
-                            <%}
+                        <% if ((boolean) session.getAttribute("Staff"))
+                        {%>
+                            <li><a href="${pageContext.request.contextPath}/StaffQuizList?page=1">View Results</a></li>
+                        <% }else{%>
+                            <li><a href="${pageContext.request.contextPath}/ViewResults?page=1">View Results</a></li>
+                       <%}%>
+                        <li><a href="${pageContext.request.contextPath}/EditQuiz/1">Edit Quizzes</a></li>      
+                        <%}
                         }%>
                    </ul>
                         <ul class="nav navbar-nav navbar-right">
