@@ -7,15 +7,14 @@ package uk.ac.dundee.computing.team7.agilequiz.servlets;
 
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Iterator;
-import java.util.Map;
+import java.util.Collections;
+import java.util.Random;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 import uk.ac.dundee.computing.team7.agilequiz.lib.Converters;
 import uk.ac.dundee.computing.team7.agilequiz.models.Quiz;
 import uk.ac.dundee.computing.team7.agilequiz.stores.AnswerBean;
@@ -48,6 +47,11 @@ public class SitQuiz extends HttpServlet
         ArrayList<AnswerBean> answers = quiz.getAnswers2();
         QuizBean qb = new QuizBean();
         qb = quiz.getQuizDetails(Integer.parseInt(quizID));
+        
+        long seed = System.nanoTime();
+        Collections.shuffle(answers, new Random(seed));
+        seed = System.nanoTime();
+        Collections.shuffle(questions, new Random(seed));
         
         RequestDispatcher rd = request.getRequestDispatcher("/sitquiz.jsp");
         request.setAttribute("quizBean", qb);

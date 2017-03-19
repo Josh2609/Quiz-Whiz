@@ -84,7 +84,6 @@ public class Results {
         {
             offset = 0;
         }
-        
         try {
             stmt = con.prepareStatement(sql);
             stmt.setInt(1, quizID);

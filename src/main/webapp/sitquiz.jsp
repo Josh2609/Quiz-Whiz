@@ -68,19 +68,15 @@
                 while (iterator2.hasNext()) 
                 {
                     AnswerBean ab = (AnswerBean) iterator2.next();
-                    //System.out.println("qqID=" +qb.getQuestionID() );
-                    //System.out.println("aqID=" +ab.getQuestionID() );
                     if (ab.getQuestionID() == qb.getQuestionID() )
                     {
-                        j++;
-        %>
-        <div class="col-sm-3">
-            <div class="radio">
-                <label><input style="text-align:left" type="radio" name="optradio<%=ab.getQuestionID()%>" value="<%=ab.getAnswerID()%>"><%=ab.getAnswerText()%></label>
-            </div>
-        </div>
-        <%
-                    }
+                        j++;%>
+                        <div class="col-sm-3">
+                            <div class="radio">
+                                <label><input style="text-align:left" type="radio" name="optradio<%=ab.getQuestionID()%>" value="<%=ab.getAnswerID()%>"><%=ab.getAnswerText()%></label>
+                            </div>
+                        </div>
+                    <%}
                 }
             %>            
                 </div>       
