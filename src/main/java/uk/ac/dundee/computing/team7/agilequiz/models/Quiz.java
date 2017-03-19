@@ -566,5 +566,27 @@ public class Quiz {
         }
         return success;
     }
-    
+
+
+    //Method to change the quizzes availability 
+    public boolean updateAvailability(String quizID, int quizAv){
+        boolean success = false;
+        dbconnect dbCon = new dbconnect();
+        Connection con = dbCon.mysqlConnect();
+        PreparedStatement stmt;
+        try{
+            String sql = "UPDATE quiz SET Available_Flag = ? WHERE Quiz_ID = ?";
+            stmt = con.prepareStatement(sql);
+            stmt.setInt(1, quizAv);
+            stmt.setString(2, quizID);
+            stmt.executeUpdate();
+            success = true;
+        }
+        catch (SQLException e)
+        {
+            e.printStackTrace();
+        }
+        return success;
+    }
+
 }
