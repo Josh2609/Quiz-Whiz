@@ -28,7 +28,12 @@
     <%@ include file="header.jsp" %>
             
         <div class="container">
-            <div style="text-align: center;">
+            <div class='panel panel-default'>
+                <div class='panel-heading'>
+                    <h3 style='text-align:center'>Profile Page</h3>
+                </div>
+                <div class='panel-body'>
+            <div style="text-align: left;">
                 <% if(pb != null){%>
                             <h4>First Name: <%=pb.getFirstName()%></h4>
                             <h4>Surname: <%=pb.getSurname()%></h4>
@@ -38,11 +43,14 @@
                                 <h4>Staff ID: <%=pb.getMatric()%></h4>
                             <%}%>
                                 <br>
-                            <input type="submit" class="btn btn-success" value="Change Password" onclick="changePass()">
-                            <div class="ChangePass"></div>
+                                <div class="ChangePass">
+                                    <input type="submit" class="btn btn-success" value="Change Password" onclick="changePass()">
+                                </div>
                         <%}else{%>               
                     SOMETHING HAs GONE WrONg!!!?!?!
                 <%}%>
+            </div>
+                </div>
             </div>
 	</div>
      </body>
