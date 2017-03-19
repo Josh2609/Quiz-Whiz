@@ -283,14 +283,6 @@ public class Quiz {
         return 0;
     }
     
-    
-    public ArrayList<Integer> getAnswerList()
-    {
-        ArrayList<Integer> answerList = new ArrayList<>();
-        
-        return answerList;
-    }
-    
     public boolean compareAnswer(String answerID)
     {
         dbconnect dbCon = new dbconnect();
@@ -358,7 +350,6 @@ public class Quiz {
     
     public int addCompletedQuiz(int score, int attempt, int quizID, int studentID)
     {
-        int numAffectedRows = 0;
         dbconnect dbCon = new dbconnect();
 	Connection con = dbCon.mysqlConnect();
 	PreparedStatement stmt;
@@ -465,7 +456,7 @@ public class Quiz {
 	    ResultSet rs=stmt.executeQuery(); 
             while(rs.next())
             {
-                quizID = rs.getInt("Answer_ID");
+                quizID = rs.getInt("Quiz_ID");
             }    
             con.close();
         } catch (SQLException ex) {
@@ -473,6 +464,53 @@ public class Quiz {
         }      
         return quizID;
     }
+
+    
+    public ArrayList<String[]> getQuizListCreatedByStaff(int currentPage, int staffID)
+    {
+        ArrayList<String[]> quizList = new ArrayList<>();
+        System.out.println(staffID);
+        dbconnect dbCon = new dbconnect();
+	Connection con = dbCon.mysqlConnect();
+	PreparedStatement stmt;
+        String sql = "SELECT Quiz_ID, Quiz_Name, Quiz_Version, Module_ID,"
+                + " Quiz_Creator_ID, Quiz_Description From quiz WHERE Quiz_Creator_ID=?"
+                + " LIMIT ? OFFSET ?";
+        
+        int limit = currentPage*10;
+        int offset = (currentPage*10)-9;
+        if (currentPage == 1)
+        {
+            offset = 0;
+        }
+        
+        try {
+            stmt = con.prepareStatement(sql);
+            stmt.setInt(1, staffID);
+            stmt.setInt(2, limit);
+            stmt.setInt(3, offset);
+	    ResultSet rs=stmt.executeQuery();       
+
+            while(rs.next())
+            {
+                String[] tempArr = new String[6];
+                tempArr[0] = Integer.toString(rs.getInt("Quiz_ID"));
+                tempArr[1] = rs.getString("Quiz_Name");
+                tempArr[2] = Integer.toString(rs.getInt("Quiz_Version"));
+                tempArr[3] = rs.getString("Module_ID");
+                tempArr[4] = Integer.toString(rs.getInt("Quiz_Creator_ID"));
+                tempArr[5] = rs.getString("Quiz_Description");
+                quizList.add(tempArr);
+            }
+            con.close();
+        } catch (SQLException ex) {
+            Logger.getLogger(Quiz.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        return quizList;
+    }
+
+
 
 
     public boolean editAnswers(ArrayList<String[]> AnsList){
@@ -565,7 +603,6 @@ public class Quiz {
         return success;
     }
 
-
     //Method to change the quizzes availability 
     public boolean updateAvailability(String quizID, int quizAv){
         boolean success = false;
@@ -586,5 +623,4 @@ public class Quiz {
         }
         return success;
     }
-
 }

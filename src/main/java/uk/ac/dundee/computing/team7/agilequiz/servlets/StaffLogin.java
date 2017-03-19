@@ -71,7 +71,7 @@ public class StaffLogin extends HttpServlet {
 	    lg.setLoggedIn();
 	    lg.setStaffID(staffid);
             lg.setStaff();
-            
+            session.setAttribute("UserID", user.getStaffIDFromNumber(staffid));
 	    session.setAttribute("StaffID", staffid);
             session.setAttribute("Staff", true);
 	    session.setAttribute("LoggedIn", lg);

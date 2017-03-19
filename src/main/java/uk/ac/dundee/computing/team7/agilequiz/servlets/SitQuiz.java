@@ -7,8 +7,8 @@ package uk.ac.dundee.computing.team7.agilequiz.servlets;
 
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Iterator;
-import java.util.Map;
+import java.util.Collections;
+import java.util.Random;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -17,6 +17,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import uk.ac.dundee.computing.team7.agilequiz.lib.Converters;
+import uk.ac.dundee.computing.team7.agilequiz.models.Bookmark;
 import uk.ac.dundee.computing.team7.agilequiz.models.Quiz;
 import uk.ac.dundee.computing.team7.agilequiz.stores.AnswerBean;
 import uk.ac.dundee.computing.team7.agilequiz.stores.QuestionBean;
@@ -42,6 +43,16 @@ public class SitQuiz extends HttpServlet
         request.setAttribute("quizID", args[2]);
         System.out.println(args[2]);
         
+        boolean bookmarked = false;
+        HttpSession session = request.getSession(true);
+        if ((boolean) session.getAttribute("Staff"))
+        {
+            
+        } else {
+            int studentID = (int) session.getAttribute("StudentID");
+            Bookmark bookmark = new Bookmark();
+            bookmarked = bookmark.checkBookmarkExists(Integer.parseInt(quizID), studentID);
+        }
         Quiz quiz = new Quiz();
         
         ArrayList<QuestionBean> questions = quiz.getQuestions(Integer.parseInt(quizID));
@@ -49,7 +60,13 @@ public class SitQuiz extends HttpServlet
         QuizBean qb = new QuizBean();
         qb = quiz.getQuizDetails(Integer.parseInt(quizID));
         
+        long seed = System.nanoTime();
+        Collections.shuffle(answers, new Random(seed));
+        seed = System.nanoTime();
+        Collections.shuffle(questions, new Random(seed));
+        
         RequestDispatcher rd = request.getRequestDispatcher("/sitquiz.jsp");
+        request.setAttribute("bookmarked", bookmarked);
         request.setAttribute("quizBean", qb);
         request.setAttribute("questions", questions);
         request.setAttribute("answers", answers);

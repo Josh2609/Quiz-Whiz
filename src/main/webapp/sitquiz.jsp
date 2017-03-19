@@ -17,12 +17,12 @@
      <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>Sit Quiz</title>
+        <script src="${pageContext.request.contextPath}/js/bookmark.js"></script>
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
         <!-- Latest compiled and minified CSS -->
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
         <link rel="stylesheet" type= "text/css" href="${pageContext.request.contextPath}/style.css">
-        <link rel="stylesheet" type= "text/css" href="${pageContext.request.contextPath}/segmented-controls.css">         
     </head>
     
     <body>
@@ -40,7 +40,16 @@
             <h3>Date Added: <%=quizBean.getDateAdded()%></h3>
             <h3><%=quizBean.getModuleCode()%> - <%=quizBean.getModuleName()%></h3>
             <h3>Created By: <%=quizBean.getQuizCreator()%></h3><br>
+            <%if ((boolean) request.getAttribute("bookmarked") && !(boolean) session.getAttribute("Staff"))
+            {%>
+                <button class="btn btn-primary" id="bookmark" type="button" onclick="removeBookmark(<%=request.getAttribute("quizID")%>, <%=session.getAttribute("StudentID")%>)">Remove Bookmark</button>
+            <% } else if (!(boolean) request.getAttribute("bookmarked") && !(boolean) session.getAttribute("Staff")){ %>
+                <button class="btn btn-primary" id="bookmark" type="button" onclick="addToBookmarks(<%=request.getAttribute("quizID")%>, <%=session.getAttribute("StudentID")%>)">Bookmark Quiz</button>
+            <%}%>
         </div>    
+        <br>
+        <div id="bookmarkResult"><b></b></div>
+        
             <%if (questions.isEmpty()) {
         %>
         <h2 style="text-align:center">No Questions found</h2>
@@ -68,19 +77,15 @@
                 while (iterator2.hasNext()) 
                 {
                     AnswerBean ab = (AnswerBean) iterator2.next();
-                    //System.out.println("qqID=" +qb.getQuestionID() );
-                    //System.out.println("aqID=" +ab.getQuestionID() );
                     if (ab.getQuestionID() == qb.getQuestionID() )
                     {
-                        j++;
-        %>
-        <div class="col-sm-3">
-            <div class="radio">
-                <label><input style="text-align:left" type="radio" name="optradio<%=ab.getQuestionID()%>" value="<%=ab.getAnswerID()%>"><%=ab.getAnswerText()%></label>
-            </div>
-        </div>
-        <%
-                    }
+                        j++;%>
+                        <div class="col-sm-3">
+                            <div class="radio">
+                                <label><input style="text-align:left" type="radio" name="optradio<%=ab.getQuestionID()%>" value="<%=ab.getAnswerID()%>"><%=ab.getAnswerText()%></label>
+                            </div>
+                        </div>
+                    <%}
                 }
             %>            
                 </div>       
@@ -93,7 +98,10 @@
         %>
     </div>
     <div style="text-align:center">
-        <input type="submit" class="btn btn-success" value="Submit">
+        <%if (!(boolean) session.getAttribute("Staff"))
+        {%>
+            <input type="submit" class="btn btn-success" value="Submit">
+        <%}%>
     </div>
     <br>
     </form>
