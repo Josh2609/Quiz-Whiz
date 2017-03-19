@@ -25,29 +25,43 @@
     </head>
     <body>
         <%@ include file="header.jsp" %>
-        <div class="container"><!-- style="text-align:center">-->
-
+        <div class="container">
+            <div class="panel panel-default" style='opacity: 0.85'>
+                <div class="panel-body">
         <h1>Quiz List!</h1>
+        <table class="table table-hover">
+            <thead>
+                <tr>
+                    <th>Quiz Name</th>
+                    <th>Module_ID</th>
+                    <th>Quiz_Author_ID</th>
+                    <th>Quiz Description</th>
+                </tr>
+            </thead>
+                <tbody>
         <%
             ArrayList<String[]> quizList = (ArrayList<String[]>) request.getAttribute("quizList");
-            int currentPage = (int) request.getAttribute("currentPage");;
+            int currentPage = (int) request.getAttribute("currentPage");
             Iterator<String[]> iterator = quizList.iterator();
             while (iterator.hasNext())
             {
                 String[] tempArr = iterator.next();
                 %>
-                <p><a href="${pageContext.request.contextPath}/SitQuiz/<%=tempArr[0]%>">
+                <tr class='clickable-row' data-href="${pageContext.request.contextPath}/SitQuiz/<%=tempArr[0]%>">
                 <%
-                for (int i = 0; i < tempArr.length; i++)
+                for (int i = 1; i < tempArr.length; i++)
                 {
                 %>
-                    &nbsp; <%=tempArr[i]%>  &nbsp;
+                <td>&nbsp; <%=tempArr[i]%>  &nbsp;</td>
                 <%}
                 %>
-                </a></p>
                 <%
             }
-            
+            %>
+                </tr>
+            </tbody>
+        </table>
+        <%
             if (currentPage != 1)
             {%>
                 <button class="btn btn-success" onclick="location.href = '${pageContext.request.contextPath}/ViewQuiz?page=<%=currentPage-1%>'" type="button">Previous Page</button>
@@ -57,5 +71,15 @@
                 <button class="btn btn-success" onclick="location.href = '${pageContext.request.contextPath}/ViewQuiz?page=<%=currentPage+1%>'" type="button">Next Page</button>
             <%}%>
         </div>
+            </div>
+        </div>
     </body>
 </html>
+
+<script>
+jQuery(document).ready(function($) {
+    $(".clickable-row").click(function() {
+        window.location = $(this).data("href");
+    });
+});
+</script>

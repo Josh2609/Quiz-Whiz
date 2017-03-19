@@ -42,7 +42,6 @@ public class StudentSignup extends HttpServlet
         String password = request.getParameter("password");
         String repeatPassword = request.getParameter("repeatPassword");
         
-        //if(matric.equals("") || fname.equals("") || sname.equals("") || password.equals("") || repeatPassword.equals("")){
         if(!(matric.equals("") || fname.equals("") || sname.equals("") || password.equals("") || repeatPassword.equals(""))){        
             if (!(password.equals(repeatPassword)))
             {
