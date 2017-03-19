@@ -52,5 +52,23 @@ public class ResultsTest {
         else 
             fail();
     }
+
+    /**
+     * Test of getStudentsQuizResultsList method, of class Results.
+     */
+    @Test
+    public void testGetStaffQuizResults() {
+        System.out.println("getStaffQuizResults");
+        ArrayList<String[]> testList = new ArrayList<>();
+        int quizID = 101;
+        String sortBy = "Quiz_ID";
+        int currentPage = 1;
+        Results instance = new Results();
+        testList = instance.getStaffQuizResults(quizID, sortBy, currentPage);
+        if (testList.size() > 0)
+            assertTrue(true);
+        else 
+            fail();
+    }
     
 }

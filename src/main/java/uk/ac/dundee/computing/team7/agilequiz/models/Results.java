@@ -66,4 +66,51 @@ public class Results {
         return studentQuizResults;
     }
     
+    public ArrayList<String[]> getStaffQuizResults(int quizID, String sortBy, int currentPage)
+    {
+        ArrayList<String[]> resultsList = new ArrayList<>();
+        
+        dbconnect dbCon = new dbconnect();
+	Connection con = dbCon.mysqlConnect();
+	PreparedStatement stmt;
+        String sql = "SELECT *"
+                + " FROM quizcompletedquizmodule WHERE Quiz_ID=?"
+                + " ORDER BY ? DESC"
+                + " LIMIT ? OFFSET ?";
+        
+        int limit = currentPage*10;
+        int offset = (currentPage*10)-9;
+        if (currentPage == 1)
+        {
+            offset = 0;
+        }
+        
+        try {
+            stmt = con.prepareStatement(sql);
+            stmt.setInt(1, quizID);
+            stmt.setString(2, sortBy);
+            stmt.setInt(3, limit);
+            stmt.setInt(4, offset);
+	    ResultSet rs=stmt.executeQuery();       
+
+            while(rs.next())
+            {   //refactor to bean
+                String[] tempArr = new String[8];
+                tempArr[0] = Integer.toString(rs.getInt("Completed_Quiz_ID"));
+                tempArr[1] = Integer.toString(rs.getInt("Quiz_ID"));
+                tempArr[2] = rs.getString("Score");
+                tempArr[3] = Integer.toString(rs.getInt("Attempt"));
+                tempArr[4] = rs.getString("Quiz_Name");
+                tempArr[5] = rs.getString("Module_Code");
+                tempArr[6] = rs.getString("Module_Name");
+                tempArr[7] = rs.getString("Quiz_Description");
+                resultsList.add(tempArr);
+            }
+            con.close();
+        } catch (SQLException ex) {
+            Logger.getLogger(Quiz.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        return resultsList;
+    }
 }
