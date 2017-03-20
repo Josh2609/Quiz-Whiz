@@ -29,8 +29,15 @@
        <div class="container">
             <div class="panel panel-default" style='opacity: 0.85'>
                 <div class="panel-body">
-        <h1>Results List!</h1>
-        <table class="table table-hover"> 
+        <%
+            ArrayList<String[]> quizList = (ArrayList<String[]>) request.getAttribute("quizList");
+            if (quizList.isEmpty())
+            {
+                %>
+                <h2 style="text-align:center">No Results found</h2>
+                <%
+            } else {%>
+            <table class="table table-hover"> 
             <thead>
                 <tr>
                     <th>Quiz Name</th>
@@ -42,8 +49,7 @@
                 </tr>
             </thead>
                 <tbody>
-        <%
-            ArrayList<String[]> quizList = (ArrayList<String[]>) request.getAttribute("quizList");
+                    <%
             int currentPage = (int) request.getAttribute("currentPage");;
             Iterator<String[]> iterator = quizList.iterator();
             while (iterator.hasNext())
@@ -69,7 +75,7 @@
             if (quizList.size() > 24)
             {%>
                 <button class="btn btn-success" onclick="location.href = '${pageContext.request.contextPath}/ViewResults?page=<%=currentPage+1%>'" type="button">Next Page</button>
-            <%}%>
+            <%}}%>
         </div>
             </div>
         </div>
