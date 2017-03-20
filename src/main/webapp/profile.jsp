@@ -8,6 +8,8 @@
    {    response.sendRedirect(response.encodeRedirectURL(request.getContextPath() + "/")); }
 %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@page import="java.util.Iterator"%>
+<%@page import="java.util.ArrayList"%>
 <!DOCTYPE html>
 <html>
     <head>
@@ -51,6 +53,39 @@
                                 <div class="ChangePass">
                                     <input type="submit" class="btn btn-success" value="Change Password" onclick="changePass()">
                                 </div>
+                                <br><br>
+                                
+            <table class="table table-hover">
+                <thead>
+                    <tr>
+                        <th>Name</th>
+                        <th>Module</th>
+                        <th>Author</th>
+                        <th>Description</th>
+                    </tr>
+                </thead>
+                    <tbody>
+                                
+                        <%
+                            ArrayList<String[]> bk = (ArrayList<String[]>) request.getAttribute("bookmarkList");
+                            Iterator<String[]> iterator = bk.iterator();
+                            while (iterator.hasNext()){
+                                String[] tempArr = iterator.next();
+                        %>
+                        <tr class='clickable-row' data-href="${pageContext.request.contextPath}/SitQuiz/<%=tempArr[0]%>">
+                        <%
+                         for (int i = 1; i < tempArr.length; i++)
+                        {
+                        %>
+                        <td>&nbsp; <%=tempArr[i]%>  &nbsp;</td>
+                        <%}
+                            }
+                        %>
+                        </tr>
+                    </tbody>
+                </table>
+                        
+                        
                         <%}else{%>               
                     SOMETHING HAs GONE WrONg!!!?!?!
                 <%}%>
@@ -61,3 +96,11 @@
      </body>
  </html>
 
+ 
+ <script>
+jQuery(document).ready(function($) {
+    $(".clickable-row").click(function() {
+        window.location = $(this).data("href");
+    });
+});
+</script>

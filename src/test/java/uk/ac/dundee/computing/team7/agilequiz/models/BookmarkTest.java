@@ -5,6 +5,7 @@
  */
 package uk.ac.dundee.computing.team7.agilequiz.models;
 
+import java.util.ArrayList;
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;
@@ -80,4 +81,25 @@ public class BookmarkTest {
         boolean result = instance.removeBookmark(quizID, studentID);
         assertEquals(expResult, result);
     }
+
+
+    /**
+     * Test of getBookmarkedQuizzes method, of class Bookmark.
+     */
+    @Test
+    public void testGetBookmarkedQuizzes() {
+        System.out.println("getBookmarkedQuizzes");
+        int userID = 140011723;
+        Bookmark instance = new Bookmark();
+        ArrayList<String[]> bookmarkList = new ArrayList<String[]>();
+        bookmarkList = instance.getBookmarkedQuizzes(userID);
+        if(bookmarkList.size() > 0){
+            assertTrue(true);
+        }
+        else{
+            fail();
+        }
+    }
+    
+    
 }
