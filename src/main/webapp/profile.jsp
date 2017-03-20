@@ -31,9 +31,12 @@
     <%@ include file="header.jsp" %>
     
     <% String msg = (String)request.getAttribute("Message");
+       String msg2 = (String)request.getAttribute("MessagePos");
                if(msg != null) { %>
-               <div class="container"><div class="alert alert-warning"><strong>Error: It's</strong> <%= msg %></div></div>
-            <% } %>
+               <div class="container"><div class="alert alert-warning"><strong>Error:</strong> <%= msg %></div></div>
+            <% }else if(msg2 != null){%>
+            <div class="container"><div class="alert alert-success"><%= msg2 %></div></div>
+    <%}%>
             
         <div class="container">
             <div class='panel panel-default'>
