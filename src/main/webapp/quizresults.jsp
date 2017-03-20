@@ -26,12 +26,15 @@
     <body>
 
     <%@ include file="header.jsp" %>
-    
     <% 
         int corAns = (int)request.getAttribute("numCorrect");
         int numQue = (int)request.getAttribute("numQuestions");
         
-        float percRight = (corAns/numQue)*100;
+        System.out.println("corAns = " + corAns);
+        System.out.println("numQue = " + numQue);
+        
+        double percRight = (corAns*100)/numQue;
+        System.out.println("percRight = " + percRight);
         /*int corAns=0;
         int numQue=0;
         

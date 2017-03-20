@@ -37,7 +37,7 @@
             {
                 String[] tempArr = iterator.next();
                 %>
-                <p><a href="${pageContext.request.contextPath}/QuizResults/<%=tempArr[0]%>/<%=tempArr[1]%>">
+                <p><a href="${pageContext.request.contextPath}/QuizResults?cquizid=<%=tempArr[0]%>&quizid=<%=tempArr[1]%>&score=<%=tempArr[2]%>">
                 <%
                 for (int i = 0; i < tempArr.length; i++)
                 {
