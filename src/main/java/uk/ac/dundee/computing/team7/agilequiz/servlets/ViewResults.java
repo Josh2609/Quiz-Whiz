@@ -44,7 +44,7 @@ public class ViewResults extends HttpServlet
             }
             Results results = new Results();
             ArrayList<String[]> quizList = results.getStudentsQuizResults(cPage, studentID);
-
+            
             RequestDispatcher rd = request.getRequestDispatcher("/viewresults.jsp");
             request.setAttribute("quizList", quizList);
             request.setAttribute("currentPage", cPage);

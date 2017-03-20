@@ -47,7 +47,7 @@ public class Results {
 
             while(rs.next())
             {   //refactor to bean
-                String[] tempArr = new String[8];
+                String[] tempArr = new String[9];
                 tempArr[0] = Integer.toString(rs.getInt("Completed_Quiz_ID"));
                 tempArr[1] = Integer.toString(rs.getInt("Quiz_ID"));
                 tempArr[2] = rs.getString("Score");
@@ -56,7 +56,9 @@ public class Results {
                 tempArr[5] = rs.getString("Module_Code");
                 tempArr[6] = rs.getString("Module_Name");
                 tempArr[7] = rs.getString("Quiz_Description");
+                tempArr[8] = rs.getString("Time_Submitted");
                 studentQuizResults.add(tempArr);
+                
             }
             con.close();
         } catch (SQLException ex) {

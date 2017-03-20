@@ -26,9 +26,22 @@
     </head>
     <body>
     <%@ include file="header.jsp" %>
-        <div class="container"><!-- style="text-align:center">-->
-
+       <div class="container">
+            <div class="panel panel-default" style='opacity: 0.85'>
+                <div class="panel-body">
         <h1>Results List!</h1>
+        <table class="table table-hover"> 
+            <thead>
+                <tr>
+                    <th>Quiz Name</th>
+                    <th>Description</th>
+                    <th>Module Code</th>
+                    <th>Module Name</th>
+                    <th>Score</th>
+                    <th>Time Submitted</th>
+                </tr>
+            </thead>
+                <tbody>
         <%
             ArrayList<String[]> quizList = (ArrayList<String[]>) request.getAttribute("quizList");
             int currentPage = (int) request.getAttribute("currentPage");;
@@ -37,18 +50,18 @@
             {
                 String[] tempArr = iterator.next();
                 %>
-                <p><a href="${pageContext.request.contextPath}/QuizResults?cquizid=<%=tempArr[0]%>&quizid=<%=tempArr[1]%>&score=<%=tempArr[2]%>">
-                <%
-                for (int i = 0; i < tempArr.length; i++)
-                {
-                %>
-                    &nbsp; <%=tempArr[i]%>  &nbsp;
-                <%}
-                %>
-                </a></p>
-                <%
-            }
-            
+                <tr class='clickable-row' data-href="${pageContext.request.contextPath}/QuizResults?cquizid=<%=tempArr[0]%>&quizid=<%=tempArr[1]%>&score=<%=tempArr[2]%>">
+                    <td>&nbsp; <%=tempArr[4]%>  &nbsp;</td>
+                    <td>&nbsp; <%=tempArr[7]%>  &nbsp;</td>
+                    <td>&nbsp; <%=tempArr[5]%>  &nbsp;</td>
+                    <td>&nbsp; <%=tempArr[6]%>  &nbsp;</td>
+                    <td>&nbsp; <%=tempArr[2]%>  &nbsp;</td>
+                    <td>&nbsp; <%=tempArr[8]%>  &nbsp;</td>
+           <%}%>
+                </tr>
+            </tbody>
+        </table>
+            <%
             if (currentPage != 1)
             {%>
                 <button class="btn btn-success" onclick="location.href = '${pageContext.request.contextPath}/ViewResults?page=<%=currentPage-1%>'" type="button">Previous Page</button>
@@ -57,6 +70,8 @@
             {%>
                 <button class="btn btn-success" onclick="location.href = '${pageContext.request.contextPath}/ViewResults?page=<%=currentPage+1%>'" type="button">Next Page</button>
             <%}%>
+        </div>
+            </div>
         </div>
     </body>
 </html>
