@@ -35,7 +35,7 @@
                         <% }else{%>
                             <li><a href="${pageContext.request.contextPath}/ViewResults?page=1">View Results</a></li>
                        <%}%>
-                        <li><a href="${pageContext.request.contextPath}/EditQuiz/1">Edit Quizzes</a></li>      
+                        <li><a href="${pageContext.request.contextPath}/StaffEditQuizList">Edit Quizzes</a></li>      
                         <%}
                         }%>
                    </ul>

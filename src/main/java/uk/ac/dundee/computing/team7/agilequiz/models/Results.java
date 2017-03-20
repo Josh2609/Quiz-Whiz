@@ -75,7 +75,6 @@ public class Results {
 	PreparedStatement stmt;
         String sql = "SELECT *"
                 + " FROM quizcompletedquizmodule WHERE Quiz_ID=?"
-                + " ORDER BY ? DESC"
                 + " LIMIT ? OFFSET ?";
         
         int limit = currentPage*10;
@@ -87,14 +86,13 @@ public class Results {
         try {
             stmt = con.prepareStatement(sql);
             stmt.setInt(1, quizID);
-            stmt.setString(2, sortBy);
-            stmt.setInt(3, limit);
-            stmt.setInt(4, offset);
+            stmt.setInt(2, limit);
+            stmt.setInt(3, offset);
 	    ResultSet rs=stmt.executeQuery();       
 
             while(rs.next())
             {   //refactor to bean
-                String[] tempArr = new String[8];
+                String[] tempArr = new String[11];
                 tempArr[0] = Integer.toString(rs.getInt("Completed_Quiz_ID"));
                 tempArr[1] = Integer.toString(rs.getInt("Quiz_ID"));
                 tempArr[2] = rs.getString("Score");
@@ -103,6 +101,10 @@ public class Results {
                 tempArr[5] = rs.getString("Module_Code");
                 tempArr[6] = rs.getString("Module_Name");
                 tempArr[7] = rs.getString("Quiz_Description");
+                tempArr[7] = rs.getString("First_Name");
+                tempArr[8] = rs.getString("Surname");
+                tempArr[9] = rs.getString("Matric_Number");
+                tempArr[10] = rs.getString("Time_Submitted");
                 resultsList.add(tempArr);
             }
             con.close();

@@ -18,35 +18,56 @@
         <title>View Results</title>
         <script src="js/createQuiz.js"></script>
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+        <script type="text/javascript" src="${pageContext.request.contextPath}/js/jquery.tablesorter.js"></script> 
+
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
         <!-- Latest compiled and minified CSS -->
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
         <link rel="stylesheet" content= "text/css" href="${pageContext.request.contextPath}/style.css">
+        <link rel="stylesheet" content= "text/css" href="${pageContext.request.contextPath}/themes/blue/style.css">
     </head>
     <body>
         <%@ include file="header.jsp" %>
         <div class="container"><!-- style="text-align:center">-->
-
+        <div class="container">
+            <div class="panel panel-default" style='opacity: 0.85'>
+                <div class="panel-body">
         <h1>Quiz List!</h1>
+        <table id="myTable" class="table table-hover tablesorter"> 
+            <thead>
+                <tr>
+                    <th>Quiz Name</th>
+                    <th>Module</th>
+                    <th>Score</th>
+                    <th>Student Name</th>
+                    <th>Matric Number</th>
+                    <th>Time Submitted</th>
+                </tr>
+            </thead>
+                <tbody>
         <%
+            int numQuestions = (int) request.getAttribute("numQuestions");
             ArrayList<String[]> quizList = (ArrayList<String[]>) request.getAttribute("quizList");
             int currentPage = (int) request.getAttribute("currentPage");;
             Iterator<String[]> iterator = quizList.iterator();
             while (iterator.hasNext())
             {
                 String[] tempArr = iterator.next();
+                int scorePerc = (Integer.parseInt(tempArr[2])*100)/numQuestions;
                 %>
-                <p><a href="${pageContext.request.contextPath}/QuizResults?cquizid=<%=tempArr[0]%>&quizid=<%=tempArr[1]%>&score=<%=tempArr[2]%>">
+                <tr class='clickable-row' data-href="${pageContext.request.contextPath}/QuizResults?cquizid=<%=tempArr[0]%>&quizid=<%=tempArr[1]%>&score=<%=tempArr[2]%>">
+                    <td>&nbsp; <%=tempArr[4]%>  &nbsp;</td>
+                    <td>&nbsp; <%=tempArr[5]%>  &nbsp;</td>
+                    <td>&nbsp; <%=scorePerc%>%  &nbsp;</td>
+                    <td>&nbsp; <%=tempArr[7]%>  <%=tempArr[8]%>&nbsp;</td>
+                    <td>&nbsp; <%=tempArr[9]%>  &nbsp;</td>
+                    <td>&nbsp; <%=tempArr[10]%>  &nbsp;</td>
+           <%}%>
+                </tr>
+            </tbody>
+        </table>
                 <%
-                for (int i = 0; i < tempArr.length; i++)
-                {
-                %>
-                    &nbsp; <%=tempArr[i]%>  &nbsp;
-                <%}
-                %>
-                </a></p>
-                <%
-            }
+            
             String sortBy = "Quiz_ID";
                 int quizID = Integer.parseInt(request.getParameter("quizid"));
                 if (request.getParameter("sortby") != null)
@@ -63,5 +84,19 @@
                 <button class="btn btn-success" onclick="location.href = '${pageContext.request.contextPath}/StaffResultsList?page=<%=currentPage+1%>&sortby=<%=sortBy%>&quizid=<%=quizID%>'" type="button">Next Page</button>
             <%}%>
         </div>
+            </div>
+        </div>
     </body>
 </html>
+
+<script>
+jQuery(document).ready(function($) {
+    $(".clickable-row").click(function() {
+        window.location = $(this).data("href");
+    });
+});
+$(document).ready(function() { 
+    // call the tablesorter plugin 
+    $("table").tablesorter(); 
+}); 
+</script>
