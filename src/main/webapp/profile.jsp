@@ -23,6 +23,7 @@
         <link rel="stylesheet" content= "text/css" href="${pageContext.request.contextPath}/style.css">
         <%ProfileBean pb = (ProfileBean) session.getAttribute("ProfileBean");%>
         <script src="js/changePass.js"></script>  
+    <link rel="shortcut icon" href="https://s-media-cache-ak0.pinimg.com/originals/04/38/35/0438350175391a71727f8dac6e7be433.png">
     </head>
     
     <body>

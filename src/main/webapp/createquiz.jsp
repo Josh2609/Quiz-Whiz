@@ -25,6 +25,7 @@
         <link rel="stylesheet" type= "text/css" href="style.css">
 
         <script src="js/createQuiz.js"></script> 
+        <link rel="shortcut icon" href="https://s-media-cache-ak0.pinimg.com/originals/04/38/35/0438350175391a71727f8dac6e7be433.png">
 
         <style>
   body {
