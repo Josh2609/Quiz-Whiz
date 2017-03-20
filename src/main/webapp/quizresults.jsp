@@ -60,7 +60,7 @@
             <h3><%=quizBean.getModuleCode()%> - <%=quizBean.getModuleName()%></h3>
             <h3>Created By: <%=quizBean.getQuizCreator()%></h3><br>
             
-            <h1>Percentage Correct: <%=percRight%></h1>
+            <h1>Percentage Correct: <%=percRight%>%</h1>
             <h1>Score: <%=corAns%>/<%=numQue%></h1><br>
         </div>
         <%if (questions.isEmpty()) {
