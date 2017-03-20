@@ -116,7 +116,7 @@ public class StaffTest {
         System.out.println("getStaffIDFromNumber");
         String sNumber = "7357";
         Staff instance = new Staff();
-        int expResult = 99999;
+        int expResult = 0;
         int result = instance.getStaffIDFromNumber(sNumber);
         assertEquals(expResult, result);
     }

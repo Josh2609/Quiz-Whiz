@@ -60,7 +60,7 @@ public class ResultsTest {
     public void testGetStaffQuizResults() {
         System.out.println("getStaffQuizResults");
         ArrayList<String[]> testList = new ArrayList<>();
-        int quizID = 101;
+        int quizID = 100;
         String sortBy = "Quiz_ID";
         int currentPage = 1;
         Results instance = new Results();
