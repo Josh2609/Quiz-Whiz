@@ -75,6 +75,7 @@ public class BookmarkTest {
         Bookmark instance = new Bookmark();
         int quizID = 100;
         int studentID = 24;
+        instance.addBookmark(quizID, studentID);
         boolean expResult = true;
         boolean result = instance.removeBookmark(quizID, studentID);
         assertEquals(expResult, result);

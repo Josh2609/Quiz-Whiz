@@ -25,9 +25,21 @@
     </head>
     <body>
         <%@ include file="header.jsp" %>
-        <div class="container"><!-- style="text-align:center">-->
-
+        <div class="container">
+            <div class="panel panel-default" style='opacity: 0.85'>
+                <div class="panel-body">
         <h1>Quiz List!</h1>
+        <table class="table table-hover">
+            <thead>
+                <tr>
+                    <th>Name</th>
+                    <th>Module</th>
+                    <th>Description</th>
+                    <th>Date Added</th>
+                    <th>Available</th>
+                </tr>
+            </thead>
+                <tbody>
         <%
             ArrayList<String[]> quizList = (ArrayList<String[]>) request.getAttribute("quizList");
             int currentPage = (int) request.getAttribute("currentPage");;
@@ -36,18 +48,24 @@
             {
                 String[] tempArr = iterator.next();
                 %>
-                <p><a href="${pageContext.request.contextPath}/StaffResultsList?quizid=<%=tempArr[0]%>">
+                <tr class='clickable-row' data-href="${pageContext.request.contextPath}/StaffResultsList?quizid=<%=tempArr[0]%>">
+                   <td>&nbsp; <%=tempArr[1]%>  &nbsp;</td>
+                   <td>&nbsp; <%=tempArr[3]%>  &nbsp;</td>
+                   <td>&nbsp; <%=tempArr[5]%>  &nbsp;</td>
+                   <td>&nbsp; <%=tempArr[7]%>  &nbsp;</td>
+                   <%
+                       if (Integer.parseInt(tempArr[6]) == 1)
+                       {%>
+                            <td>&nbsp; Yes &nbsp;</td>
+                       <%} else {%>
+                            <td>&nbsp; No &nbsp;</td>
+                   <%   }%>
+                <td><form><button class="btn" formaction="${pageContext.request.contextPath}/EditQuiz/<%=tempArr[0]%>">Edit Quiz</button></td></form>
+            <%}%>
+                </tr>
+            </tbody>
+        </table>
                 <%
-                for (int i = 0; i < tempArr.length; i++)
-                {
-                %>
-                    &nbsp; <%=tempArr[i]%>  &nbsp;
-                <%}
-                %>
-                </a></p>
-                <%
-            }
-            
             if (currentPage != 1)
             {%>
                 <button class="btn btn-success" onclick="location.href = '${pageContext.request.contextPath}/StaffQuizList?page=<%=currentPage-1%>'" type="button">Previous Page</button>
@@ -57,5 +75,15 @@
                 <button class="btn btn-success" onclick="location.href = '${pageContext.request.contextPath}/StaffQuizList?page=<%=currentPage+1%>'" type="button">Next Page</button>
             <%}%>
         </div>
+            </div>
+        </div>
     </body>
 </html>
+
+<script>
+jQuery(document).ready(function($) {
+    $(".clickable-row").click(function() {
+        window.location = $(this).data("href");
+    });
+});
+</script>

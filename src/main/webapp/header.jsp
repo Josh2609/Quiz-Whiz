@@ -31,11 +31,10 @@
                         <li><a href="${pageContext.request.contextPath}/CreateQuiz">Create Quiz</a></li>
                         <% if ((boolean) session.getAttribute("Staff"))
                         {%>
-                            <li><a href="${pageContext.request.contextPath}/StaffQuizList?page=1">View Results</a></li>
+                            <li><a href="${pageContext.request.contextPath}/StaffQuizList?page=1">Your Quizzes</a></li>
                         <% }else{%>
                             <li><a href="${pageContext.request.contextPath}/ViewResults?page=1">View Results</a></li>
-                       <%}%>
-                        <li><a href="${pageContext.request.contextPath}/StaffEditQuizList">Edit Quizzes</a></li>      
+                            <%}%>
                         <%}
                         }%>
                    </ul>
