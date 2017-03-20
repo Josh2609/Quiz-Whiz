@@ -34,7 +34,7 @@
             java.util.ArrayList<AnswerBean> answers = (java.util.ArrayList<AnswerBean>) request.getAttribute("answers");
             if (questions.isEmpty()) {
         %>
-        <p>No Questions found</p>
+        <h1 style="color:#eeeeee; text-align: center;">No Questions found</h1>
         <%
         } else {
         %>

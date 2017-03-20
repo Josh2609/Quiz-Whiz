@@ -29,6 +29,7 @@
     <%@ include file="header.jsp" %>
 
     <div class="container"><!-- style="text-align:center">--> 
+        <div class="panel panel-default"><div class="panel-body">
         <%
             QuizBean quizBean = (QuizBean) request.getAttribute("quizBean");
             java.util.ArrayList<QuestionBean> questions = (java.util.ArrayList<QuestionBean>) request.getAttribute("questions");
@@ -44,7 +45,8 @@
             
             <%if (questions.isEmpty()) {
         %>
-        <h2 style="text-align:center">No Questions found</h2>
+        <hr><br>
+        <div class="alert alert-warning"><strong>No Questions found</strong></div>
         <%
         } else {
             // seems to not print the first question
@@ -90,6 +92,8 @@
             }
         }
         %>
+    </div>
+        </div>
     </div>
     </body>
 </html>

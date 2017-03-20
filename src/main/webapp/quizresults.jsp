@@ -61,8 +61,8 @@
             <h3>Created By: <%=quizBean.getQuizCreator()%></h3><br>
             
             <h1>Percentage Correct: <%=percRight%></h1>
-            <h1>Score: <%=corAns%>/<%=numQue%></h1>
-        </div></div></div>
+            <h1>Score: <%=corAns%>/<%=numQue%></h1><br>
+        </div>
         <%if (questions.isEmpty()) {
         %>
         <h2 style="text-align:center">No Questions found</h2>
@@ -134,6 +134,8 @@
             }
         }
         %>
+        </div></div>
     </div>
+    
     </body>
 </html>

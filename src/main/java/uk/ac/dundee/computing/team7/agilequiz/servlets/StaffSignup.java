@@ -45,7 +45,7 @@ public class StaffSignup extends HttpServlet
             if (!(password.equals(repeatPassword)))
             {
                 RequestDispatcher rd = request.getRequestDispatcher("/index.jsp");
-                request.setAttribute("Message", "You dun fucked up son.");
+                request.setAttribute("Message", "Your Staff ID or password were incorrect");
                 request.setAttribute("staffNumber", staffid);
                 rd.forward(request, response);
                 return;

@@ -65,7 +65,7 @@ public class Profile extends HttpServlet {
             session.setAttribute("ProfileBean", profile);
             }
        else{
-            System.out.println("SOMETHINGS FUCKY");
+            //If for some reason it is null
        }
        RequestDispatcher rd = request.getRequestDispatcher("profile.jsp");
        rd.forward(request, response);
