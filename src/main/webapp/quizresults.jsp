@@ -48,7 +48,9 @@
             java.util.ArrayList<Integer> studentAnswers = (java.util.ArrayList<Integer>) request.getAttribute("studentAnswers");
             QuizBean quizBean = (QuizBean) request.getAttribute("quizBean");
         %>
-        <div style="text-align: center;color:#eeeeee;">
+        <div class="panel panel-default">
+            <div class="panel-body">
+        <div style="text-align: center">
             <h1><%=quizBean.getQuizName()%></h1>
             <p><%=quizBean.getQuizDescription()%></p>
             <h3>Date Added: <%=quizBean.getDateAdded()%></h3>
@@ -57,7 +59,7 @@
             
             <h1>Percentage Correct: <%=percRight%></h1>
             <h1>Score: <%=corAns%>/<%=numQue%></h1>
-        </div>  
+        </div></div></div>
         <%if (questions.isEmpty()) {
         %>
         <h2 style="text-align:center">No Questions found</h2>
