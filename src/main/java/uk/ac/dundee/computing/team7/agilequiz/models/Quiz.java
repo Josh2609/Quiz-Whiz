@@ -238,7 +238,6 @@ public class Quiz {
             {
                 ArrayList<String> testList;
                 testList = QandAlist2d.get(y-1);
-                System.out.println("testList ayyitem " + 0 + " = " + testList.get(0));
                 for (int z = 1; z <= testList.size(); z++)
                 {                  
                     stmt.setString(1, testList.get(z-1));
@@ -314,8 +313,8 @@ public class Quiz {
                 + " First_Name, Surname, Quiz_Description From quizmodulecreatorview WHERE Available_Flag=1"
                 + " LIMIT ? OFFSET ?";
         
-        int limit = currentPage*10;
-        int offset = (currentPage*10)-9;
+        int limit = currentPage*25;
+        int offset = (currentPage*25)-24;
         if (currentPage == 1)
         {
             offset = 0;
@@ -476,8 +475,8 @@ public class Quiz {
                 + " Date_Added FROM quizmodulecreatorview WHERE Quiz_Creator_ID=?"
                 + " LIMIT ? OFFSET ?";
         
-        int limit = currentPage*10;
-        int offset = (currentPage*10)-9;
+        int limit = currentPage*25;
+        int offset = (currentPage*25)-24;
         if (currentPage == 1)
         {
             offset = 0;

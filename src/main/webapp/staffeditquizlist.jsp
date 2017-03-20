@@ -52,7 +52,7 @@
             {%>
                 <button class="btn btn-success" onclick="location.href = '${pageContext.request.contextPath}/StaffQuizList?page=<%=currentPage-1%>'" type="button">Previous Page</button>
             <%}
-            if (quizList.size() > 9)
+            if (quizList.size() > 24)
             {%>
                 <button class="btn btn-success" onclick="location.href = '${pageContext.request.contextPath}/StaffQuizList?page=<%=currentPage+1%>'" type="button">Next Page</button>
             <%}%>

@@ -31,8 +31,8 @@ public class Results {
                 + " FROM quizcompletedquizmodule WHERE User_ID=?"
                 + " LIMIT ? OFFSET ?";
         
-        int limit = currentPage*10;
-        int offset = (currentPage*10)-9;
+        int limit = currentPage*25;
+        int offset = (currentPage*25)-24;
         if (currentPage == 1)
         {
             offset = 0;
@@ -79,8 +79,8 @@ public class Results {
                 + " FROM quizcompletedquizmodule WHERE Quiz_ID=?"
                 + " LIMIT ? OFFSET ?";
         
-        int limit = currentPage*10;
-        int offset = (currentPage*10)-9;
+        int limit = currentPage*25;
+        int offset = (currentPage*25)-24;
         if (currentPage == 1)
         {
             offset = 0;
