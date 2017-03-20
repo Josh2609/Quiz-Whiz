@@ -67,7 +67,7 @@
 
                 
         %>
-        <div class="panel panel-success" name="panel<%=qb.getQuestionID()%>">
+        <div class="panel panel-default" name="panel<%=qb.getQuestionID()%>">
             <div class="panel-heading"><h4>#<%=i%> <%=qb.getQuestionText()%></h4></div>
                 <div class="panel-body">
         <%

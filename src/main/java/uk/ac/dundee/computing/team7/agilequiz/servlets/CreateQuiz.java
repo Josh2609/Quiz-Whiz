@@ -62,7 +62,11 @@ public class CreateQuiz extends HttpServlet {
         }
         Quiz quiz = new Quiz();
         // refactored create code into quiz model class
-        quiz.createQuiz(quizName, quizDescription, moduleID, available, 
+        int quizID = quiz.createQuiz(quizName, quizDescription, moduleID, available, 
                 creatorID, numQuestions, questionArray, QandAlist2d);
+        
+        response.sendRedirect("ViewQuiz/"+quizID);
+//        RequestDispatcher rd = request.getRequestDispatcher("/SitQuiz/"+quizID);
+//        rd.forward(request, response);
     }
 }

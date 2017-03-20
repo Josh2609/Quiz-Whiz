@@ -27,18 +27,21 @@
 
     <%@ include file="header.jsp" %>
 
-    <div class="container"><!-- style="text-align:center">-->
-        <div style="text-align: center">
-            <h1>Quiz Name Here</h1>
-            <p>Description displayed here.</p>
-            <h3>Date Added: 01/01/0001</h3>
-            <h3>Module Code - Module Name</h3>
-            <h3>Quiz Author</h3><br>
-        </div>
+    <div class="container"><!-- style="text-align:center">--> 
         <%
+            QuizBean quizBean = (QuizBean) request.getAttribute("quizBean");
             java.util.ArrayList<QuestionBean> questions = (java.util.ArrayList<QuestionBean>) request.getAttribute("questions");
             java.util.ArrayList<AnswerBean> answers = (java.util.ArrayList<AnswerBean>) request.getAttribute("answers");
-            if (questions.isEmpty()) {
+            %>
+        <div style="text-align: center">
+            <h1><%=quizBean.getQuizName()%></h1>
+            <p><%=quizBean.getQuizDescription()%></p>
+            <h3>Date Added: <%=quizBean.getDateAdded()%></h3>
+            <h3><%=quizBean.getModuleCode()%> - <%=quizBean.getModuleName()%></h3>
+            <h3>Created By: <%=quizBean.getQuizCreator()%></h3><br>
+        </div> 
+            
+            <%if (questions.isEmpty()) {
         %>
         <h2 style="text-align:center">No Questions found</h2>
         <%
@@ -55,7 +58,7 @@
 
                 
         %>
-        <div class="panel panel-success" name="panel<%=qb.getQuestionID()%>">
+        <div class="panel panel-primary" name="panel<%=qb.getQuestionID()%>">
             <div class="panel-heading"><h4>#<%=i%> <%=qb.getQuestionText()%></h4></div>
                 <div class="panel-body">
         <%
