@@ -14,8 +14,10 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import uk.ac.dundee.computing.team7.agilequiz.models.Quiz;
 import uk.ac.dundee.computing.team7.agilequiz.models.Results;
 import uk.ac.dundee.computing.team7.agilequiz.stores.LoggedIn;
+import uk.ac.dundee.computing.team7.agilequiz.stores.QuestionBean;
 
 /**
  *
@@ -36,7 +38,7 @@ public class StaffResultsList extends HttpServlet
         {    
             response.sendRedirect(response.encodeRedirectURL(request.getContextPath() + "/"));
         } else {
-        
+
             int cPage = 1;
             String sortBy = "Quiz_ID";
             if (request.getParameter("page") != null)
@@ -48,13 +50,16 @@ public class StaffResultsList extends HttpServlet
             {
                 sortBy = request.getParameter("sortby");
             }
-            
+            Quiz quiz = new Quiz();
+            ArrayList<QuestionBean> questions = quiz.getQuestions(quizID);
             Results results = new Results();
             ArrayList<String[]> quizList = results.getStaffQuizResults(quizID, sortBy, cPage);
-
-            RequestDispatcher rd = request.getRequestDispatcher("/staffresultslist.jsp");
+            int numQuestions = questions.size();
+            System.out.println("testbefore "+numQuestions);
+            RequestDispatcher rd = request.getRequestDispatcher("/staffresultslist.jsp");          
             request.setAttribute("quizList", quizList);
             request.setAttribute("currentPage", cPage);
+            request.setAttribute("numQuestions", numQuestions);
             rd.forward(request, response);  
         }
     }

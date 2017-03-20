@@ -32,10 +32,10 @@
         <table class="table table-hover">
             <thead>
                 <tr>
-                    <th>Quiz Name</th>
-                    <th>Module_ID</th>
-                    <th>Quiz_Author_ID</th>
-                    <th>Quiz Description</th>
+                    <th>Name</th>
+                    <th>Module</th>
+                    <th>Author</th>
+                    <th>Description</th>
                 </tr>
             </thead>
                 <tbody>

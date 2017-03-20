@@ -26,27 +26,43 @@
     <body>
         <%@ include file="header.jsp" %>
         <div class="container"><!-- style="text-align:center">-->
-
+        <div class="container">
+            <div class="panel panel-default" style='opacity: 0.85'>
+                <div class="panel-body">
         <h1>Quiz List!</h1>
+        <table class="table table-hover">
+            <thead>
+                <tr>
+                    <th>Quiz Name</th>
+                    <th>Module</th>
+                    <th>Score</th>
+                    <th>Student Name</th>
+                    <th>Matric Number</th>
+                </tr>
+            </thead>
+                <tbody>
         <%
+            int numQuestions = (int) request.getAttribute("numQuestions");
             ArrayList<String[]> quizList = (ArrayList<String[]>) request.getAttribute("quizList");
             int currentPage = (int) request.getAttribute("currentPage");;
             Iterator<String[]> iterator = quizList.iterator();
             while (iterator.hasNext())
             {
                 String[] tempArr = iterator.next();
+                int scorePerc = (Integer.parseInt(tempArr[2])*100)/numQuestions;
                 %>
-                <p><a href="${pageContext.request.contextPath}/QuizResults?cquizid=<%=tempArr[0]%>&quizid=<%=tempArr[1]%>&score=<%=tempArr[2]%>">
+                <tr class='clickable-row' data-href="${pageContext.request.contextPath}/QuizResults?cquizid=<%=tempArr[0]%>&quizid=<%=tempArr[1]%>&score=<%=tempArr[2]%>">
+                    <td>&nbsp; <%=tempArr[4]%>  &nbsp;</td>
+                    <td>&nbsp; <%=tempArr[5]%>  &nbsp;</td>
+                    <td>&nbsp; <%=scorePerc%>%  &nbsp;</td>
+                    <td>&nbsp; <%=tempArr[7]%>  <%=tempArr[8]%>&nbsp;</td>
+                    <td>&nbsp; <%=tempArr[9]%>  &nbsp;</td>
+           <%}%>
+                </tr>
+            </tbody>
+        </table>
                 <%
-                for (int i = 0; i < tempArr.length; i++)
-                {
-                %>
-                    &nbsp; <%=tempArr[i]%>  &nbsp;
-                <%}
-                %>
-                </a></p>
-                <%
-            }
+            
             String sortBy = "Quiz_ID";
                 int quizID = Integer.parseInt(request.getParameter("quizid"));
                 if (request.getParameter("sortby") != null)
@@ -63,5 +79,15 @@
                 <button class="btn btn-success" onclick="location.href = '${pageContext.request.contextPath}/StaffResultsList?page=<%=currentPage+1%>&sortby=<%=sortBy%>&quizid=<%=quizID%>'" type="button">Next Page</button>
             <%}%>
         </div>
+            </div>
+        </div>
     </body>
 </html>
+
+<script>
+jQuery(document).ready(function($) {
+    $(".clickable-row").click(function() {
+        window.location = $(this).data("href");
+    });
+});
+</script>
