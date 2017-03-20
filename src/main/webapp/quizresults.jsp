@@ -22,6 +22,9 @@
         <!-- Latest compiled and minified CSS -->
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
         <link rel="stylesheet" content= "text/css" href="${pageContext.request.contextPath}/style.css">
+        <link rel="shortcut icon" href="https://s-media-cache-ak0.pinimg.com/originals/04/38/35/0438350175391a71727f8dac6e7be433.png">
+        
+    <link rel="shortcut icon" href="https://s-media-cache-ak0.pinimg.com/originals/04/38/35/0438350175391a71727f8dac6e7be433.png">
     </head>
     <body>
 
@@ -48,7 +51,9 @@
             java.util.ArrayList<Integer> studentAnswers = (java.util.ArrayList<Integer>) request.getAttribute("studentAnswers");
             QuizBean quizBean = (QuizBean) request.getAttribute("quizBean");
         %>
-        <div style="text-align: center;color:#eeeeee;">
+        <div class="panel panel-default">
+            <div class="panel-body">
+        <div style="text-align: center">
             <h1><%=quizBean.getQuizName()%></h1>
             <p><%=quizBean.getQuizDescription()%></p>
             <h3>Date Added: <%=quizBean.getDateAdded()%></h3>
@@ -57,7 +62,7 @@
             
             <h1>Percentage Correct: <%=percRight%></h1>
             <h1>Score: <%=corAns%>/<%=numQue%></h1>
-        </div>  
+        </div></div></div>
         <%if (questions.isEmpty()) {
         %>
         <h2 style="text-align:center">No Questions found</h2>
