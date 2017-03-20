@@ -34,6 +34,9 @@
             java.util.ArrayList<AnswerBean> answers = (java.util.ArrayList<AnswerBean>) request.getAttribute("answers");
             QuizBean quizBean = (QuizBean) request.getAttribute("quizBean");
             %>
+            <div class="panel panel-default" name="panelINFO">
+                <div class="panel-body">
+                
         <div style="text-align: center">
             <h1><%=quizBean.getQuizName()%></h1>
             <p><%=quizBean.getQuizDescription()%></p>
@@ -53,6 +56,8 @@
             <%if (questions.isEmpty()) {
         %>
         <h2 style="text-align:center">No Questions found</h2>
+         </div>
+            </div>
         <%
         } else {
             // seems to not print the first question
