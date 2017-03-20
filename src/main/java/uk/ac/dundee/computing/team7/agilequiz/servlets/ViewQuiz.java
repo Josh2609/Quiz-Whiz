@@ -19,6 +19,7 @@ import uk.ac.dundee.computing.team7.agilequiz.models.Quiz;
 import uk.ac.dundee.computing.team7.agilequiz.stores.AnswerBean;
 import uk.ac.dundee.computing.team7.agilequiz.stores.LoggedIn;
 import uk.ac.dundee.computing.team7.agilequiz.stores.QuestionBean;
+import uk.ac.dundee.computing.team7.agilequiz.stores.QuizBean;
 
 
 /**
@@ -38,12 +39,15 @@ public class ViewQuiz extends HttpServlet
         String quizID = args[2];
         
         Quiz quiz = new Quiz();
+        QuizBean qb = new QuizBean();
+        qb = quiz.getQuizDetails(Integer.parseInt(quizID));
         
         ArrayList<QuestionBean> questions = quiz.getQuestions(Integer.parseInt(quizID));
         ArrayList<AnswerBean> answers = quiz.getAnswers2();
         
         RequestDispatcher rd = request.getRequestDispatcher("/viewquiz.jsp");
         request.setAttribute("quizID", args[2]);
+        request.setAttribute("quizBean", qb);
         request.setAttribute("questions", questions);
         request.setAttribute("answers", answers);
         rd.forward(request, response);

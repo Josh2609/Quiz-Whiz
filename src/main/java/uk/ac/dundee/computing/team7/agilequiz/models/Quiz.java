@@ -187,11 +187,11 @@ public class Quiz {
     }
     
     // refactored from CreateQuiz post
-    public boolean createQuiz(String quizName, String quizDescription, String moduleID, 
+    public int createQuiz(String quizName, String quizDescription, String moduleID, 
             int available, int creatorID, int numQuestions, String[] questionArray, 
             ArrayList<ArrayList<String>> QandAlist2d)
     {
-        boolean success;
+        int quizID = -1;
         dbconnect dbCon = new dbconnect();
 	Connection con = dbCon.mysqlConnect();
 	PreparedStatement stmt;
@@ -206,8 +206,7 @@ public class Quiz {
             stmt.setInt(4, creatorID);
             stmt.setString(5, quizDescription);
             stmt.execute();
-            
-            int quizID = -1;
+    
             ResultSet rs = stmt.getGeneratedKeys();
             while (rs.next()) {
                 quizID = rs.getInt(1);
@@ -253,15 +252,13 @@ public class Quiz {
                 }
             }
 	    stmt.executeBatch(); 
-            success = true;
             con.close();
 	} catch (SQLException e)
 	{
-            success = false;
             System.out.println("Yo1, SQLException thrown");
             e.printStackTrace();
         }
-        return success;
+        return quizID;
     }
     
     

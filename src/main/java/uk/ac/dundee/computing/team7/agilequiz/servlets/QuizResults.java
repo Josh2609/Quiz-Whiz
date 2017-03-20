@@ -38,11 +38,14 @@ public class QuizResults extends HttpServlet
             throws ServletException, IOException {     
         
         System.out.println("get");
-        String args[] = Converters.SplitRequestPath(request);
 
-        int completedQuizID = Integer.parseInt(args[2]);
+        int completedQuizID = Integer.parseInt(request.getParameter("cquizid"));//Integer.parseInt(args[2]);
+        int quizID = Integer.parseInt(request.getParameter("quizid"));
+        int correctAnswers = Integer.parseInt(request.getParameter("score"));
         
-        int quizID = Integer.parseInt(args[3]);
+         System.out.println(completedQuizID);
+         System.out.println(quizID);
+         System.out.println(correctAnswers);
         
         Quiz quiz = new Quiz();
         
@@ -55,9 +58,9 @@ public class QuizResults extends HttpServlet
         int numQuestions = questions.size();
         
         RequestDispatcher rd = request.getRequestDispatcher("/quizresults.jsp");
-        request.setAttribute("numCorrect", 1);
+        request.setAttribute("numCorrect", correctAnswers);
         request.setAttribute("numQuestions", numQuestions);
-        request.setAttribute("completedQuizID", args[2]);
+        request.setAttribute("completedQuizID", completedQuizID);
         request.setAttribute("quizBean", qb);
         request.setAttribute("questions", questions);
         request.setAttribute("answers", answers);

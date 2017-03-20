@@ -109,10 +109,10 @@ public class QuizTest {
         QandAlist1d.add("test");
         QandAlist2d.add(QandAlist1d);
         Quiz instance = new Quiz();
-        boolean expResult = true;
-        boolean result = instance.createQuiz(quizName, quizDescription, moduleID, available, 
+        int expResult = 0;
+        int result = instance.createQuiz(quizName, quizDescription, moduleID, available, 
                 creatorID, numQuestions, questionArray, QandAlist2d);
-        assertEquals(expResult, result);
+        assertTrue(expResult<result);
     } 
 
     /**
