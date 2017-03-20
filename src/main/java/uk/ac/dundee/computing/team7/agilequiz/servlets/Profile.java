@@ -102,6 +102,8 @@ public class Profile extends HttpServlet {
         String newpass = request.getParameter("newPass");
         String confpass = request.getParameter("confPass");
         
+        LoggedIn lg = (LoggedIn) session.getAttribute("LoggedIn");
+
         if((oldpass.equals("") || newpass.equals("") || confpass.equals("")))
         {
             request.setAttribute("Message", "One or more fields were empty.");
@@ -120,7 +122,7 @@ public class Profile extends HttpServlet {
                 if (user.checkDetails(staffid, oldpass))
                 {
                     user.changePassword(staffid, newpass);
-                    request.setAttribute("Message", "Password has been changed");
+                    request.setAttribute("MessagePos", "Password has been changed");
                 }
                 else{
                     request.setAttribute("Message", "Your Current Password was Incorrect");
@@ -134,7 +136,7 @@ public class Profile extends HttpServlet {
                 if (user.checkDetails(matric, oldpass))
                 {
                     user.changePassword(matric, newpass);
-                    request.setAttribute("Message", "Password has been changed");
+                    request.setAttribute("MessagePos", "Password has been changed");
                 }
                 else{
                     request.setAttribute("Message", "Your Current Password was Incorrect");
