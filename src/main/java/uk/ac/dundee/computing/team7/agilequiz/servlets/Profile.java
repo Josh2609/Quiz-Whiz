@@ -102,8 +102,6 @@ public class Profile extends HttpServlet {
         String newpass = request.getParameter("newPass");
         String confpass = request.getParameter("confPass");
         
-        LoggedIn lg = (LoggedIn) session.getAttribute("LoggedIn");
-
         if((oldpass.equals("") || newpass.equals("") || confpass.equals("")))
         {
             request.setAttribute("Message", "One or more fields were empty.");
