@@ -37,7 +37,14 @@ public class CreateQuiz extends HttpServlet {
         String quizDescription = request.getParameter("quizDescription");
         String moduleID = request.getParameter("moduleSelect");
         System.out.println(moduleID);
+        String checked = request.getParameter("radioAv");
+        
         int available = 1;
+        
+        System.out.println("CHECKED1: " + checked);
+        if(!checked.equals("Un")){
+            available = 0;
+        }
         HttpSession session=request.getSession();
         int creatorID = (int) session.getAttribute("UserID");
         
