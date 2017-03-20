@@ -189,7 +189,7 @@ public class Quiz {
     // refactored from CreateQuiz post
     public int createQuiz(String quizName, String quizDescription, String moduleID, 
             int available, int creatorID, int numQuestions, String[] questionArray, 
-            ArrayList<ArrayList<String>> QandAlist2d)
+            ArrayList<ArrayList<String>> QandAlist2d, String[] explanationArray)
     {
         int quizID = -1;
         dbconnect dbCon = new dbconnect();
@@ -213,12 +213,13 @@ public class Quiz {
             }
                     
                     
-            sql = "INSERT INTO question (Question_ID, Question_Text, Quiz_ID) VALUES (NULL, ?, ?)";
+            sql = "INSERT INTO question (Question_ID, Question_Text, Quiz_ID, Question_Explanation) VALUES (NULL, ?, ?, ?)";
             stmt = con.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
             for (int x = 1; x <= numQuestions; x++)
             {
                 stmt.setString(1, questionArray[x]);
                 stmt.setInt(2, quizID);
+                stmt.setString(3, explanationArray[x]);
                 stmt.addBatch();
             }
             int [] questionID = new int[numQuestions+1];
