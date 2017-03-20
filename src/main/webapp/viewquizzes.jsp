@@ -18,10 +18,12 @@
         <title>View Quizzes</title>
         <script src="js/createQuiz.js"></script>
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+        <script type="text/javascript" src="${pageContext.request.contextPath}/js/jquery.tablesorter.js"></script>
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
         <!-- Latest compiled and minified CSS -->
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
         <link rel="stylesheet" content= "text/css" href="${pageContext.request.contextPath}/style.css">
+        <link rel="stylesheet" content= "text/css" href="${pageContext.request.contextPath}/themes/blue/style.css"> 
     </head>
     <body>
         <%@ include file="header.jsp" %>
@@ -36,7 +38,7 @@
                 <h2 style="text-align:center">No Results found</h2>
                 <%
             } else {%>
-            <table class="table table-hover">
+            <table id="myTable" class="table table-hover tablesorter"> 
             <thead>
                 <tr>
                     <th>Name</th>
@@ -88,4 +90,8 @@ jQuery(document).ready(function($) {
         window.location = $(this).data("href");
     });
 });
+$(document).ready(function() { 
+    // call the tablesorter plugin 
+    $("table").tablesorter(); 
+}); 
 </script>
