@@ -29,7 +29,6 @@
     <body>
         <%@ include file="header.jsp" %>
         <div class="container"><!-- style="text-align:center">-->
-        <div class="container">
             <div class="panel panel-default" style='opacity: 0.85'>
                 <div class="panel-body">
         <h1>Quiz List!</h1>

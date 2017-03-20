@@ -4,7 +4,8 @@
     Author     : Josh Corps
 --%>
 <%LoggedIn lg2 = (LoggedIn) session.getAttribute("LoggedIn");
-   if (lg2 == null) 
+   boolean staff = (boolean) session.getAttribute("Staff");
+   if (lg2 == null || staff == false) 
    {    response.sendRedirect(response.encodeRedirectURL(request.getContextPath() + "/")); }
 %>
 <%@page import="java.util.ArrayList"%>

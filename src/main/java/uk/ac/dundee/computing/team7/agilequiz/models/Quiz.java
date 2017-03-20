@@ -471,8 +471,9 @@ public class Quiz {
         dbconnect dbCon = new dbconnect();
 	Connection con = dbCon.mysqlConnect();
 	PreparedStatement stmt;
-        String sql = "SELECT Quiz_ID, Quiz_Name, Quiz_Version, Module_ID,"
-                + " Quiz_Creator_ID, Quiz_Description From quiz WHERE Quiz_Creator_ID=?"
+        String sql = "SELECT Quiz_ID, Quiz_Name, Module_Name, Module_Code,"
+                + " Quiz_Creator_ID, Quiz_Description, Available_Flag,"
+                + " Date_Added FROM quizmodulecreatorview WHERE Quiz_Creator_ID=?"
                 + " LIMIT ? OFFSET ?";
         
         int limit = currentPage*10;
@@ -491,13 +492,15 @@ public class Quiz {
 
             while(rs.next())
             {
-                String[] tempArr = new String[6];
+                String[] tempArr = new String[8];
                 tempArr[0] = Integer.toString(rs.getInt("Quiz_ID"));
                 tempArr[1] = rs.getString("Quiz_Name");
-                tempArr[2] = Integer.toString(rs.getInt("Quiz_Version"));
-                tempArr[3] = rs.getString("Module_ID");
+                tempArr[2] = rs.getString("Module_Code");
+                tempArr[3] = rs.getString("Module_Name");
                 tempArr[4] = Integer.toString(rs.getInt("Quiz_Creator_ID"));
                 tempArr[5] = rs.getString("Quiz_Description");
+                tempArr[6] = rs.getString("Available_Flag");
+                tempArr[7] = rs.getString("Date_Added");
                 quizList.add(tempArr);
             }
             con.close();
