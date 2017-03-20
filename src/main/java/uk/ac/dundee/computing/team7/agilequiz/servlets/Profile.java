@@ -14,8 +14,10 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.http.HttpSession;
+import java.util.ArrayList;
 import uk.ac.dundee.computing.team7.agilequiz.models.Student;
 import uk.ac.dundee.computing.team7.agilequiz.models.Staff;
+import uk.ac.dundee.computing.team7.agilequiz.models.Bookmark;
 import uk.ac.dundee.computing.team7.agilequiz.stores.LoggedIn;
 import uk.ac.dundee.computing.team7.agilequiz.stores.ProfileBean;
 
@@ -45,10 +47,13 @@ public class Profile extends HttpServlet {
        HttpSession session = request.getSession();
        ProfileBean profile = new ProfileBean();
        LoggedIn lg = (LoggedIn) session.getAttribute("LoggedIn");
+       Bookmark bk = new Bookmark();
        if(lg.getStaff() == false){ //If the user is a student
             Student stud = new Student();
             String matric = lg.getMatric();
             profile = stud.getStudentProfile(matric);
+            ArrayList<String[]> bookmarkList = bk.getBookmarkedQuizzes(Integer.parseInt(matric));
+            request.setAttribute("bookmarkList", bookmarkList);
        }
        else{ //If the user is staff
            Staff staff = new Staff();
