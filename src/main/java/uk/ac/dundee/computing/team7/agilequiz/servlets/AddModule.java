@@ -39,5 +39,7 @@ public class AddModule extends HttpServlet {
        Module module = new Module();
        
        module.addModule(moduleCode, moduleName);
+       RequestDispatcher rd = request.getRequestDispatcher("index.jsp");
+       rd.forward(request, response);
     }
 }
