@@ -48,7 +48,7 @@ public class Profile extends HttpServlet {
        ProfileBean profile = new ProfileBean();
        LoggedIn lg = (LoggedIn) session.getAttribute("LoggedIn");
        Bookmark bk = new Bookmark();
-       if(lg.getStaff() == false){ //If the user is a student
+       if(!(boolean) session.getAttribute("Staff")){ //If the user is a student
             Student stud = new Student();
             String matric = lg.getMatric();
             profile = stud.getStudentProfile(matric);
@@ -75,22 +75,41 @@ public class Profile extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         HttpSession session = request.getSession();
-        
+       ProfileBean profile = new ProfileBean();
+       LoggedIn lg = (LoggedIn) session.getAttribute("LoggedIn");
+       Bookmark bk = new Bookmark();
+       if(lg.getStaff() == false){ //If the user is a student
+            Student stud = new Student();
+            String matric = lg.getMatric();
+            profile = stud.getStudentProfile(matric);
+            ArrayList<String[]> bookmarkList = bk.getBookmarkedQuizzes(Integer.parseInt(matric));
+            request.setAttribute("bookmarkList", bookmarkList);
+       }
+       else{ //If the user is staff
+           Staff staff = new Staff();
+           String staffid = lg.getStaffID();
+           profile = staff.getStaffProfile(staffid);
+       }
+       
+       if(profile != null){
+            session.setAttribute("ProfileBean", profile);
+            }
+       else{
+            //If for some reason it is null
+       }
+       RequestDispatcher rd = request.getRequestDispatcher("profile.jsp");
         String oldpass = request.getParameter("currPass");
         String newpass = request.getParameter("newPass");
         String confpass = request.getParameter("confPass");
         
-        LoggedIn lg = (LoggedIn) session.getAttribute("LoggedIn");
-        if(!(oldpass.equals("") || newpass.equals("") || confpass.equals("")))
+        if((oldpass.equals("") || newpass.equals("") || confpass.equals("")))
         {
-            RequestDispatcher rd = request.getRequestDispatcher("/profile.jsp");
             request.setAttribute("Message", "One or more fields were empty.");
             rd.forward(request, response);
         }
         else{
             if (!(newpass.equals(confpass)))
             {
-                RequestDispatcher rd = request.getRequestDispatcher("/profile.jsp");
                 request.setAttribute("Message", "Passwords do not match");
                 rd.forward(request, response);
                 return;
@@ -104,7 +123,6 @@ public class Profile extends HttpServlet {
                     request.setAttribute("Message", "Password has been changed");
                 }
                 else{
-                    RequestDispatcher rd = request.getRequestDispatcher("/profile.jsp");
                     request.setAttribute("Message", "Your Current Password was Incorrect");
                     rd.forward(request, response);
                     return;
@@ -119,13 +137,11 @@ public class Profile extends HttpServlet {
                     request.setAttribute("Message", "Password has been changed");
                 }
                 else{
-                    RequestDispatcher rd = request.getRequestDispatcher("/profile.jsp");
                     request.setAttribute("Message", "Your Current Password was Incorrect");
                     rd.forward(request, response);
                     return;
                 }
             }
-            RequestDispatcher rd = request.getRequestDispatcher("/profile.jsp");
             rd.forward(request, response);
         }
     }
