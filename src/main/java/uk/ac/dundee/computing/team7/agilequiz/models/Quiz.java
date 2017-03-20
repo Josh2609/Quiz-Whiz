@@ -314,8 +314,8 @@ public class Quiz {
                 + " First_Name, Surname, Quiz_Description From quizmodulecreatorview WHERE Available_Flag=1"
                 + " LIMIT ? OFFSET ?";
         
-        int limit = currentPage*10;
-        int offset = (currentPage*10)-9;
+        int limit = currentPage*25;
+        int offset = (currentPage*25)-24;
         if (currentPage == 1)
         {
             offset = 0;
@@ -476,8 +476,8 @@ public class Quiz {
                 + " Date_Added FROM quizmodulecreatorview WHERE Quiz_Creator_ID=?"
                 + " LIMIT ? OFFSET ?";
         
-        int limit = currentPage*10;
-        int offset = (currentPage*10)-9;
+        int limit = currentPage*25;
+        int offset = (currentPage*25)-24;
         if (currentPage == 1)
         {
             offset = 0;

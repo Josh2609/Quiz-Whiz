@@ -78,7 +78,7 @@
             {%>
                 <button class="btn btn-success" onclick="location.href = '${pageContext.request.contextPath}/StaffResultsList?page=<%=currentPage-1%>&sortby=<%=sortBy%>&quizid=<%=quizID%>'" type="button">Previous Page</button>
             <%}
-            if (quizList.size() > 9)
+            if (quizList.size() > 24)
             {%>
                 <button class="btn btn-success" onclick="location.href = '${pageContext.request.contextPath}/StaffResultsList?page=<%=currentPage+1%>&sortby=<%=sortBy%>&quizid=<%=quizID%>'" type="button">Next Page</button>
             <%}%>

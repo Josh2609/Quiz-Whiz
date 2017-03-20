@@ -31,6 +31,7 @@
                         {%>
                             <li><a href="${pageContext.request.contextPath}/CreateQuiz">Create Quiz</a></li>
                             <li><a href="${pageContext.request.contextPath}/StaffQuizList?page=1">Your Quizzes</a></li>
+                            <li><a href="${pageContext.request.contextPath}/AddModule">Add Module</a></li>
                         <% }else{%>
                             <li><a href="${pageContext.request.contextPath}/ViewResults?page=1">View Results</a></li>
                             <%}%>
