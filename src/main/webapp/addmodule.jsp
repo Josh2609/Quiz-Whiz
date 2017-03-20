@@ -23,6 +23,8 @@
     <body>
         <%@ include file="header.jsp" %>
         <div class="container">
+            <div class="panel panel-default">
+            <div class="panel-body">
             <div class="col-sm-12" style="text-align:center">
             <form method="POST"  action="AddModule">
                 <div class="input-group">
@@ -37,6 +39,7 @@
                 <input class="btn btn-success" type="submit" value="Add Module"> 
             </form>
             </div>
+            </div></div>
         </div>
     </body>
 </html>
