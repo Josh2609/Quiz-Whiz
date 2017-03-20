@@ -354,7 +354,7 @@ public class Quiz {
 
 	try {
             String sql = "INSERT INTO completed_quiz (Completed_Quiz_ID, Score, Attempt,"
-                    + " Quiz_ID, User_ID) VALUES (NULL, ?, ?, ?, ?)";
+                    + " Quiz_ID, User_ID, Time_Submitted) VALUES (NULL, ?, ?, ?, ?, NOW())";
             stmt = con.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
             stmt.setInt(1, score);
             stmt.setInt(2, attempt);

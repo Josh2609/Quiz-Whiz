@@ -24,6 +24,7 @@
         <!-- Latest compiled and minified CSS -->
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
         <link rel="stylesheet" content= "text/css" href="${pageContext.request.contextPath}/style.css">
+        <link rel="stylesheet" content= "text/css" href="${pageContext.request.contextPath}/themes/blue/style.css">
     </head>
     <body>
         <%@ include file="header.jsp" %>
@@ -32,7 +33,7 @@
             <div class="panel panel-default" style='opacity: 0.85'>
                 <div class="panel-body">
         <h1>Quiz List!</h1>
-        <table id="myTable" class="tablesorter table table-hover"> 
+        <table id="myTable" class="table table-hover tablesorter"> 
             <thead>
                 <tr>
                     <th>Quiz Name</th>
@@ -40,6 +41,7 @@
                     <th>Score</th>
                     <th>Student Name</th>
                     <th>Matric Number</th>
+                    <th>Time Submitted</th>
                 </tr>
             </thead>
                 <tbody>
@@ -59,6 +61,7 @@
                     <td>&nbsp; <%=scorePerc%>%  &nbsp;</td>
                     <td>&nbsp; <%=tempArr[7]%>  <%=tempArr[8]%>&nbsp;</td>
                     <td>&nbsp; <%=tempArr[9]%>  &nbsp;</td>
+                    <td>&nbsp; <%=tempArr[10]%>  &nbsp;</td>
            <%}%>
                 </tr>
             </tbody>
