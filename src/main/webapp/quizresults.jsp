@@ -16,7 +16,7 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>Quiz Results</title>
-        <script src="js/createQuiz.js"></script>
+        <script src="${pageContext.request.contextPath}/js/createQuiz.js"></script>
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
         <!-- Latest compiled and minified CSS -->
@@ -26,7 +26,18 @@
     <body>
 
     <%@ include file="header.jsp" %>
-
+    
+    <% 
+        int corAns = (int)request.getAttribute("numCorrect");
+        int numQue = (int)request.getAttribute("numQuestions");
+        
+        float percRight = (corAns/numQue)*100;
+        /*int corAns=0;
+        int numQue=0;
+        
+        int percRight=0;*/
+    %>
+    
     <div class="container"><!-- style="text-align:center">-->
         <%
             java.util.ArrayList<QuestionBean> questions = (java.util.ArrayList<QuestionBean>) request.getAttribute("questions");
@@ -34,14 +45,16 @@
             java.util.ArrayList<Integer> studentAnswers = (java.util.ArrayList<Integer>) request.getAttribute("studentAnswers");
             QuizBean quizBean = (QuizBean) request.getAttribute("quizBean");
         %>
-        <div style="text-align: center">
+        <div style="text-align: center;color:#eeeeee;">
             <h1><%=quizBean.getQuizName()%></h1>
             <p><%=quizBean.getQuizDescription()%></p>
             <h3>Date Added: <%=quizBean.getDateAdded()%></h3>
             <h3><%=quizBean.getModuleCode()%> - <%=quizBean.getModuleName()%></h3>
             <h3>Created By: <%=quizBean.getQuizCreator()%></h3><br>
-        </div>  
             
+            <h1>Percentage Correct: <%=percRight%></h1>
+            <h1>Score: <%=corAns%>/<%=numQue%></h1>
+        </div>  
         <%if (questions.isEmpty()) {
         %>
         <h2 style="text-align:center">No Questions found</h2>

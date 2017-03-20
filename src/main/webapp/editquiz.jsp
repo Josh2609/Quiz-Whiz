@@ -46,7 +46,7 @@
                     <input type="radio" id="radio1" name="radioAv" value="Av" checked hidden/>
                     <input type="radio" id="radio2" name="radioAv" value="Un" hidden/>
                     <label for="radio1" class="cb-enable selected"><span>Available</span></label>
-                    <label for="radio2" class="cb-disable"><span>UnAvailable</span></label>
+                    <label for="radio2" class="cb-disable"><span>Unavailable</span></label>
                 </p>
                 </div></div>
         <%
