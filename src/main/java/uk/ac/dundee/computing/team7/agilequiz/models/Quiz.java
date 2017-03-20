@@ -238,7 +238,6 @@ public class Quiz {
             {
                 ArrayList<String> testList;
                 testList = QandAlist2d.get(y-1);
-                System.out.println("testList ayyitem " + 0 + " = " + testList.get(0));
                 for (int z = 1; z <= testList.size(); z++)
                 {                  
                     stmt.setString(1, testList.get(z-1));
