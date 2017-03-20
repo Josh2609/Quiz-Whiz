@@ -55,7 +55,7 @@
                                     <input type="submit" class="btn btn-success" value="Change Password" onclick="changePass()">
                                 </div>
                                 <br><br>
-                                
+                                <% if(lg.getStaff() == false){%>
             <table class="table table-hover">
                 <thead>
                     <tr>
@@ -80,7 +80,7 @@
                         %>
                         <td>&nbsp; <%=tempArr[i]%>  &nbsp;</td>
                         <%}
-                            }
+                            }}
                         %>
                         </tr>
                     </tbody>

@@ -56,7 +56,7 @@
         
             <%if (questions.isEmpty()) {
         %>
-        <h2 style="text-align:center">No Questions found</h2>
+        <div class="alert alert-warning"><strong>No Questions found</strong></div>
          </div>
             </div>
         <%
