@@ -18,7 +18,7 @@ function addQuestion()
         '<div class="panel panel-primary" name"panel' + numQuestions + '" >',
                 '<div class="panel-heading">Question #' + numQuestions + '</div>',
                 '<div class="panel-body">',
-                '<div class="panel1">',
+                '<div class="panel' + numQuestions + '">',
                     '<div class="input-group">',
                         //'<div class="question' + numQuestions + '">',
                             '<span class="input-group-addon">Question</span>',
