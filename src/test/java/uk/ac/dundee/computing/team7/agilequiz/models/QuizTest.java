@@ -103,6 +103,7 @@ public class QuizTest {
         String moduleID = "-1";
         int creatorID = -1;
         String[] questionArray = new String[numQuestions+1];
+        String[] explanationArray = new String[numQuestions+1];
         questionArray[numQuestions] = "test";
         ArrayList<ArrayList<String>> QandAlist2d = new ArrayList<>();
         ArrayList<String> QandAlist1d = new ArrayList<>();
@@ -111,7 +112,7 @@ public class QuizTest {
         Quiz instance = new Quiz();
         int expResult = 0;
         int result = instance.createQuiz(quizName, quizDescription, moduleID, available, 
-                creatorID, numQuestions, questionArray, QandAlist2d);
+                creatorID, numQuestions, questionArray, QandAlist2d, explanationArray);
         assertTrue(expResult<result);
     } 
 

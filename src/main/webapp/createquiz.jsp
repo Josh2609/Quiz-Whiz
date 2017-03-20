@@ -17,6 +17,7 @@
         <title>Create a Quiz</title>
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+        <script type="text/javascript" src="${pageContext.request.contextPath}/js/jquery.js" charset="utf-8"></script>
         <!-- Latest compiled and minified CSS -->
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
 
@@ -81,7 +82,8 @@
                 
 
       <form class="questions" method="POST"  action="CreateQuiz">
-          
+          <div class="panel panel-default">
+              <div class="panel-body">
           <h1>Details for the Quiz</h1><br>
                         <div class="input-group">
                             <span class="input-group-addon">Title/Name</span>
@@ -107,21 +109,14 @@
                         <option value="<%=temp[0]%>"><%=temp[1]%></option>
                    <%}%>
                 </select><br>
-                <label for="sel2">Select a Time a limit for your quiz</label>
-                <select class="form-control">
-                    <option>None</option>
-                    <option>1</option>
-                    <option>2</option>
-                    <option>3</option>
-                    <option>4</option>
-                    <option>5</option>
-                </select><br>
-                <select class="form-control">
-                    <option>None</option>
-                    <option>15</option>
-                    <option>30</option>
-                    <option>45</option>
-                </select>
+                <br>
+                <p class="field switch">
+                    <input type="radio" id="radio1" name="radioAv" value="Av" checked hidden/>
+                    <input type="radio" id="radio2" name="radioAv" value="Un" hidden/>
+                    <label for="radio1" class="cb-enable selected"><span>Available</span></label>
+                    <label for="radio2" class="cb-disable"><span>Unavailable</span></label>
+                </p>
+              </div></div>
                 <br>
                 <!--<div class="span12" style="text-align:center">
                     <input type="button" class="btn btn-primary" value="Done">
@@ -145,3 +140,20 @@
     </div>
 </body>
 </html>
+
+<script type="text/javascript">
+$(document).ready( function(){ 
+	$(".cb-enable").click(function(){
+		var parent = $(this).parents('.switch');
+		$('.cb-disable',parent).removeClass('selected');
+		$(this).addClass('selected');
+		$('.checkbox',parent).attr('checked', true);
+	});
+	$(".cb-disable").click(function(){
+		var parent = $(this).parents('.switch');
+		$('.cb-enable',parent).removeClass('selected');
+		$(this).addClass('selected');
+		$('.checkbox',parent).attr('checked', false);
+	});
+});
+</script>
