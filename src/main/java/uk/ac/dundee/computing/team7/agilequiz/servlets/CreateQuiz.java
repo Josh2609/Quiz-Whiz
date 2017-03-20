@@ -42,7 +42,7 @@ public class CreateQuiz extends HttpServlet {
         int available = 1;
         
         System.out.println("CHECKED1: " + checked);
-        if(!checked.equals("Un")){
+        if(checked.equals("Un")){
             available = 0;
         }
         HttpSession session=request.getSession();

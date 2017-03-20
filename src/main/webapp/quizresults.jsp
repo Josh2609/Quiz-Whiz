@@ -78,6 +78,8 @@
         <div class="panel panel-success" name="panel<%=qb.getQuestionID()%>">
             <div class="panel-heading"><h4>#<%=i%> <%=qb.getQuestionText()%></h4></div>
                 <div class="panel-body">
+                    <label>Explanation: </label><br>
+                    <p><%=qb.getQuestionExplanation()%></p><br>
         <%
                 Iterator<AnswerBean> iterator2;
                 iterator2 = answers.iterator();
